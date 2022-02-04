@@ -2,3 +2,4 @@
 members:
   - Tewarad Somrad 
   - Chanchai Chaisalee
+  - Thanakun Chunkalop

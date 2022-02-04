@@ -1,4 +1,4 @@
 # Game-Final-Project
 members:
-  - tewarad somrad 
+  - Tewarad Somrad 
   - Chanchai Chaisalee

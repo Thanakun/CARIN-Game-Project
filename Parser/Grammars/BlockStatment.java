@@ -4,7 +4,7 @@ import Model.Organism;
 
 import java.util.Map;
 
-public class BlockStatment implements Grammar {
+public class BlockStatment implements Statement {
     @Override
     public void eval(Organism actor, Map<String, Expression> binding) {
 

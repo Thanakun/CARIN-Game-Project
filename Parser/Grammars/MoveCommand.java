@@ -4,7 +4,7 @@ import Model.Organism;
 
 import java.util.Map;
 
-public class MoveCommand implements Grammar {
+public class MoveCommand implements Statement {
     @Override
     public void eval(Organism actor, Map<String,Expression> binding) {
 

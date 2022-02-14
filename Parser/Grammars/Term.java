@@ -4,10 +4,10 @@ import Model.Organism;
 
 import java.util.Map;
 
-public class Term implements Grammar {
+public class Term implements Expression {
     @Override
-    public void eval(Organism actor, Map<String, Expression> binding) {
-
+    public int eval(Organism actor, Map<String, Expression> binding) {
+    return 0;
     }
 
     @Override

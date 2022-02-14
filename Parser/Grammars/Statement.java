@@ -4,15 +4,8 @@ import Model.Organism;
 
 import java.util.Map;
 
-public class Statement implements Grammar{
-    @Override
-    public void eval(Organism actor, Map<String,Expression> binding) {
-
-    }
-
-    @Override
-    public void prettyPrint(StringBuilder s) {
-
-    }
+public interface Statement {
+    public void eval(Organism actor, Map<String,Expression> binding);
+    public void prettyPrint(StringBuilder s);
     /** Statement → Command | BlockStatement | IfStatement | WhileStatement */
 }

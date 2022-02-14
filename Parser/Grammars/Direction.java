@@ -4,10 +4,14 @@ import Model.Organism;
 
 import java.util.Map;
 
-public class Direction implements Grammar{
+public class Direction implements Expression{
+     private String direction;
+     public Direction(String direction){
+          this.direction = direction;
+     }
      @Override
-     public void eval(Organism actor, Map<String,Expression> binding) {
-
+     public int eval(Organism actor, Map<String,Expression> binding) {
+     return 0;
      }
 
      @Override

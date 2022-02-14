@@ -3,7 +3,7 @@ package Parser.Grammars;
 import Model.Organism;
 import java.util.Map;
 
-public class ActionCommand implements Grammar{
+public class ActionCommand implements Statement{
 
     public ActionCommand(){
     }

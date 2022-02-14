@@ -4,15 +4,10 @@ import Model.Organism;
 
 import java.util.Map;
 
-public class Expression implements Grammar{
-     @Override
-     public void eval(Organism actor, Map<String,Expression> binding) {
+public interface Expression {
 
-     }
+     public int eval(Organism actor, Map<String,Expression> binding);
+     public void prettyPrint(StringBuilder s);
 
-     @Override
-     public void prettyPrint(StringBuilder s) {
-
-     }
      /** Expression → Expression + Term | Expression - Term | Term */
      }

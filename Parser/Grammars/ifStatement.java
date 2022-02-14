@@ -4,7 +4,7 @@ import Model.Organism;
 
 import java.util.Map;
 
-public class ifStatement implements Grammar{
+public class ifStatement implements Statement{
      @Override
      public void eval(Organism actor, Map<String, Expression> binding) {
 

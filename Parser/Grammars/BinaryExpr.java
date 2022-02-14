@@ -5,6 +5,16 @@ import Model.Organism;
 import java.util.Map;
 
 public class BinaryExpr implements Expression {
+    private Expression left;
+    private Expression right;
+    private String op;
+
+    public BinaryExpr(Expression left,String op,Expression right){
+        this.left = left;
+        this.op  = op;
+        this.right = right;
+    }
+
     @Override
     public int eval(Organism actor, Map<String, Expression> binding) {
         return 0;

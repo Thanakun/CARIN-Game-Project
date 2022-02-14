@@ -1,6 +1,6 @@
 package Model;
 
-public class Antigen {
+public class Antigen extends Entity implements Organism {
 
     int HP;
     int Attack_Damage;

@@ -1,7 +1,6 @@
 package Model;
 
-import Parser.AttackCommand;
 
-public class Virus {
+public class Virus extends Entity implements Organism{
     /** Attack Antigen From Random */
 }

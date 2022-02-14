@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.Map;
+
 public class Entity implements Organism{
 
     @Override

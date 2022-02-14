@@ -1,2 +1,5 @@
-package Parser;public class WhileStatement {
+package Parser;
+
+public class WhileStatement {
+    /** WhileStatement → while ( Expression ) Statement */
 }

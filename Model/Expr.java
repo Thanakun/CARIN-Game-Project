@@ -1,5 +1,5 @@
 package Model;
 
-public interface Expr {
-    
+public interface Expr extends Node {
+
 }

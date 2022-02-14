@@ -1,2 +1,4 @@
-package Model;public class Parser {
+package Model;
+
+public class Parser {
 }

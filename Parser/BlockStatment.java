@@ -1,2 +1,5 @@
-package Parser;public class BlockStatment {
+package Parser;
+
+public class BlockStatment {
+    /** BlockStatement → { Statement* } */
 }

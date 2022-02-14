@@ -1,2 +1,5 @@
-package Parser;public class ActionCommand {
+package Parser;
+
+public class ActionCommand {
+    /**  ActionCommand => MoveCommand| AttackCommand */
 }

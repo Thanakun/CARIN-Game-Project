@@ -1,2 +1,5 @@
-package Parser;public class Statement {
+package Parser;
+
+public class Statement {
+    /** Statement → Command | BlockStatement | IfStatement | WhileStatement */
 }

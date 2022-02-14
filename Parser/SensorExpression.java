@@ -1,2 +1,5 @@
-package Parser;public class SensorExpression {
+package Parser;
+
+public class SensorExpression {
+    /** SensorExpression → virus | antibody | nearby Direction */
 }

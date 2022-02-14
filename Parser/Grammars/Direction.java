@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class Direction implements Grammar{
      @Override
-     public void eval(Organism actor, Map<String,Integer> binding) {
+     public void eval(Organism actor, Map<String,Expression> binding) {
 
      }
 

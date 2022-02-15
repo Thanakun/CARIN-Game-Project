@@ -27,22 +27,24 @@ public class PositionMap {
         instance = new PositionMap();
     }
 
-    public void updateMap(Organism target){
-        int[] position = target.getPosition();
-        if(!hasEntity(position)){   //if that posiotion is empty
+    public void updateOrganismPosition(Organism target,int[] position){   //update Organism location
+        if(!hasOrganism(position)){   //if that posiotion is empty
             allEntity_Position.put(target,position);
         }
 
     }
+    public int[] getOrganismPosition(Organism target){  //get position of input Organism
+        return allEntity_Position.get(target);
+    }
 
-    public boolean hasEntity(int[] position){
+    public boolean hasOrganism(int[] position){    // true if that position has an Organism
         if(allEntity_Position.containsValue(position)){
             return true;
         }
         else return false;
     }
 
-    public Organism getEntity(int[] position){
+    public Organism getOrganismAt(int[] position){              //get Organism at the specified position if there exist
         for(Organism organ:allEntity_Position.keySet()){
             if(allEntity_Position.get(organ).equals(position)){
                 return organ;

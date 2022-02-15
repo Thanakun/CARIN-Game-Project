@@ -5,9 +5,13 @@ import java.util.LinkedHashMap;
 public class PositionMap {
     private static PositionMap instance;
     private LinkedHashMap<Organism,int[]> allEntity_Position;   //key is Organism value is its position
+    private int max_x;
+    private int max_y;
 
     private PositionMap(){
         allEntity_Position = new LinkedHashMap<>();
+        max_x = 100;
+        max_y = 100;
     }
 
     public static PositionMap getInstance(){
@@ -16,8 +20,10 @@ public class PositionMap {
         }
         return instance;
     }
-
-    public static void resetMap(){
+    public  int[] getMapDimension(){
+        return new int[]{max_x,max_y};    // max width and max height of map
+    }
+    public  void resetMap(){
         instance = new PositionMap();
     }
 

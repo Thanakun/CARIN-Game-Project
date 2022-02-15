@@ -1,24 +1,12 @@
 package Model;
 
-import Parser.Grammars.Direction;
+
 
 public class Antigen extends Entity implements Organism {
 
-    int HP;
-    int Attack_Damage;
-    Map Position;
-
-    public boolean Attack(){
-        return true;
+    public Antigen(String id){
+        this.Id = id;
+        this.type = "Antibody";
     }
 
-    @Override
-    public void Move(int x_change,int y_change) {
-
-    }
-
-    @Override
-    public void Attack(int x_change,int y_change) {
-
-    }
 }

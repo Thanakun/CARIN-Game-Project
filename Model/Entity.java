@@ -1,11 +1,17 @@
 package Model;
 
-import Parser.Grammars.Direction;
-
 import java.util.Map;
 
 public class Entity implements Organism{
+    protected String Id;
+    protected String type;
+    protected int HP;
+    protected int Attack_Damage;
+    protected int[] position;
+    protected static PositionMap map=PositionMap.getInstance();
 
+    public Entity(){
+    }
     @Override
     public void Show_Status() {
 
@@ -17,8 +23,18 @@ public class Entity implements Organism{
     }
 
     @Override
-    public Map Position() {
-        return null;
+    public String getType() {
+        return type;
+    }
+
+    @Override
+    public String getId() {
+        return Id;
+    }
+
+    @Override
+    public int[] getPosition() {
+        return new int[]{0,0};
     }
 
     @Override

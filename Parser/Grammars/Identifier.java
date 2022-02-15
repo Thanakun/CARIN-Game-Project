@@ -14,6 +14,6 @@ public class Identifier implements Expression{
 
     @Override
     public void prettyPrint(StringBuilder s) {
-
+        s.append(name);
     }
 }

@@ -21,6 +21,11 @@ public class WhileStatement implements Statement{
     @Override
     public void prettyPrint(StringBuilder s) {
 
+        s.append("while (");
+        condition.prettyPrint(s);
+        s.append(") ");
+        s.append("\n");
+        if_true.prettyPrint(s);
     }
     /** WhileStatement → while ( Expression ) Statement */
 }

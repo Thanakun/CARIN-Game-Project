@@ -5,10 +5,10 @@ import Model.Organism;
 import java.util.Map;
 
 public class AssignmentStatement implements Statement {
-     private String identifier;
+     private Identifier identifier;
      private Expression expr;
 
-     public AssignmentStatement(String identifier,Expression expr){
+     public AssignmentStatement(Identifier identifier,Expression expr){
           this.identifier = identifier;
           this.expr = expr;
      }
@@ -19,7 +19,10 @@ public class AssignmentStatement implements Statement {
 
      @Override
      public void prettyPrint(StringBuilder s) {
-
+          identifier.prettyPrint(s);
+          s.append("=");
+          expr.prettyPrint(s);
+          s.append("\n");
      }
      /** AssignmentStatement → <identifier> = Expression */
      }

@@ -1,5 +1,7 @@
 package Model;
 
+import Parser.Grammars.Direction;
+
 import java.util.Map;
 
 public class Entity implements Organism{
@@ -19,5 +21,15 @@ public class Entity implements Organism{
         return null;
     }
 
-    
+    @Override
+    public void Move(Direction direction) {
+
+    }
+
+    @Override
+    public void Attack(Direction direction) {
+
+    }
+
+
 }

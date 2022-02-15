@@ -1,5 +1,7 @@
 package Model;
 
+import Parser.Grammars.Direction;
+
 public class Antigen extends Entity implements Organism {
 
     int HP;
@@ -10,4 +12,13 @@ public class Antigen extends Entity implements Organism {
         return true;
     }
 
+    @Override
+    public void Move(Direction direction) {
+
+    }
+
+    @Override
+    public void Attack(Direction direction) {
+
+    }
 }

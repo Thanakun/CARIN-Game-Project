@@ -1,28 +1,56 @@
 package Parser;
 
 
-public class Tokenizer {
-    protected String src;
-    protected String next;
-    protected int pos;
+public class Tokenizer implements Token {
+    private static Tokenizer instance;
+    private String src;
+    private String next;
+    private int pos;
 
-    public Tokenizer(String src){
+
+    protected Tokenizer(String src) throws SyntaxError{
         this.src = src;
         pos = 0;
         computeNext();
     }
 
+
+
+/***
+ *
+ *
+ * For Any Situation Subject to Change
+ *
+ *
+ * */
+//    public static Tokenizer getInstance(){
+//        if(Tokenizer.instance == null){
+//            Tokenizer.instance = new Tokenizer();
+//        }
+//        return Tokenizer.instance;
+//    }
+//
+//    public void initial(String src) throws SyntaxError{
+//        this.src = src;
+//        pos = 0;
+//        computeNext();
+//    }
+
+
+
     private void computeNext() {
         StringBuilder s = new StringBuilder();
-        while (pos < src.length() && Character.isWhitespace(src.charAt(pos))) pos++;  // ignore whitespace
         while (pos < src.length()) {
             char c = src.charAt(pos);
             if (Character.isDigit(c)) {  // start of number
-                s.append(c);
-                for (; pos < src.length() && Character.isDigit(src.charAt(pos)); pos++)
+                for (; pos < src.length() && (Character.isDigit(src.charAt(pos)) || Character.isLetter(src.charAt(pos))); pos++)
                     s.append(src.charAt(pos));
                 break;
             } else if (Character.isLetter(c)) {  // start of identifier
+                s.append(c);
+                pos++;
+                break;
+            }else if (c == '+' || c== '-' || c == '(' || c == ')' || c == '*' || c == '/' || c == '%' || c== '{' || c == '}' || c == '^' || c == '=' || c=='_') {
                 s.append(c);
                 pos++;
                 break;
@@ -30,11 +58,7 @@ public class Tokenizer {
             else if(c == ' '){
                 pos++;
             }
-            else if (c == '+' || c== '-' || c == '(' || c == ')' || c == '*' || c == '/' || c == '%' || c== '{' || c == '}' || c == '^' || c == '=' || c=='_') {
-                s.append(c);
-                pos++;
-                break;
-            } else throw new SyntaxError("Unknown : " + c);
+             else throw new SyntaxError("Unknown : " + c);
         }
         next = s.toString();
 

@@ -24,9 +24,6 @@ class TokenizerTest {
                 while(tkz.hasNext()) {
                     System.out.print(tkz.consume());
                 }
-//                for(int i = 0; i< P.size();i++){
-//                    System.out.println(P.get(i));
-//                }
             },
             test);
         }

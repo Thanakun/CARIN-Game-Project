@@ -1,7 +1,7 @@
 package Parser;
 import java.util.regex.Pattern;
 
-public class Tokenizer {
+public class Tokenizer implements Token {
     private String src;
     private String next;
     private int pos;
@@ -57,23 +57,29 @@ public class Tokenizer {
         return Pattern.matches("[a-zA-z]",new StringBuilder(1).append(ch));
     }
 
+    @Override
+    public boolean hasNext() {
+        if(next.equals(""))return false;
+        else return true;
+    }
+
     /**Returns next token in the input stream**/
     public String peek(){
-        while(next==" "){
+        while(next.equals(" ")){
             computeNext();
         }
         return next;
     }
     /**Returns true if the next token is s **/
     public boolean peek(String s){
-        while(next==" "){
+        while(next.equals(" ")){
             computeNext();
         }
         return peek().equals(s);
     }
     /**Consumes the next token from input stream and return it**/
     public String consume(){
-        while(next==" "){
+        while(next.equals(" ")){
             computeNext();
         }
         String result = next;
@@ -89,7 +95,7 @@ public class Tokenizer {
     /**Consume the next token if it is s
      * Throw syntaxError otherwise**/
     public void consume(String s) throws SyntaxError{
-        while(next==" "){
+        while(next.equals(" ")){
             computeNext();
         }
         if(peek(s)){

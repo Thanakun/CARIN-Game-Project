@@ -24,7 +24,7 @@ public class Parser {
 
     public Statement compute() throws RuntimeException{
         Statement parsed = parseProgram();
-        if(tkz.peek().equals("")){
+        if(!tkz.hasNext()){
             return parsed;
         }
         else{

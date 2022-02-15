@@ -17,7 +17,8 @@ public class MoveCommand implements Statement {
 
     @Override
     public void prettyPrint(StringBuilder s) {
-
+    s.append("move ");
+    direction.prettyPrint(s);
     }
     /** MoveCommand → move Direction */
 }

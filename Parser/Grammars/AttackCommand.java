@@ -17,7 +17,8 @@ public class AttackCommand implements Statement{
 
     @Override
     public void prettyPrint(StringBuilder s) {
-
+        s.append("attack ");
+        direction.prettyPrint(s);
     }
     /** AttackCommand → shoot Direction */
 }

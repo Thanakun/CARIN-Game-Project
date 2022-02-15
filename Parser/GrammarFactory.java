@@ -1,5 +1,6 @@
 package Parser;
 import Parser.Grammars.*;
+import Parser.Grammars.Number;
 
 public class GrammarFactory {
     private static GrammarFactory instance;
@@ -15,7 +16,7 @@ public class GrammarFactory {
     public Direction getDirection(String direction){
         return new Direction(direction);
     }
-    public Statement getAssignment(String identifier,Expression expr){
+    public Statement getAssignment(Identifier identifier,Expression expr){
         return new AssignmentStatement(identifier,expr);
     }
 
@@ -34,5 +35,25 @@ public class GrammarFactory {
 
     public Statement getAttackCommand(Direction direction) {
         return  new AttackCommand(direction);
+    }
+
+    public Expression getBinaryExpr(Expression e, String s, Expression term) {
+        return new BinaryExpr(e,s,term);
+    }
+
+    public Identifier getIdentifier(String identifier_name) {
+        return new Identifier(identifier_name);
+    }
+
+    public Expression getNumber(int value) {
+        return new Number(value);
+    }
+
+    public Expression getSensor(String consume, Direction direction) {
+        return new SensorExpression(consume,direction);
+    }
+
+    public Statement getBlock(Statement statement) {
+        return new BlockStatment(statement);
     }
 }

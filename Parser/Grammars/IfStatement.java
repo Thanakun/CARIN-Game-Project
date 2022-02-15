@@ -22,6 +22,12 @@ public class IfStatement implements Statement{
 
      @Override
      public void prettyPrint(StringBuilder s) {
+          s.append("if (");
+          condition.prettyPrint(s);
+          s.append(") then ");
+          if_true.prettyPrint(s);
+          s.append(" else ");
+          if_false.prettyPrint(s);
 
      }
      /** IfStatement → if ( Expression ) then Statement else Statement  */

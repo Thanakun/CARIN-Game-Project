@@ -22,6 +22,10 @@ public class BinaryExpr implements Expression {
 
     @Override
     public void prettyPrint(StringBuilder s) {
-
+        s.append("(");
+        left.prettyPrint(s);
+        s.append(op);
+        right.prettyPrint(s);
+        s.append(")");
     }
 }

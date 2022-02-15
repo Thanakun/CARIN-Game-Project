@@ -16,7 +16,8 @@ public class Direction implements Expression{
 
      @Override
      public void prettyPrint(StringBuilder s) {
-
+          s.append(direction);
+          s.append("\n");
      }
      /** Direction → left | right | up | down | upleft | upright | downleft | downright  */
      }

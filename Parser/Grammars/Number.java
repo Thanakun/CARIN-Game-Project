@@ -14,6 +14,6 @@ public class Number implements Expression{
 
     @Override
     public void prettyPrint(StringBuilder s) {
-
+        s.append(Integer.toString(value));
     }
 }

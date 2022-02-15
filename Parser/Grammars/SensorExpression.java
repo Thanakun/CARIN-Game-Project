@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class SensorExpression implements Expression{
     @Override
-    public int eval(Organism actor, Map<String, Expression> binding) {
+    public int eval(Map<String, Expression> binding) {
     return 0;
     }
 

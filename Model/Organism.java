@@ -7,6 +7,6 @@ public interface Organism {
     void Show_Status();
     int HP();
     Map Position();
-    void Move(Direction direction);
-    void Attack(Direction direction);
+    void Move(int x_change,int y_change);
+    void Attack(int x_change,int y_change);
 }

@@ -13,12 +13,12 @@ public class Antigen extends Entity implements Organism {
     }
 
     @Override
-    public void Move(Direction direction) {
+    public void Move(int x_change,int y_change) {
 
     }
 
     @Override
-    public void Attack(Direction direction) {
+    public void Attack(int x_change,int y_change) {
 
     }
 }

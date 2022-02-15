@@ -1,18 +1,19 @@
 package Parser.Grammars;
 
-import Model.Organism;
-
 import java.util.Map;
 
-public class SensorExpression implements Expression{
+public class Identifier implements Expression{
+    private String name;
+    public Identifier(String name){
+        this.name = name;
+    }
     @Override
     public int eval(Map<String, Expression> binding) {
-    return 0;
+        return 0;
     }
 
     @Override
     public void prettyPrint(StringBuilder s) {
 
     }
-    /** SensorExpression → virus | antibody | nearby Direction */
 }

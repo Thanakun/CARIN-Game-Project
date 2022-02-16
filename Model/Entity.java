@@ -10,7 +10,7 @@ public class Entity implements Organism{
     protected int Attack_Damage;
     protected int[] position = new int[2];
     protected static PositionMap PosiMap = PositionMap.getInstance();
-    protected static OrganismController OrganiMap = OrganismController.getInstance();
+    protected static OrganismController organiControl = OrganismController.getInstance();
 
     public Entity(){
     }
@@ -54,10 +54,11 @@ public class Entity implements Organism{
     @Override
     public void Attack(int x_change,int y_change) {
         System.out.println("Shoot ");
-        int[] current_position = PosiMap.getOrganismPosition(this);
+        int[] current_position = PosiMap.getOrganismPosition(this.Id);
         current_position[0] += x_change;
         current_position[1] += y_change;
-        Organism target = PosiMap.getOrganismAt(current_position);
+        String target_Id = PosiMap.getOrganismAt(current_position);
+        Organism target = organiControl.getById(target_Id);     //get Organism by Id
         if (target.getHP() == 0) checkGame();
     }
 

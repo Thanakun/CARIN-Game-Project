@@ -4,12 +4,12 @@ import java.util.LinkedHashMap;
 
 public class PositionMap {
     private static PositionMap instance;
-    private LinkedHashMap<Organism,int[]> allEntity_Position;   //key is Organism value is its position
+    private LinkedHashMap<String,int[]> allOrganism_Position;   //key is Organism value is its position
     private int max_x;
     private int max_y;
 
     private PositionMap(){
-        allEntity_Position = new LinkedHashMap<>();
+        allOrganism_Position = new LinkedHashMap<>();
         max_x = 100;
         max_y = 100;
     }
@@ -27,27 +27,26 @@ public class PositionMap {
         instance = new PositionMap();
     }
 
-    public void updateOrganismPosition(Organism target,int[] position){   //update Organism location
+    public void updateOrganismPosition(String target_Id,int[] position){   //update Organism location
         if(!hasOrganism(position)){   //if that posiotion is empty
-            allEntity_Position.put(target,position);
+            allOrganism_Position.put(target_Id,position);
         }
-
     }
-    public int[] getOrganismPosition(Organism target){  //get position of input Organism
-        return allEntity_Position.get(target);
+    public int[] getOrganismPosition(String target_Id){  //get position of input Organism
+        return allOrganism_Position.get(target_Id);
     }
 
     public boolean hasOrganism(int[] position){    // true if that position has an Organism
-        if(allEntity_Position.containsValue(position)){
+        if(allOrganism_Position.containsValue(position)){
             return true;
         }
         else return false;
     }
 
-    public Organism getOrganismAt(int[] position){              //get Organism at the specified position if there exist
-        for(Organism organ:allEntity_Position.keySet()){
-            if(allEntity_Position.get(organ).equals(position)){
-                return organ;
+    public String getOrganismAt(int[] position){              //get Organism at the specified position if there exist
+        for(String organ_Id:allOrganism_Position.keySet()){
+            if(allOrganism_Position.get(organ_Id).equals(position)){
+                return organ_Id;
             }
         }
         return null;

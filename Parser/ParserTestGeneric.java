@@ -13,7 +13,7 @@ class ParserTestGeneric {
     @Test
     public void GenericSimpleVariable() throws SyntaxError{
         String src = "i=1";
-        Map<String, Expression> binding = new LinkedHashMap<>();
+        Map<String, Integer> binding = new LinkedHashMap<>();
         Parser parser = new Parser(src, null, binding);
         System.out.println(parser.prettyPrintAll());
     }
@@ -21,7 +21,7 @@ class ParserTestGeneric {
     @Test
     public void GenericPlusVariable() throws SyntaxError{
         String src = "i=i+1";
-        Map<String, Expression> binding = new LinkedHashMap<>();
+        Map<String, Integer> binding = new LinkedHashMap<>();
         Parser parser = new Parser(src, null, binding);
         System.out.println(parser.prettyPrintAll());
     }
@@ -29,7 +29,7 @@ class ParserTestGeneric {
     @Test
     public void GenericMinusVariable() throws SyntaxError{
         String src = "i=i-1";
-        Map<String, Expression> binding = new LinkedHashMap<>();
+        Map<String, Integer> binding = new LinkedHashMap<>();
         Parser parser = new Parser(src, null, binding);
         System.out.println(parser.prettyPrintAll());
     }
@@ -37,7 +37,7 @@ class ParserTestGeneric {
     @Test
     public void GenericDivideVariable() throws SyntaxError{
         String src = "i=i/1";
-        Map<String, Expression> binding = new LinkedHashMap<>();
+        Map<String, Integer> binding = new LinkedHashMap<>();
         Parser parser = new Parser(src, null, binding);
         System.out.println(parser.prettyPrintAll());
     }
@@ -45,7 +45,7 @@ class ParserTestGeneric {
     @Test
     public void GenericModVariable() throws SyntaxError{
         String src = "i=i%1";
-        Map<String, Expression> binding = new LinkedHashMap<>();
+        Map<String, Integer> binding = new LinkedHashMap<>();
         Parser parser = new Parser(src, null, binding);
         System.out.println(parser.prettyPrintAll());
     }
@@ -53,7 +53,7 @@ class ParserTestGeneric {
     @Test
     public void GenericPowerVariable() throws SyntaxError{
         String src = "i=i^1";
-        Map<String, Expression> binding = new LinkedHashMap<>();
+        Map<String, Integer> binding = new LinkedHashMap<>();
         Parser parser = new Parser(src, null, binding);
         System.out.println(parser.prettyPrintAll());
     }
@@ -61,7 +61,7 @@ class ParserTestGeneric {
     @Test
     public void GenericMoveStatement() throws SyntaxError{
         String src = "move up";
-        Map<String, Expression> binding = new LinkedHashMap<>();
+        Map<String, Integer> binding = new LinkedHashMap<>();
         Parser parser = new Parser(src, null, binding);
         System.out.println(parser.prettyPrintAll());
     }
@@ -69,7 +69,7 @@ class ParserTestGeneric {
     @Test
     public void GenericShootStatement() throws SyntaxError{
         String src = "shoot up";
-        Map<String, Expression> binding = new LinkedHashMap<>();
+        Map<String, Integer> binding = new LinkedHashMap<>();
         Parser parser = new Parser(src, null, binding);
         System.out.println(parser.prettyPrintAll());
     }
@@ -77,7 +77,7 @@ class ParserTestGeneric {
     @Test
     public void GenericSenSorExpressionStatement() throws SyntaxError{
         String src = "virus = 0";
-        Map<String, Expression> binding = new LinkedHashMap<>();
+        Map<String, Integer> binding = new LinkedHashMap<>();
         Parser parser = new Parser(src, null, binding);
         System.out.println(parser.prettyPrintAll());
     }
@@ -87,7 +87,7 @@ class ParserTestGeneric {
     @Test
     public void GenericIfStatement() throws SyntaxError{
         String src = "if ( i % 10 -3 ) then move up else move right";
-        Map<String, Expression> binding = new LinkedHashMap<>();
+        Map<String, Integer> binding = new LinkedHashMap<>();
         Parser parser = new Parser(src, null, binding);
         System.out.println(parser.prettyPrintAll());
     }
@@ -95,7 +95,7 @@ class ParserTestGeneric {
     @Test
     public void GenericWhileStatement() throws SyntaxError{
         String src = "while ( i % 10 +1  ) move up ";
-        Map<String, Expression> binding = new LinkedHashMap<>();
+        Map<String, Integer> binding = new LinkedHashMap<>();
         Parser parser = new Parser(src, null, binding);
         System.out.println(parser.prettyPrintAll());
     }
@@ -136,7 +136,7 @@ class ParserTestGeneric {
                 "  else if (dir) then move upright\n" +
                 "  else move up\n" +
                 "}\n";
-        Map<String, Expression> binding = new LinkedHashMap<>();
+        Map<String, Integer> binding = new LinkedHashMap<>();
         Parser parser = new Parser(src, null, binding);
         System.out.println(parser.prettyPrintAll());
     }
@@ -150,7 +150,7 @@ class ParserTestGeneric {
                 "else move right\n" +
                 "}";
 
-        Map<String, Expression> binding = new LinkedHashMap<>();
+        Map<String, Integer> binding = new LinkedHashMap<>();
         Parser parser = new Parser(src, null, binding);
         System.out.println(parser.prettyPrintAll());
     }

@@ -2,7 +2,7 @@ package Parser;
 
 public class SyntaxError extends RuntimeException {
 
-    SyntaxError(){super();}
+    public SyntaxError(){super();}
     SyntaxError(String s){
         super(s);
     }

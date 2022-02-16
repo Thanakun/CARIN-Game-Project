@@ -14,8 +14,10 @@ public class WhileStatement implements Statement{
     }
 
     @Override
-    public void eval(Organism actor, Map<String, Expression> binding) {
-
+    public void eval(Organism actor, Map<String, Integer> binding) {
+        while(condition.eval(actor,binding)>0){
+            if_true.eval(actor,binding);
+        }
     }
 
     @Override

@@ -16,8 +16,17 @@ public class BinaryExpr implements Expression {
     }
 
     @Override
-    public int eval( Map<String, Expression> binding) {
-        return 0;
+    public int eval(Organism actor, Map<String, Integer> binding) {
+        int l_value=left.eval(actor,binding);
+        int r_value=right.eval(actor,binding);
+        if(op.equals("+"))return l_value+r_value;
+        if(op.equals("-"))return l_value-r_value;
+        if(op.equals("*"))return l_value*r_value;
+        if(op.equals("/"))return l_value/r_value;
+        if(op.equals("%"))return l_value%r_value;
+        if(op.equals("^"))return (int) Math.pow((double)l_value,(double) r_value);
+
+        throw new RuntimeException("unknow op: "+op);
     }
 
     @Override

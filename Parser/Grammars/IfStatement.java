@@ -16,8 +16,14 @@ public class IfStatement implements Statement{
      }
 
      @Override
-     public void eval(Organism actor, Map<String, Expression> binding) {
-
+     public void eval(Organism actor, Map<String, Integer> binding) {
+          int condition_value = condition.eval(actor,binding);
+          if(condition_value>0){ //true
+               if_true.eval(actor,binding);
+          }
+          else{
+               if_false.eval(actor,binding);
+          }
      }
 
      @Override

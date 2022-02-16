@@ -1,5 +1,7 @@
 package Parser.Grammars;
 
+import Model.Organism;
+
 import java.util.Map;
 
 public class Number implements Expression{
@@ -8,8 +10,8 @@ public class Number implements Expression{
         this.value = value;
     }
     @Override
-    public int eval(Map<String, Expression> binding) {
-        return 0;
+    public int eval(Organism actor,Map<String, Integer> binding) {
+        return value;
     }
 
     @Override

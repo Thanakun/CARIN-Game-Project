@@ -13,8 +13,9 @@ public class AssignmentStatement implements Statement {
           this.expr = expr;
      }
      @Override
-     public void eval(Organism actor, Map<String, Expression> binding) {
-
+     public void eval(Organism actor, Map<String, Integer> binding) {
+          int expr_val = expr.eval(actor,binding);
+          identifier.set(binding,expr_val);
      }
 
      @Override

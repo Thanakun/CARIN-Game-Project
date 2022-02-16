@@ -3,41 +3,39 @@ package Parser;
 import Model.Organism;
 import Parser.Grammars.*;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
 public class Parser {
     private Tokenizer tkz;
-    private Statement ASTtree;
-    private Map<String, Expression> bindings;
+    private List<Statement> ASTtree;
+    private Map<String, Integer> bindings;
     private static GrammarFactory grammarFactory;
     private Organism actor;
 
-    public Parser(String src,Organism actor,Map<String,Expression> bindings){
+    public Parser(String src,Organism actor,Map<String,Integer> bindings){
         this.tkz = new Tokenizer(src);
         this.bindings = bindings;
         this.actor = actor;
         grammarFactory = GrammarFactory.getInstance();
-        ASTtree = compute();
+        ASTtree = new LinkedList<>();
+        compute();
 
     }
 
-    public Statement compute() throws RuntimeException{
-        Statement parsed = parseProgram();
-        if(!tkz.hasNext()){
-            return parsed;
-        }
-        else{
+    public void compute() throws RuntimeException{
+        parseProgram();
+        if(tkz.hasNext()){
             throw new RuntimeException("Syntax Error");
         }
     }
 
-    public Statement parseProgram() throws SyntaxError{
-        Statement state = parseStatement();
+    public void parseProgram() throws SyntaxError{
         while(!tkz.peek("")){
-            state = parseStatement();
+            ASTtree.add(parseStatement());
         }
-        return state;
     }
 
     public Statement parseStatement() throws SyntaxError{
@@ -51,12 +49,7 @@ public class Parser {
 
             Statement state ;
             if (tkz.peek("{")) {
-                tkz.consume("{");
-                state =  grammarFactory.getBlock(parseStatement());
-                while(!tkz.peek("}")){
-                    state =  grammarFactory.getBlock(parseStatement());
-                }
-                tkz.consume("}");
+               state = parseBlock();
             } else if (tkz.peek("if")) {
                 state = parseIf();
             }
@@ -70,6 +63,16 @@ public class Parser {
                 state = parseAssignment();
             }
             return  state;
+    }
+
+    public Statement parseBlock(){
+        tkz.consume("{");
+        BlockStatment block =  grammarFactory.getBlock();
+        while(!tkz.peek("}")){
+            block.addToBlock(parseStatement());
+        }
+        tkz.consume("}");
+        return block;
     }
 
     public Statement parseMove(){
@@ -122,9 +125,7 @@ public class Parser {
         if(!isCharacter(identifier_name.charAt(0))){  //wrong identifier format
             throw new SyntaxError("wrong identifier format");
         }
-        else{
-            identifier = grammarFactory.getIdentifier(identifier_name);
-        }
+        identifier = grammarFactory.getIdentifier(identifier_name);
         tkz.consume("=");
         Expression expr = parseExpression();
         return grammarFactory.getAssignment(identifier,expr);
@@ -216,11 +217,15 @@ public class Parser {
 
 
     public void evauateAll(){
-        ASTtree.eval(actor,bindings);
+        for(Statement statement:ASTtree){
+            statement.eval(actor,bindings);
+        }
     }
     public String prettyPrintAll(){
         StringBuilder s = new StringBuilder();
-        ASTtree.prettyPrint(s);
+        for(Statement statement:ASTtree){
+            statement.prettyPrint(s);
+        }
         return s.toString();
     }
 

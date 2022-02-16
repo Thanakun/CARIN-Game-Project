@@ -10,7 +10,17 @@ public class Direction implements Expression{
           this.direction = direction;
      }
      @Override
-     public int eval(Map<String,Expression> binding) {
+     public int eval(Organism actor,Map<String,Integer> binding) {
+     switch (direction){
+          case "up":return 11;
+          case "upright":return 12;
+          case "right":return 13;
+          case "downright":return 14;
+          case "down" : return 15;
+          case "downleft" : return 16;
+          case "left" :return 17;
+          case "upleft":return 18;
+     }
      return 0;
      }
 

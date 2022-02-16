@@ -53,7 +53,7 @@ public class GrammarFactory {
         return new SensorExpression(consume,direction);
     }
 
-    public Statement getBlock(Statement statement) {
-        return new BlockStatment(statement);
+    public BlockStatment getBlock() {
+        return new BlockStatment();
     }
 }

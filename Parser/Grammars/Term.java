@@ -3,10 +3,11 @@ package Parser.Grammars;
 import Model.Organism;
 
 import java.util.Map;
+/**not in use**/
 
 public class Term implements Expression {
     @Override
-    public int eval( Map<String, Expression> binding) {
+    public int eval(Organism actor, Map<String, Integer> binding) {
     return 0;
     }
 

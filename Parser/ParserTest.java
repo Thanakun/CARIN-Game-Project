@@ -1,5 +1,6 @@
 package Parser;
 
+import Model.Virus;
 import Parser.Grammars.Expression;
 
 import java.util.LinkedHashMap;
@@ -41,8 +42,16 @@ public class ParserTest {
                 "  else if (dir) then move upright\n" +
                 "  else move up\n" +
                 "}\n";
-        Map<String, Expression> binding = new LinkedHashMap<>();
-        Parser parser = new Parser(src,null,binding);
-        System.out.println(parser.prettyPrintAll());
+        Map<String, Integer> binding = new LinkedHashMap<>();
+        Virus virus = new Virus("V1");
+        Parser parser = new Parser(src,virus,binding);
+        parser.evauateAll();
+       // System.out.println(parser.prettyPrintAll());
+        System.out.println("------Items in binding-------");
+        for(String key: binding.keySet()){
+            System.out.println(key+" "+binding.get(key));
+        }
+
+
     }
 }

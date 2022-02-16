@@ -42,6 +42,9 @@ public class ParserTest {
                 "  else if (dir) then move upright\n" +
                 "  else move up\n" +
                 "}\n";
+       // String src = "i=10" +
+       //         "while (i) { move up " +
+       //         "i=i-1 }";
         Map<String, Integer> binding = new LinkedHashMap<>();
         Virus virus = new Virus("V1");
         Parser parser = new Parser(src,virus,binding);
@@ -51,7 +54,5 @@ public class ParserTest {
         for(String key: binding.keySet()){
             System.out.println(key+" "+binding.get(key));
         }
-
-
     }
 }

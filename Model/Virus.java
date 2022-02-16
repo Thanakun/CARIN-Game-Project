@@ -11,9 +11,7 @@ public class Virus extends Entity implements Organism{
         this.category = new String("Virus");
         this.type = "second"; // types (3) : first , second , third
         this.HP = 100;
-
         OrganiControl.addOrganism(this);
-
         firstSpawnLocationInit();
     }
 }

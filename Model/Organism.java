@@ -41,21 +41,24 @@ public interface Organism {
      **/
     int[] getPosition();  //[x,y]
 
-    /** Get category of organisms
+    /** Move object to some position
       * requires : none
-      * return : String category of this organism
+     * effect : change a position of an organism (to original position(x,y) + change(x,y))
+      * return : none
      **/
     void Move(int x_change,int y_change);
 
-    /** Get category of organisms
+    /** Shoot and make damage to organism some position
      * requires : none
-     * return : String category of this organism
+     * effect : make damage to organism at the position (original position(x,y) + change(x,y))
+     * return : none
      **/
     void Attack(int x_change,int y_change);
 
-    /** Get category of organisms
+    /** Check whether game has been over, or not?
      * requires : none
-     * return : String category of this organism
+     * effect : Show the winner player (you or virus)
+     * return : none
      **/
     void checkGame(Organism target);
 }

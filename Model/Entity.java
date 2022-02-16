@@ -53,7 +53,7 @@ public class Entity implements Organism{
     @Override
     public void Move(int x_change,int y_change) {
         position[0] += x_change;
-        position[2] += y_change;
+        position[1] += y_change;
         System.out.println(category + "(" + Id + ")" + " go to position : x = " + position[0] + " y = " + position[1]);
     }
 

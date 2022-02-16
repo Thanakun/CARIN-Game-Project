@@ -1,6 +1,7 @@
 package Model;
 
 
+import java.util.Random;
 
 public class Antigen extends Entity implements Organism {
 
@@ -9,9 +10,9 @@ public class Antigen extends Entity implements Organism {
         this.category = new String("Antibody");
         this.type = "first"; // types (3) : first , second , third
         this.HP = 100;
-        this.position[0] = 0;
-        this.position[1] = 0;
         organiControl.addOrganism(this);
+
+        firstSpawnLocationInit();
     }
 
 }

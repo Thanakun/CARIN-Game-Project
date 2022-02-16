@@ -27,9 +27,13 @@ public class PositionMap {
         instance = new PositionMap();
     }
 
-    public void updateOrganismPosition(String target_Id,int[] position){   //update Organism location
+    public boolean updateOrganismPosition(String target_Id,int[] position){   //update Organism location
         if(!hasOrganism(position)){   //if that posiotion is empty
             allOrganism_Position.put(target_Id,position);
+            return true;
+        }
+        else{                       //if that position not empty, update postition fail
+            return false;
         }
     }
     public int[] getOrganismPosition(String target_Id){  //get position of input Organism

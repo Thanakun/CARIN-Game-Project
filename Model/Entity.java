@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.Map;
+import java.util.Random;
 
 public class Entity implements Organism{
     protected String Id;
@@ -66,6 +67,21 @@ public class Entity implements Organism{
     public boolean checkGame() {
 //        for () เดี๋ยวมาเขียนต่อ ง่วงละ 55
         return true;
+    }
+
+    public void firstSpawnLocationInit(){    // to spawn first time at virus and anitvirus constructor
+        Random rand = new Random();
+        int[] maxbound= PosiMap.getMapDimension();
+        int x_posi = rand.nextInt(maxbound[0]+1);
+        int y_posi = rand.nextInt(maxbound[1]+1);
+        this.position[0] = x_posi;
+        this.position[1] = y_posi;
+        while(!PosiMap.updateOrganismPosition(this.Id,this.position)){  //loop until successfuly add this in map; prevent spawn at not empty position
+            x_posi = rand.nextInt(maxbound[0]+1);
+            y_posi = rand.nextInt(maxbound[1]+1);
+            this.position[0] = x_posi;
+            this.position[1] = y_posi;
+        }
     }
 
 

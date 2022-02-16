@@ -11,7 +11,7 @@ public class Entity implements Organism{
     protected int Attack_Damage;
     protected int[] position = new int[2];
     protected static PositionMap PosiMap = PositionMap.getInstance();
-    protected static OrganismController organiControl = OrganismController.getInstance();
+    protected static OrganismController OrganiControl = OrganismController.getInstance();
 
     public Entity(){
     }
@@ -28,6 +28,11 @@ public class Entity implements Organism{
     @Override
     public int getHP() {
         return HP;
+    }
+
+    @Override
+    public String getCategory() {
+        return category;
     }
 
     @Override
@@ -59,17 +64,24 @@ public class Entity implements Organism{
         current_position[0] += x_change;
         current_position[1] += y_change;
         String target_Id = PosiMap.getOrganismAt(current_position);
-        Organism target = organiControl.getById(target_Id);     //get Organism by Id
-        if (target.getHP() == 0) checkGame();
+        Organism target = OrganiControl.getById(target_Id);     //get Organism by Id
+        if (target.getHP() == 0) checkGame(target);
     }
 
     @Override
-    public boolean checkGame() {
-//        for () เดี๋ยวมาเขียนต่อ ง่วงละ 55
-        return true;
+    public void checkGame(Organism target) {
+        if (target.getCategory().equals("V")) {
+            if (OrganiControl.getVirus_count() == 0) {
+                System.out.println("You win!!!");
+            }
+        }else if (target.getCategory().equals("A")) {
+            if (OrganiControl.getAntibody_count() == 0) {
+                System.out.println("You Lose!!!");
+            }
+        }
     }
 
-    public void firstSpawnLocationInit(){    // to spawn first time at virus and anitvirus constructor
+    public void firstSpawnLocationInit(){    // to spawn first time at virus constructor
         Random rand = new Random();
         int[] maxbound= PosiMap.getMapDimension();
         int x_posi = rand.nextInt(maxbound[0]+1);

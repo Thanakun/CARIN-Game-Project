@@ -12,7 +12,7 @@ public class Virus extends Entity implements Organism{
         this.type = "second"; // types (3) : first , second , third
         this.HP = 100;
 
-        organiControl.addOrganism(this);
+        OrganiControl.addOrganism(this);
 
         firstSpawnLocationInit();
     }

@@ -10,9 +10,7 @@ public class Antigen extends Entity implements Organism {
         this.category = new String("Antibody");
         this.type = "first"; // types (3) : first , second , third
         this.HP = 100;
-        organiControl.addOrganism(this);
-
-        firstSpawnLocationInit();
+        OrganiControl.addOrganism(this);
     }
 
 }

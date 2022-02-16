@@ -24,7 +24,7 @@ public class OrganismController {
     }
 
     public void addOrganism(Organism target){   //add target Organism to allVirus or allAntivirus by type, and count each type
-        if(target.getType().equals("Virus")){
+        if(target.getCategory().equals("Virus")){
             virus_count++;
             allVirus.put(target.getId(),target);
         }

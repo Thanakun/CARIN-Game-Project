@@ -46,6 +46,11 @@ public class Entity implements Organism{
     }
 
     @Override
+    public int getATK() {
+        return Attack_Damage;
+    }
+
+    @Override
     public int[] getPosition() {
         return position;
     }
@@ -59,25 +64,51 @@ public class Entity implements Organism{
 
     @Override
     public void Attack(int x_change,int y_change) {
-        System.out.println("Shoot ");
+        System.out.println("Shoot!!!");
+        Organism organism =  OrganiControl.getById(Id);
         int[] current_position = PosiMap.getOrganismPosition(this.Id);
         current_position[0] += x_change;
         current_position[1] += y_change;
         String target_Id = PosiMap.getOrganismAt(current_position);
         Organism target = OrganiControl.getById(target_Id);     //get Organism by Id
-        if (target.getHP() == 0) checkGame(target);
+        UpdateGame(organism ,target, getATK());
     }
 
     @Override
-    public void checkGame(Organism target) {
-        if (target.getCategory().equals("V")) {
-            if (OrganiControl.getVirus_count() == 0) {
+    public void calc_damage(int damage) {
+        this.HP -= damage;
+        if (this.HP < 0) this.HP =0;
+    }
+
+    @Override
+    public void UpdateGame(Organism organism, Organism target, int damage) {
+        target.calc_damage(damage);
+        if (organism.getCategory().equals("Virus")) {  // organism is Virus
+            ((Virus)organism).afterAttacked(damage);
+            if (target.getHP() == 0) {
+                OrganiControl.removeOrganism(target);
+                CheckGame(target);
+                ((Virus)organism).overcome();
+            }
+        }else if (organism.getCategory().equals("Antibody")) { // organism is Antibody
+            if (target.getHP() == 0) {
+                OrganiControl.removeOrganism(target);
+                CheckGame(organism);
+                ((Antigen)organism).overcome();
+            }
+
+        }
+    }
+
+    @Override
+    public void CheckGame(Organism target) {
+        if (target.getCategory().equals("Virus")) {
+            if (OrganiControl.getVirus_count() == 0)
                 System.out.println("You win!!!");
-            }
-        }else if (target.getCategory().equals("A")) {
-            if (OrganiControl.getAntibody_count() == 0) {
+
+        }else if (target.getCategory().equals("Antibody")) {
+            if (OrganiControl.getAntibody_count() == 0)
                 System.out.println("You Lose!!!");
-            }
         }
     }
 

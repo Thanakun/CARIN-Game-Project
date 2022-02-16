@@ -13,4 +13,8 @@ public class Antigen extends Entity implements Organism {
         OrganiControl.addOrganism(this);
     }
 
+    public void overcome() {
+        HP += HP*0.35;
+    }
+
 }

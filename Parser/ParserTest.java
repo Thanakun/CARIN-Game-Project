@@ -46,7 +46,7 @@ public class ParserTest {
        //         "while (i) { move up " +
        //         "i=i-1 }";
         Map<String, Integer> binding = new LinkedHashMap<>();
-        Virus virus = new Virus("V1");
+        Virus virus = new Virus("V1","type1");
         Parser parser = new Parser(src,virus,binding);
         parser.evauateAll();
        // System.out.println(parser.prettyPrintAll());

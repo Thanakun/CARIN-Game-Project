@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Game-Final-Project.iml" filepath="$PROJECT_DIR$/Game-Final-Project.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SpringData/game/game.iml" filepath="$PROJECT_DIR$/SpringData/game/game.iml" />
     </modules>
   </component>
 </project>

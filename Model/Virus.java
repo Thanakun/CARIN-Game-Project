@@ -22,4 +22,5 @@ public class Virus extends Entity implements Organism{
     public void overcome() {
         OrganiControl.addOrganism(new Virus("V" + Integer.toString(OrganiControl.getCurrentID_Virus()), this.type));
     }
+
 }

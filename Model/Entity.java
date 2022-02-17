@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.Random;
 
 public class Entity implements Organism{
@@ -109,6 +110,14 @@ public class Entity implements Organism{
         }else if (target.getCategory().equals("Antibody")) {
             if (OrganiControl.getAntibody_count() == 0)
                 System.out.println("You Lose!!!");
+        }
+    }
+
+    @Override
+    public void PlayerMoveAnti(Organism target,int x,int y) {
+        if(Objects.equals(target.getCategory(), "Antibody")){
+            this.position[0] = x;
+            this.position[1] = y;
         }
     }
 

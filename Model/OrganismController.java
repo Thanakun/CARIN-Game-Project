@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 
 public class OrganismController {
     private static OrganismController instance;
+    private static Player NewPlayer = Player.getInstance();
     private static LinkedHashMap<String,Organism> allVirus;
     private static LinkedHashMap<String,Organism> allAntivirus;
     private static int antibody_count;
@@ -32,6 +33,7 @@ public class OrganismController {
         }
         else{
             antibody_count++;
+            NewPlayer.updateAntibodyUnit(antibody_count);
             allAntivirus.put(target.getId(),target);
             currentID_Antibody++;
         }

@@ -17,4 +17,6 @@ public class Antigen extends Entity implements Organism {
         HP += HP*0.35;
     }
 
+
+
 }

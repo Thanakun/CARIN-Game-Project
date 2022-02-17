@@ -81,4 +81,6 @@ public interface Organism {
      *  return : none
      **/
     void CheckGame(Organism target);
+
+    void PlayerMoveAnti(Organism target,int x,int y);
 }

@@ -39,11 +39,12 @@ public class Timer extends Thread {
                 if(isActive){
                     time_count++;
                     System.out.println(this.getName()+" "+time_count+" speed:"+time_speed_multiplier);
+                    sleep(time_pass);
                 }
                 else{
                     System.out.println("pausing");
+                    sleep(100); //wait for resume
                 }
-                sleep(time_pass);
             }
 
         }

@@ -1,36 +1,38 @@
 package server.game.Game;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import server.game.Game.GameData.Model.Timer;
 import org.springframework.stereotype.Component;
 
 @Component
 public class GameRunner extends Thread {
-
-    public static void main(String[] args) {
-        Timer timer = Timer.getInstance();
-        Timer timer2 = Timer.getInstance();
+    @Autowired
+    private Timer timer;
 
 
-        timer2.start();
-        timer.on();
-        try{
-            Thread.sleep(2000);
-            timer.increaseMultiplier();
-            timer.off();
-            Thread.sleep(2000);
-           timer.on();
-            Thread.sleep(2000);
-           timer.interrupt();
 
-        }catch (InterruptedException e){
-            System.out.println("main interrupted");
+    public void main() {
+        int count = 0;
+        while(true){
+            try{
+                System.out.println("main loop number :"+count++);
+                timer.on();
+                Thread.sleep(2000);
+                timer.off();
+                Thread.sleep(2000);
+                timer.on();
+
+            }catch (InterruptedException e){
+                System.out.println("main interrupted");
+            }
+            System.out.println("end main");
         }
-        System.out.println("end main");
+
     }
 
     @Override
     public void run(){
-        main(null);
+        main();
     }
 
 }

@@ -10,17 +10,17 @@ import org.springframework.context.annotation.Configuration;
 public class GameConfig {
     @Autowired
     private Timer timer;
-   // private static PositionMap map = PositionMap.getInstance();
-   // @Autowired
-  //  private GameRunner gameRunner;
+    @Autowired
+    private GameRunner gameRunner;
 
     @Bean
     CommandLineRunner commandLineRunner(){
         return args ->{
+            gameRunner.setDaemon(true);
+            gameRunner.start();
             timer.setDaemon(true);
             timer.start();
-       // gameRunner.setDaemon(true);
-       // gameRunner.start();
+
         };
     }
 }

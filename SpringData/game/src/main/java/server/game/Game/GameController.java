@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path="/")
 public class GameController {
     private final GameService gameService;
 
@@ -16,8 +15,8 @@ public class GameController {
     }
 
     @GetMapping
-   // @RequestMapping(path = "/hello")
-    public String getHello(){
-        return gameService.getHello();
+    @RequestMapping(path = "/print")
+    public String getPrint(){
+        return gameService.getPrint();
     }
 }

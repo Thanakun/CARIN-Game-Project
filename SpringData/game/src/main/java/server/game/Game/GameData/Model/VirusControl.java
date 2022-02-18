@@ -16,6 +16,8 @@ public class VirusControl {
     /** Controll All Virus */
     public static VirusControl instance;
     @Autowired
+    private PositionMap positionMap;
+    @Autowired
     private OrganismStorage organismStorage;
     @Value("${virus_rate:0.5}")
     private float virus_rate; //virus spawn rate
@@ -82,11 +84,25 @@ public class VirusControl {
             System.out.println("create new virus");
             Virus newVirus = new Virus(
                     "V"+ organismStorage.getVirus_count()
-                    ,random.nextInt(3)+1); //random type
+                    ,random.nextInt(3)+1
+                    ,firstSpawnLocationInit()
+            ,positionMap,organismStorage);
             newVirus.setGeneticCode(this.default_geneticCode);
             newVirus.setStatus(init_hp,init_atk,init_gain);    //set up status and genetic code
             organismStorage.addOrganism(newVirus);
         }
+    }
+
+    public int[] firstSpawnLocationInit(){    // to spawn first time at virus constructor
+        int[] maxbound= positionMap.getMapDimension();
+        int x_posi = random.nextInt(maxbound[0]+1);
+        int y_posi = random.nextInt(maxbound[1]+1);
+
+        while(positionMap.hasOrganism(new int[]{x_posi,y_posi})){  //loop until successfuly add this in map; prevent spawn at not empty position
+            x_posi = random.nextInt(maxbound[0]+1);
+            y_posi = random.nextInt(maxbound[1]+1);
+        }
+        return new int[]{x_posi,y_posi};
     }
 
     public void activeAllVirus(){

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import server.game.Game.GameData.Parser.Parser;
 
 import java.util.LinkedHashMap;
-import java.util.Random;
+
 
 @Component
 @PropertySource("classpath:GameDataProperties.properties")
@@ -55,11 +55,12 @@ public class AntibodyControl {
 
     public boolean spawnNewAntibody(int type,int[] location){  //return true if can place at that location
 
-        if(positionMap.getOrganismAt(location).equals("not found")){  //not found any organism at location , it is empty
+        if(!positionMap.hasOrganism(location)){  //not found any organism at location , it is empty
             System.out.println("create new Antibody");
             Antibody newAntibody = new Antibody(
                     "A"+ organismStorage.getAntibody_count()
-                    ,type,location);
+                    ,type,location
+            ,positionMap,organismStorage);
             newAntibody.setGeneticCode(this.default_geneticCode);
             newAntibody.setStatus(init_hp,init_atk,init_gain);    //set up status and genetic code
             organismStorage.addOrganism(newAntibody);

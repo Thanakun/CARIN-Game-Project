@@ -1,6 +1,8 @@
 package server.game.Game;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import server.game.Game.GameData.Model.AntibodyControl;
+import server.game.Game.GameData.Model.PositionMap;
 import server.game.Game.GameData.Model.Timer;
 import org.springframework.stereotype.Component;
 import server.game.Game.GameData.Model.VirusControl;
@@ -11,6 +13,10 @@ public class GameRunner extends Thread {
     private Timer timer;
     @Autowired
     private VirusControl virusControl;
+    @Autowired
+    private PositionMap positionMap;
+    @Autowired
+    private AntibodyControl antibodyControl;
 
     public void main() {
         int count = 0;
@@ -19,8 +25,10 @@ public class GameRunner extends Thread {
                 System.out.println("--------------------------");
                 System.out.println("main loop number :"+count++);
                 timer.on();
+                antibodyControl.activeAllAntibody();
                 virusControl.activeAllVirus();
                 virusControl.spawnNewVirus();
+
                 Thread.sleep(timer.getTimePass());
 
             }catch (InterruptedException e){
@@ -32,6 +40,7 @@ public class GameRunner extends Thread {
 
     @Override
     public void run(){
+
         main();
     }
 

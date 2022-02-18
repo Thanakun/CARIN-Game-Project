@@ -10,7 +10,8 @@ import java.util.LinkedHashMap;
 @PropertySource("classpath:GameDataProperties.properties")
 public class PositionMap {
     private static PositionMap instance;
-    private LinkedHashMap<String,int[]> allOrganism_Position;   //key is Organism value is its position
+    private static LinkedHashMap<String,int[]> allOrganism_Position;   //key is Organism value is its position
+    //variable in positionMap
     @Value("${max_x}")
     private int max_x;
     @Value("${max_y}")
@@ -26,9 +27,11 @@ public class PositionMap {
         }
         return instance;
     }
-    public  int[] getMapDimension(){
-        return new int[]{max_x,max_y};    // max width and max height of map
+
+    public int[] getMapDimension(){
+        return  new int[]{max_x,max_y};
     }
+
     public synchronized void resetMap(){
         instance = new PositionMap();
     }
@@ -36,6 +39,7 @@ public class PositionMap {
     public synchronized boolean updateOrganismPosition(String target_Id,int[] position){   //update Organism location
         if(!hasOrganism(position)){   //if that posiotion is empty
             allOrganism_Position.put(target_Id,position);
+            System.out.println(target_Id+" are at :"+position[0]+" "+position[1]);
             return true;
         }
         else{                       //if that position not empty, update postition fail

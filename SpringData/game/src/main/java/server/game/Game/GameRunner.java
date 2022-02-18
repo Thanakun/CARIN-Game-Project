@@ -10,7 +10,6 @@ public class GameRunner extends Thread {
     private Timer timer;
 
 
-
     public void main() {
         int count = 0;
         while(true){

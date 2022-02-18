@@ -2,7 +2,7 @@ package server.game.Game.GameData.Parser.Grammars;
 
 import server.game.Game.GameData.Model.PositionMap;
 import server.game.Game.GameData.Model.Organism;
-import server.game.Game.GameData.Model.OrganismController;
+import server.game.Game.GameData.Model.OrganismStorage;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -12,7 +12,7 @@ public class SensorExpression implements Expression{
     private String commandType;
     private Direction nearby_direction;
     private static PositionMap map=PositionMap.getInstance();
-    private static OrganismController organismController = OrganismController.getInstance();
+    private static OrganismStorage organismController = OrganismStorage.getInstance();
 
     public SensorExpression(String commandType,Direction direction){
         this.commandType = commandType;

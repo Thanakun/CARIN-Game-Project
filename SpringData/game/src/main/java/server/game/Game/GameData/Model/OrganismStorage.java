@@ -5,22 +5,22 @@ import org.springframework.stereotype.Component;
 import java.util.LinkedHashMap;
 
 @Component
-public class OrganismController {
-    private static OrganismController instance;
+public class OrganismStorage {
+    private static OrganismStorage instance;
     private static LinkedHashMap<String,Organism> allVirus;
     private static LinkedHashMap<String,Organism> allAntivirus;
     private static int antibody_count;
     private static int virus_count;
 
-    private OrganismController(){
+    private OrganismStorage(){
         allAntivirus = new LinkedHashMap<>();
         allVirus = new LinkedHashMap<>();
         antibody_count = 0;
         virus_count = 0;
     }
-    public static OrganismController getInstance(){
+    public static OrganismStorage getInstance(){
         if(instance==null){
-            instance = new OrganismController();
+            instance = new OrganismStorage();
         }
     return instance;
     }
@@ -70,7 +70,7 @@ public class OrganismController {
         return virus_count;
     }
 
-    public LinkedHashMap<String, Organism> getallAntivirus() {
+    public LinkedHashMap<String, Organism> getallAntibody() {
         return allAntivirus;
     }
 

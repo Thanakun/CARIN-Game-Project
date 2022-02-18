@@ -26,7 +26,6 @@ public class GameRunner extends Thread {
             }catch (InterruptedException e){
                 System.out.println("main interrupted");
             }
-            System.out.println("--------------------------");
         }
 
     }

@@ -79,4 +79,11 @@ public interface Organism {
      *  return : none
      **/
     void CheckGame(Organism target);
+    /**set Organism's genetic code**/
+    void setGeneticCode(String geneticCode);
+    /**get Organism's genetic code**/
+    String getGeneticCode();
+
+    /**set up status of Organism**/
+    void setStatus(int HP,int atk,int gain);
 }

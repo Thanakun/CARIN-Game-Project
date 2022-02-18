@@ -25,7 +25,6 @@ public class MoveCommand implements Statement {
             case 8: actor.Move(-1,1);break; //upleft
 
         }
-        System.out.println("Moved =>"+direction_value);
     }
 
     @Override

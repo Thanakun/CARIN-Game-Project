@@ -16,9 +16,12 @@ public class BlockStatment implements Statement {
     }
     @Override
     public void eval(Organism actor, Map<String, Integer> binding) {
-           for(Statement statement:statements){
-               statement.eval(actor,binding);
-           }
+        if(!statements.isEmpty()){
+            for(Statement statement:statements){
+                statement.eval(actor,binding);
+            }
+        }
+
     }
 
     @Override

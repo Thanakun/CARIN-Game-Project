@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
+import server.game.Game.GameData.Parser.Parser;
 
 import java.util.LinkedHashMap;
 import java.util.Random;
@@ -15,13 +16,57 @@ public class VirusControl {
     /** Controll All Virus */
     public static VirusControl instance;
     @Autowired
-    private OrganismController organismController;
+    private OrganismStorage organismStorage;
     @Value("${virus_rate:0.5}")
     private float virus_rate; //virus spawn rate
     private Random random;
+    private String default_geneticCode;
+
+    //initial value for set up virus status
+    @Value("${init_virus_hp}")
+    private int init_hp;
+    @Value("${init_virus_atk}")
+    private int init_atk;
+    @Value("${init_virus_gain}")
+    private int init_gain;
+
 
     private VirusControl(){
         random = new Random();
+        default_geneticCode =
+                "antivirusLoc = antivirus\n" +
+                "if (antivirusLoc / 10 - 1)\n" +
+                "then \n" +
+                "  if (antivirusLoc % 10 - 7) then move upleft\n" +
+                "  else if (antivirusLoc % 10 - 6) then move left\n" +
+                "  else if (antivirusLoc % 10 - 5) then move downleft\n" +
+                "  else if (antivirusLoc % 10 - 4) then move down\n" +
+                "  else if (antivirusLoc % 10 - 3) then move downright\n" +
+                "  else if (antivirusLoc % 10 - 2) then move right\n" +
+                "  else if (antivirusLoc % 10 - 1) then move upright\n" +
+                "  else move up\n" +
+                "else if (antivirusLoc)\n" +
+                "then \n" +
+                "  if (antivirusLoc % 10 - 7) then shoot upleft\n" +
+                "  else if (antivirusLoc % 10 - 6) then shoot left\n" +
+                "  else if (antivirusLoc % 10 - 5) then shoot downleft\n" +
+                "  else if (antivirusLoc % 10 - 4) then shoot down\n" +
+                "  else if (antivirusLoc % 10 - 3) then shoot downright\n" +
+                "  else if (antivirusLoc % 10 - 2) then shoot right\n" +
+                "  else if (antivirusLoc % 10 - 1) then shoot upright\n" +
+                "  else shoot up\n" +
+                "else \n" +
+                "{\n" +
+                "  dir = random % 8\n" +
+                "  if (dir - 6) then move upleft\n" +
+                "  else if (dir - 5) then move left\n" +
+                "  else if (dir - 4) then move downleft\n" +
+                "  else if (dir - 3) then move down\n" +
+                "  else if (dir - 2) then move downright\n" +
+                "  else if (dir - 1) then move right\n" +
+                "  else if (dir) then move upright\n" +
+                "  else move up\n" +
+                "}\n";
     }
     public static VirusControl getInstance(){
         if(instance==null){
@@ -35,16 +80,21 @@ public class VirusControl {
         System.out.println("random="+ran);
         if(ran<=virus_rate){
             System.out.println("create new virus");
-            organismController.addOrganism(new Virus(
-                  "V"+ organismController.getVirus_count()
-            ,random.nextInt(3)+1));  //random type
+            Virus newVirus = new Virus(
+                    "V"+ organismStorage.getVirus_count()
+                    ,random.nextInt(3)+1); //random type
+            newVirus.setGeneticCode(this.default_geneticCode);
+            newVirus.setStatus(init_hp,init_atk,init_gain);    //set up status and genetic code
+            organismStorage.addOrganism(newVirus);
         }
     }
 
     public void activeAllVirus(){
-      LinkedHashMap<String,Organism> allVirus =  organismController.getallVirus();
+      LinkedHashMap<String,Organism> allVirus =  organismStorage.getallVirus();
       for(String id:allVirus.keySet()){
           System.out.println("Virus id:"+id+" is active");
+          Parser parser = new Parser(allVirus.get(id));
+          parser.evauateAll();
       }
     }
 

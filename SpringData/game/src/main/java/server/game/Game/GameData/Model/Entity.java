@@ -1,16 +1,16 @@
 package server.game.Game.GameData.Model;
 
-import java.util.Random;
-
 public class Entity implements Organism{
     protected String Id;
     protected String category;
+    protected String geneticCode="";
     protected int type;
     protected int HP;
-    protected int Attack_Damage;
+    protected int atk;
+    protected int gain;
     protected int[] position = new int[2];
-    protected static PositionMap PosiMap = PositionMap.getInstance();
-    protected static OrganismController OrganiControl = OrganismController.getInstance();
+    protected static PositionMap positionMap = PositionMap.getInstance();
+    protected static OrganismStorage organismStorage = OrganismStorage.getInstance();
 
     public Entity(){
     }
@@ -20,7 +20,7 @@ public class Entity implements Organism{
         System.out.println("Category : " + category);
         System.out.println("Type : " + type);
         System.out.println("HP : " + HP);
-        System.out.println("Attack Damage : " + Attack_Damage);
+        System.out.println("Attack Damage : " + atk);
         System.out.println("Position : x = " + position[0] + " y = " + position[1]);
     }
 
@@ -46,7 +46,7 @@ public class Entity implements Organism{
 
     @Override
     public int getATK() {
-        return Attack_Damage;
+        return atk;
     }
 
     @Override
@@ -64,12 +64,12 @@ public class Entity implements Organism{
     @Override
     public void Attack(int x_change,int y_change) {
         System.out.println("Shoot!!!");
-        Organism organism =  OrganiControl.getById(Id);
-        int[] current_position = PosiMap.getOrganismPosition(this.Id);
+        Organism organism =  organismStorage.getById(Id);
+        int[] current_position = positionMap.getOrganismPosition(this.Id);
         current_position[0] += x_change;
         current_position[1] += y_change;
-        String target_Id = PosiMap.getOrganismAt(current_position);
-        Organism target = OrganiControl.getById(target_Id);     //get Organism by Id
+        String target_Id = positionMap.getOrganismAt(current_position);
+        Organism target = organismStorage.getById(target_Id);     //get Organism by Id
         UpdateGame(organism ,target, getATK());
     }
 
@@ -85,15 +85,15 @@ public class Entity implements Organism{
         if (organism.getCategory().equals("Virus")) {  // organism is Virus
             ((Virus)organism).afterAttacked(damage);
             if (target.getHP() == 0) {
-                OrganiControl.removeOrganism(target);
+                organismStorage.removeOrganism(target);
                 CheckGame(target);
                 ((Virus)organism).overcome();
             }
         }else if (organism.getCategory().equals("Antibody")) { // organism is Antibody
             if (target.getHP() == 0) {
-                OrganiControl.removeOrganism(target);
+                organismStorage.removeOrganism(target);
                 CheckGame(organism);
-                ((Antigen)organism).overcome();
+                ((Antibody)organism).overcome();
             }
 
         }
@@ -102,29 +102,34 @@ public class Entity implements Organism{
     @Override
     public void CheckGame(Organism target) {
         if (target.getCategory().equals("Virus")) {
-            if (OrganiControl.getVirus_count() == 0)
+            if (organismStorage.getVirus_count() == 0)
                 System.out.println("You win!!!");
 
         }else if (target.getCategory().equals("Antibody")) {
-            if (OrganiControl.getAntibody_count() == 0)
+            if (organismStorage.getAntibody_count() == 0)
                 System.out.println("You Lose!!!");
         }
     }
 
-    public void firstSpawnLocationInit(){    // to spawn first time at virus constructor
-        Random rand = new Random();
-        int[] maxbound= PosiMap.getMapDimension();
-        int x_posi = rand.nextInt(maxbound[0]+1);
-        int y_posi = rand.nextInt(maxbound[1]+1);
-        this.position[0] = x_posi;
-        this.position[1] = y_posi;
-        while(!PosiMap.updateOrganismPosition(this.Id,this.position)){  //loop until successfuly add this in map; prevent spawn at not empty position
-            x_posi = rand.nextInt(maxbound[0]+1);
-            y_posi = rand.nextInt(maxbound[1]+1);
-            this.position[0] = x_posi;
-            this.position[1] = y_posi;
-        }
+    @Override
+    public void setGeneticCode(String geneticCode){
+        this.geneticCode = geneticCode;
     }
+
+    @Override
+    public String getGeneticCode(){
+        return geneticCode;
+    }
+    @Override
+    public  void setStatus(int HP,int atk,int gain){
+        //every stat in crease by type if type lower type is weaker
+        this.HP = type*HP;
+        this.atk = type*atk;
+        this.gain = type*gain;
+    }
+
+
+
 
 
 }

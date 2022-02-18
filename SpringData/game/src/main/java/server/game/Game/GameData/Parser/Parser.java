@@ -3,6 +3,7 @@ package server.game.Game.GameData.Parser;
 import server.game.Game.GameData.Model.Organism;
 import server.game.Game.GameData.Parser.Grammars.*;
 
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -15,9 +16,9 @@ public class Parser {
     private static GrammarFactory grammarFactory;
     private Organism actor;
 
-    public Parser(String src,Organism actor,Map<String,Integer> bindings){
-        this.tkz = new Tokenizer(src);
-        this.bindings = bindings;
+    public Parser(Organism actor){
+        this.tkz = new Tokenizer(actor.getGeneticCode());
+        this.bindings = new LinkedHashMap<>();
         this.actor = actor;
         grammarFactory = GrammarFactory.getInstance();
         ASTtree = new LinkedList<>();
@@ -100,8 +101,16 @@ public class Parser {
         tkz.consume(")");
         tkz.consume("then");
         Statement if_true = parseStatement();
-        tkz.consume("else");
-        Statement if_false = parseStatement();
+
+        Statement if_false;
+        if(tkz.peek("else")){
+            tkz.consume("else");
+            if_false = parseStatement();
+        }
+        else {
+            if_false = grammarFactory.getBlock();
+        }
+
         return grammarFactory.getIfStatement(condition,if_true,if_false);
 
     }

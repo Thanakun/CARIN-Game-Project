@@ -1,7 +1,10 @@
 package server.game.Game.GameData.Model;
 
+import org.springframework.stereotype.Component;
+
 import java.util.LinkedHashMap;
 
+@Component
 public class PositionMap {
     private static PositionMap instance;
     private LinkedHashMap<String,int[]> allOrganism_Position;   //key is Organism value is its position
@@ -23,11 +26,11 @@ public class PositionMap {
     public  int[] getMapDimension(){
         return new int[]{max_x,max_y};    // max width and max height of map
     }
-    public  void resetMap(){
+    public synchronized void resetMap(){
         instance = new PositionMap();
     }
 
-    public boolean updateOrganismPosition(String target_Id,int[] position){   //update Organism location
+    public synchronized boolean updateOrganismPosition(String target_Id,int[] position){   //update Organism location
         if(!hasOrganism(position)){   //if that posiotion is empty
             allOrganism_Position.put(target_Id,position);
             return true;

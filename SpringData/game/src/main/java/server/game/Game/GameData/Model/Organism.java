@@ -25,7 +25,7 @@ public interface Organism {
       * requires : none
       * return : String type, Type of this organism
      **/
-    String getType();
+    int getType();
 
     /** Get ID of organisms.
       * requires : none

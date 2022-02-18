@@ -1,15 +1,16 @@
 package server.game.Game.GameData.Model;
 
+import org.springframework.stereotype.Component;
+
 import java.util.LinkedHashMap;
 
+@Component
 public class OrganismController {
     private static OrganismController instance;
     private static LinkedHashMap<String,Organism> allVirus;
     private static LinkedHashMap<String,Organism> allAntivirus;
     private static int antibody_count;
     private static int virus_count;
-    private static int currentID_Virus = 1;
-    private static int currentID_Antibody = 1;
 
     private OrganismController(){
         allAntivirus = new LinkedHashMap<>();
@@ -24,20 +25,24 @@ public class OrganismController {
     return instance;
     }
 
-    public void addOrganism(Organism target){   //add target Organism to allVirus or allAntivirus by type, and count each type
+    public synchronized void addOrganism(Organism target){   //add target Organism to allVirus or allAntivirus by type, and count each type
         if(target.getCategory().equals("Virus")){
-            virus_count++;
-            allVirus.put(target.getId(),target);
-            currentID_Virus++;
+            if(!allVirus.containsValue(target)){  //if target not already in container
+                virus_count++;
+                allVirus.put(target.getId(),target);
+            }
+
         }
         else{
-            antibody_count++;
-            allAntivirus.put(target.getId(),target);
-            currentID_Antibody++;
+            if(!allAntivirus.containsValue(target)){
+                antibody_count++;
+                allAntivirus.put(target.getId(),target);
+            }
+
         }
     }
 
-    public void removeOrganism(Organism target){   //add target Organism to allVirus or allAntivirus by type, and count each type
+    public synchronized void removeOrganism(Organism target){   //add target Organism to allVirus or allAntivirus by type, and count each type
         if(target.getCategory().equals("Virus") && allVirus.containsValue(target)){
             allVirus.remove(target.getId());
             virus_count--;
@@ -73,11 +78,4 @@ public class OrganismController {
         return allVirus;
     }
 
-    public int getCurrentID_Virus() {
-        return currentID_Virus;
-    }
-
-    public int getCurrentID_Antibody() {
-        return currentID_Antibody;
-    }
 }

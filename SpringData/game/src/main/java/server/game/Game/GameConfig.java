@@ -13,8 +13,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @PropertySource("classpath:GameDataProperties.properties")
 public class GameConfig {
-    @Value("${virus_rate:0.5}")
-    private float virus_rate; //virus birth rate
     @Autowired
     private Timer timer;
     @Autowired
@@ -27,7 +25,7 @@ public class GameConfig {
             gameRunner.start();
             timer.setDaemon(true);
             timer.start();
-            System.out.println(virus_rate);
+
         };
     }
 }

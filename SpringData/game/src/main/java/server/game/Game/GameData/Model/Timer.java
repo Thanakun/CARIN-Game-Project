@@ -16,7 +16,7 @@ public class Timer extends Thread {
     private Timer(){
         isActive = false; //default when create instance is off
         time_count =0; //counter increase when each time unit pass
-        time_per_unit = 1000; // in ms
+        time_per_unit = 2000; // in ms
         time_pass = (int)(time_per_unit/(double)time_speed_multiplier); //total time pass in 1 time unit
         time_speed_multiplier = 1; //  if time multiplier high time will pass faster , time per unit decrease
 
@@ -38,11 +38,11 @@ public class Timer extends Thread {
                  time_pass = (int)(time_per_unit/(double)time_speed_multiplier);
                 if(isActive){
                     time_count++;
-                    System.out.println(this.getName()+" "+time_count+" speed:"+time_speed_multiplier);
+                    System.out.println("Current time: "+time_count+" speed:"+time_speed_multiplier);
                     sleep(time_pass);
                 }
                 else{
-                    System.out.println("pausing");
+                  //  System.out.println("pausing");
                     sleep(100); //wait for resume
                 }
             }

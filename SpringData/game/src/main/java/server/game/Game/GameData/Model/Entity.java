@@ -5,7 +5,7 @@ import java.util.Random;
 public class Entity implements Organism{
     protected String Id;
     protected String category;
-    protected String type;
+    protected int type;
     protected int HP;
     protected int Attack_Damage;
     protected int[] position = new int[2];
@@ -35,7 +35,7 @@ public class Entity implements Organism{
     }
 
     @Override
-    public String getType() {
+    public int getType() {
         return type;
     }
 

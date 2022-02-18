@@ -3,7 +3,7 @@ package server.game.Game.GameData.Parser;
 import server.game.Game.GameData.Model.Organism;
 import server.game.Game.GameData.Parser.Grammars.*;
 
-import java.util.LinkedHashMap;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -16,9 +16,9 @@ public class Parser {
     private static GrammarFactory grammarFactory;
     private Organism actor;
 
-    public Parser(Organism actor){
+    public Parser(Organism actor,Map<String,Integer> bindings){
         this.tkz = new Tokenizer(actor.getGeneticCode());
-        this.bindings = new LinkedHashMap<>();
+        this.bindings = bindings;
         this.actor = actor;
         grammarFactory = GrammarFactory.getInstance();
         ASTtree = new LinkedList<>();

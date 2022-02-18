@@ -30,6 +30,8 @@ public class AntibodyControl {
     private int init_gain;
 
 
+
+
     private AntibodyControl(){
         default_geneticCode =
                 "virusLoc = virus\n" +
@@ -44,13 +46,16 @@ public class AntibodyControl {
                         "  else if (virusLoc % 10 - 1) then shoot upright\n" +
                         "  else shoot up\n";
 
-
     }
     public static AntibodyControl getInstance(){
         if(instance==null){
             instance = new AntibodyControl();
         }
         return instance;
+    }
+
+    public void setWantToPlaceAntibody(){
+
     }
 
     public boolean spawnNewAntibody(int type,int[] location){  //return true if can place at that location
@@ -75,7 +80,7 @@ public class AntibodyControl {
         LinkedHashMap<String,Organism> allAntibody =  organismStorage.getallAntibody();
         for(String id:allAntibody.keySet()){
             System.out.println("Antibody id:"+id+" is active");
-            Parser parser = new Parser(allAntibody.get(id));
+            Parser parser = new Parser(allAntibody.get(id),new LinkedHashMap<>());
             parser.evauateAll();
         }
     }

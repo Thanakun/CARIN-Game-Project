@@ -25,7 +25,9 @@ public class GameRunner extends Thread {
                 System.out.println("--------------------------");
                 System.out.println("main loop number :"+count++);
                 timer.on();
+
                 antibodyControl.activeAllAntibody();
+              //  antibodyControl.spawnNewAntibody();
                 virusControl.activeAllVirus();
                 virusControl.spawnNewVirus();
 

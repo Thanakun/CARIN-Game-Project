@@ -109,7 +109,7 @@ public class VirusControl {
       LinkedHashMap<String,Organism> allVirus =  organismStorage.getallVirus();
       for(String id:allVirus.keySet()){
           System.out.println("Virus id:"+id+" is active");
-          Parser parser = new Parser(allVirus.get(id));
+          Parser parser = new Parser(allVirus.get(id),new LinkedHashMap<>());
           parser.evauateAll();
       }
     }

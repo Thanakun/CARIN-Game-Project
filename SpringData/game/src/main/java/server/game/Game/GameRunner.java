@@ -32,7 +32,7 @@ public class GameRunner extends Thread {
                 String gameState = menu.getGameState();
                 if(gameState.equals("MAIN_MENU")){
                     System.out.println("IN MAIN MENU");
-                    Thread.sleep(100);
+                    Thread.sleep(10);
                 }
                 else if(gameState.equals("START")){
 
@@ -46,24 +46,26 @@ public class GameRunner extends Thread {
                 }
                 else if(gameState.equals("PLAYING")) {
 
-                    System.out.println("--------------------------");
-                    System.out.println("Time Now: "+timer.getTime_count());  //time in GET is precise , but here has some bug
-                    antibodyControl.activeAllAntibody();
-                       virusControl.activeAllVirus();
-                         virusControl.spawnNewVirus();
-                         checkGame();
-                    Thread.sleep(timer.getTimePass());
+                        System.out.println("--------------------------");
+                        System.out.println("Time Now: "+timer.getTime_count());
+                        antibodyControl.activeAllAntibody();
+                        virusControl.activeAllVirus();
+                        virusControl.spawnNewVirus();
+                        checkGame();
+                        Thread.sleep(timer.getTimePass());
+
+
                 }
                 else if(gameState.equals("PAUSE")){
                     timer.off();
-                    Thread.sleep(100);
+                    Thread.sleep(10);
                 }
                 else if(gameState.equals("END")){
                     System.out.println("*********Game End********* ");
                     timer.off();
                     menu.setGameState("MAIN_MENU");
 
-                    Thread.sleep(100);
+                    Thread.sleep(10);
 
                 }
 

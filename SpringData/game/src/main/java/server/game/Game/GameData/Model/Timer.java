@@ -43,7 +43,7 @@ public class Timer extends Thread {
                 }
                 else{
                   //  System.out.println("pausing");
-                    sleep(100); //wait for resume
+                   sleep(10); //wait for resume
                 }
             }
 
@@ -59,6 +59,9 @@ public class Timer extends Thread {
         time_per_unit = 2000;
         time_pass = (int)(time_per_unit/(double)time_speed_multiplier);
         time_speed_multiplier = 1;
+    }
+    public boolean getTimerStatus(){
+        return this.isActive;
     }
     public int getTimePass(){
         return time_pass;

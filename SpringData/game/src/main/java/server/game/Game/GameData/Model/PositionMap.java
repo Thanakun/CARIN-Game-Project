@@ -28,6 +28,9 @@ public class PositionMap {
         return instance;
     }
 
+    public void resetPositionMap(){
+        allOrganism_Position = new LinkedHashMap<>();
+    }
     public int[] getMapDimension(){
         return  new int[]{max_x,max_y};
     }

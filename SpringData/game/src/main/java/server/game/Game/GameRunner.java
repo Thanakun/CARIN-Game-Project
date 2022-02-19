@@ -1,12 +1,10 @@
 package server.game.Game;
 
+import com.fasterxml.jackson.databind.ObjectReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import server.game.Game.GameData.Controller.Menu;
-import server.game.Game.GameData.Model.AntibodyControl;
-import server.game.Game.GameData.Model.PositionMap;
-import server.game.Game.GameData.Model.Timer;
+import server.game.Game.GameData.Model.*;
 import org.springframework.stereotype.Component;
-import server.game.Game.GameData.Model.VirusControl;
 
 @Component
 public class GameRunner extends Thread {
@@ -20,6 +18,8 @@ public class GameRunner extends Thread {
     private AntibodyControl antibodyControl;
     @Autowired
     private Menu menu;
+    @Autowired
+    private OrganismStorage organismStorage;
 
     public void main() {
         int count = 0;
@@ -29,6 +29,14 @@ public class GameRunner extends Thread {
                 if(gameState.equals("MAIN_MENU")){
                     System.out.println("IN MAIN MENU");
                     Thread.sleep(100);
+                }
+                else if(gameState.equals("START")){
+                    System.out.println("Loading...");
+                    timer.resetTime();
+                    positionMap.resetPositionMap();
+                    organismStorage.resetStorage();
+                    Thread.sleep(1000);
+                    menu.setGameState("START PLAYING=>");
                 }
                 else if(gameState.equals("PLAYING")) {
                     System.out.println("--------------------------");
@@ -46,8 +54,7 @@ public class GameRunner extends Thread {
                 }
                 else if(gameState.equals("END")){
                     System.out.println("*********Game End********* ");
-                    timer.interrupt();
-                    this.interrupt();
+                    menu.setGameState("MAIN_MENU");
                     Thread.sleep(100);
 
                 }

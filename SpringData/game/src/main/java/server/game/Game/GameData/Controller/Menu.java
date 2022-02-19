@@ -22,18 +22,22 @@ public class Menu {
 
     public void computeGameState(Request req){
         String wanted_state = ((MenuReq) req).getWanted_state();
-        if(gameState.equals("MAIN_MENU") && wanted_state.equals("START")){
-            gameState = "PLAYING";
+        if(wanted_state.equals("START")){
+            gameState = "START";
         }
-        if(gameState.equals("PLAYING") && wanted_state.equals("PAUSE")){
+        if(wanted_state.equals("PAUSE")){
             gameState = "PAUSE";
         }
-        if(gameState.equals("PAUSE") && wanted_state.equals("PLAYING")){
+        if(wanted_state.equals("PLAYING")){
             gameState = "PLAYING";
         }
         if(wanted_state.equals("END")){
             gameState = "END";
         }
+    }
+
+    public  void setGameState(String state){
+        this.gameState = state;
     }
 
     public String getGameState(){

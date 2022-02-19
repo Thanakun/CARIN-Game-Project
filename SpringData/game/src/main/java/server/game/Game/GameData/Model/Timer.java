@@ -54,7 +54,11 @@ public class Timer extends Thread {
     }
 
     public void resetTime(){
-        time_count = 0;
+        isActive = false;
+        time_count =0;
+        time_per_unit = 2000;
+        time_pass = (int)(time_per_unit/(double)time_speed_multiplier);
+        time_speed_multiplier = 1;
     }
     public int getTimePass(){
         return time_pass;

@@ -25,6 +25,13 @@ public class OrganismStorage {
     return instance;
     }
 
+    public void resetStorage(){
+        allAntivirus = new LinkedHashMap<>();
+        allVirus = new LinkedHashMap<>();
+        antibody_Id_count = 0;
+        virus_Id_count = 0;
+    }
+
     public synchronized void addOrganism(Organism target){   //add target Organism to allVirus or allAntivirus by type, and count each type
         if(target.getCategory().equals("Virus")){
             if(!allVirus.containsValue(target)){  //if target not already in container

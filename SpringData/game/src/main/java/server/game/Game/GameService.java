@@ -3,7 +3,7 @@ package server.game.Game;
 import org.springframework.beans.factory.annotation.Autowired;
 import server.game.Game.GameData.Controller.Menu;
 import server.game.Game.GameData.Controller.UserControl;
-import server.game.Game.GameData.Model.Virus;
+import server.game.Game.GameData.Model.*;
 import server.game.Game.GameData.Parser.Parser;
 import org.springframework.stereotype.Service;
 import server.game.Game.Type.AntibodyReq;
@@ -21,12 +21,46 @@ public class GameService {
     private final List<Request> reqLog = new LinkedList<>();
     @Autowired
     private UserControl userControl;
+    @Autowired
+    private PositionMap positionMap;
+    @Autowired
+    private OrganismStorage organismStorage;
+    @Autowired
+    private Timer timer;
+    @Autowired
+    private Player player;
+    @Autowired
+    private Menu menu;
+
 
     public List<Request> getAllReq(){
         return  reqLog;
     }
+    //get
+    public int getTime(){
+        return timer.getTime_count();
+    }
+    public int getCredit(){
+        return player.getCredit();
+    }
+    public Map<String,Organism> getAntibody(){
+        return organismStorage.getallAntibody();
+    }
+    public Map<String,Organism> getVirus(){
+        return organismStorage.getallVirus();
+    }
+    public Map<String,int[]> getPosition(){
+        return positionMap.getPositionMap();
+    }
+    public int[] getMapDimension(){
+        return positionMap.getMapDimension();
+    }
+    public String getGameState(){
+        return menu.getGameState();
+    }
 
-    public Request save(Request req){
+
+    public Request saveReq(Request req){
         if(req instanceof AntibodyReq){
             AntibodyReq newReq = new AntibodyReq(((AntibodyReq)req).getTargetId()
                     ,((AntibodyReq)req).getType(),((AntibodyReq)req).getLocation()

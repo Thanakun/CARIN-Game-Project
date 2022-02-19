@@ -5,6 +5,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 @Component
 @PropertySource("classpath:GameDataProperties.properties")
@@ -28,6 +29,9 @@ public class PositionMap {
         return instance;
     }
 
+    public Map<String,int[]> getPositionMap(){
+        return allOrganism_Position;
+    }
     public void resetPositionMap(){
         allOrganism_Position = new LinkedHashMap<>();
     }

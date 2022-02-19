@@ -63,6 +63,9 @@ public class Timer extends Thread {
     public int getTimePass(){
         return time_pass;
     }
+    public int getTime_count(){
+        return time_count;
+    }
 
     public void off(){
         isActive = false;

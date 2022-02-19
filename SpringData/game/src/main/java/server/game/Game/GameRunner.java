@@ -35,8 +35,9 @@ public class GameRunner extends Thread {
                     timer.resetTime();
                     positionMap.resetPositionMap();
                     organismStorage.resetStorage();
+                    menu.setGameState("PLAYING");
                     Thread.sleep(1000);
-                    menu.setGameState("START PLAYING=>");
+
                 }
                 else if(gameState.equals("PLAYING")) {
                     System.out.println("--------------------------");

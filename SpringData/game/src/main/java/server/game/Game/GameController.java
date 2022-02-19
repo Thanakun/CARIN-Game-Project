@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import server.game.Game.GameData.Model.Antibody;
 import server.game.Game.Type.AntibodyReq;
+import server.game.Game.Type.MenuReq;
+import server.game.Game.Type.Request;
 
 
 import java.net.URI;
@@ -23,24 +25,29 @@ public class GameController {
     }
 
     @GetMapping("/input/antibody")
-    public ResponseEntity<List<AntibodyReq>> getAllReq(){
+    public ResponseEntity<List<Request>> getAllReq(){
         return new ResponseEntity(gameService.getAllReq(),HttpStatus.OK);
     }
 
     @PostMapping(value="/input/antibody")
-    public ResponseEntity<AntibodyReq> createAntibody(@RequestBody AntibodyReq req){
+    public ResponseEntity<Request> createAntibody(@RequestBody AntibodyReq req){    //get input from web
 
-        AntibodyReq newReq = gameService.save(req);
+        Request newReq = gameService.save(req);
 
         return  ResponseEntity
                 .created(URI.
-                        create(String.format("/posted")))
+                        create(String.format("/antibody")))
                 .body(newReq);
     }
 
-    @PutMapping("/input/antibody")
-    public void updateAntibody(){
-
+    @PostMapping(value = "/input/state")
+    public ResponseEntity<Request> requestState(@RequestBody MenuReq req){
+        Request newReq = gameService.save(req);
+        return  ResponseEntity
+                .created(URI.
+                        create(String.format("/state")))
+                .body(newReq);
     }
+
 
 }

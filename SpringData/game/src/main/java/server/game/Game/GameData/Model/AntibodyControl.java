@@ -33,8 +33,7 @@ public class AntibodyControl {
     private int init_move_cost;
     @Value("${antibody_cost}")
     private int init_antibody_cost;
-    @Value("${init_Max_HP}")
-    private int init_Max_HP;
+
 
 
 
@@ -70,7 +69,7 @@ public class AntibodyControl {
                     ,type,location
             ,positionMap,organismStorage);
             newAntibody.setGeneticCode(this.default_geneticCode);
-            newAntibody.setStatus(init_hp,init_Max_HP,init_atk,init_gain);    //set up status and genetic code
+            newAntibody.setStatus(init_hp,init_atk,init_gain);    //set up status and genetic code
             newAntibody.setCost(init_move_cost,init_antibody_cost);
             organismStorage.addOrganism(newAntibody);
             return newAntibody;
@@ -89,7 +88,7 @@ public class AntibodyControl {
         LinkedHashMap<String,Organism> allAntibody =  organismStorage.getallAntibody();
         for(String id:allAntibody.keySet()){
             System.out.println("Antibody id:"+id+" is active");
-            Parser parser = new Parser(allAntibody.get(id),new LinkedHashMap<>());
+            Parser parser = new Parser(allAntibody.get(id),new LinkedHashMap<>(),positionMap,organismStorage);
             parser.evauateAll();
         }
     }

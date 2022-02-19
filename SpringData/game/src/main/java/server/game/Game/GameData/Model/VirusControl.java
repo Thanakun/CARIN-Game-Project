@@ -31,15 +31,14 @@ public class VirusControl {
     private int init_atk;
     @Value("${init_virus_gain}")
     private int init_gain;
-    @Value("${init_max_HP}")
-    private int init_Max_HP;
+
 
 
     private VirusControl(){
         random = new Random();
         default_geneticCode =
                 "antibodyLoc = antibody\n" +
-                "if (antivirusLoc / 10 - 1)\n" +
+                "if (antibodyLoc / 10 - 1)\n" +
                 "then \n" +
                 "  if (antibodyLoc % 10 - 7) then move upleft\n" +
                 "  else if (antibodyLoc % 10 - 6) then move left\n" +
@@ -90,7 +89,7 @@ public class VirusControl {
                     ,firstSpawnLocationInit()
             ,positionMap,organismStorage);
             newVirus.setGeneticCode(this.default_geneticCode);
-            newVirus.setStatus(init_hp,init_Max_HP,init_atk,init_gain);    //set up status and genetic code
+            newVirus.setStatus(init_hp,init_atk,init_gain);    //set up status and genetic code
             organismStorage.addOrganism(newVirus);
         }
     }
@@ -106,7 +105,7 @@ public class VirusControl {
                     ,firstSpawnLocationInit()
                     ,positionMap,organismStorage);
             newVirus.setGeneticCode(this.default_geneticCode);
-            newVirus.setStatus(init_hp,init_Max_HP,init_atk,init_gain);    //set up status and genetic code
+            newVirus.setStatus(init_hp,init_atk,init_gain);    //set up status and genetic code
             organismStorage.addOrganism(newVirus);
         }
     }
@@ -127,7 +126,7 @@ public class VirusControl {
       LinkedHashMap<String,Organism> allVirus =  organismStorage.getallVirus();
       for(String id:allVirus.keySet()){
           System.out.println("Virus id:"+id+" is active");
-          Parser parser = new Parser(allVirus.get(id),new LinkedHashMap<>());
+          Parser parser = new Parser(allVirus.get(id),new LinkedHashMap<>(),positionMap,organismStorage);
           parser.evauateAll();
       }
     }

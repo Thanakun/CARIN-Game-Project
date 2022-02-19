@@ -51,15 +51,19 @@ public class PositionMap {
     }
 
     public boolean hasOrganism(int[] position){    // true if that position has an Organism
-        if(allOrganism_Position.containsValue(position)){
-            return true;
+        for(int[] pos:allOrganism_Position.values()){
+            if((pos[0]==position[0])&&(pos[1]==position[1]))
+            {
+                return true;
+            }
         }
-        else return false;
+        return false;
     }
 
     public String getOrganismAt(int[] position){              //get Organism at the specified position if there exist
         for(String organ_Id:allOrganism_Position.keySet()){
-            if(allOrganism_Position.get(organ_Id).equals(position)){
+           int[] pos = allOrganism_Position.get(organ_Id);
+            if((pos[0]==position[0])&&(pos[1]==position[1])){
                 return organ_Id;
             }
         }

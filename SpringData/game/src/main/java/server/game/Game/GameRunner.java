@@ -47,7 +47,9 @@ public class GameRunner extends Thread {
                 else if(gameState.equals("PLAYING")) {
 
                         System.out.println("--------------------------");
+                        //don't know why but some time it mismatch with time from api, api is precise
                         System.out.println("Time Now: "+timer.getTime_count());
+
                         antibodyControl.activeAllAntibody();
                         virusControl.activeAllVirus();
                         virusControl.spawnNewVirus();

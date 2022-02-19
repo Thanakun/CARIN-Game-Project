@@ -55,7 +55,9 @@ public class GameRunner extends Thread {
                 }
                 else if(gameState.equals("END")){
                     System.out.println("*********Game End********* ");
+                    timer.off();
                     menu.setGameState("MAIN_MENU");
+
                     Thread.sleep(100);
 
                 }

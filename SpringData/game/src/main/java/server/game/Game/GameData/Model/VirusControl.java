@@ -31,6 +31,8 @@ public class VirusControl {
     private int init_atk;
     @Value("${init_virus_gain}")
     private int init_gain;
+    @Value("${init_max_HP}")
+    private int init_Max_HP;
 
 
     private VirusControl(){
@@ -88,7 +90,23 @@ public class VirusControl {
                     ,firstSpawnLocationInit()
             ,positionMap,organismStorage);
             newVirus.setGeneticCode(this.default_geneticCode);
-            newVirus.setStatus(init_hp,init_atk,init_gain);    //set up status and genetic code
+            newVirus.setStatus(init_hp,init_Max_HP,init_atk,init_gain);    //set up status and genetic code
+            organismStorage.addOrganism(newVirus);
+        }
+    }
+
+    public void spawnNewVirus(int type){
+        float ran = random.nextFloat();
+        System.out.println("random="+ran);
+        if(ran<=virus_rate){
+            System.out.println("create new virus");
+            Virus newVirus = new Virus(
+                    "V"+ organismStorage.getVirus_count()
+                    ,type
+                    ,firstSpawnLocationInit()
+                    ,positionMap,organismStorage);
+            newVirus.setGeneticCode(this.default_geneticCode);
+            newVirus.setStatus(init_hp,init_Max_HP,init_atk,init_gain);    //set up status and genetic code
             organismStorage.addOrganism(newVirus);
         }
     }

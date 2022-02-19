@@ -66,5 +66,9 @@ public class PositionMap {
         return "not found";
     }
 
+    public void removeOrganismPosition(Organism target){
+        allOrganism_Position.remove(target.getId());
+    }
+
     
 }

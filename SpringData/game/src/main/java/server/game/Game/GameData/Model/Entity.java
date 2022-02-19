@@ -72,7 +72,7 @@ public class Entity implements Organism{
     }
 
     @Override
-    public void Move(int x_change,int y_change) {
+    public synchronized void Move(int x_change,int y_change) {
         if(positionMap.updateOrganismPosition(Id,new int[]{
                 position[0]+x_change,position[1]+y_change
         })) //can update position on map
@@ -89,7 +89,7 @@ public class Entity implements Organism{
     }
 
     @Override
-    public void Attack(int x_change,int y_change) {
+    public synchronized void Attack(int x_change,int y_change) {
         Organism organism =  organismStorage.getById(Id);
         int[] current_position = positionMap.getOrganismPosition(this.Id);
         int[] usePosition = new int[2];
@@ -98,17 +98,10 @@ public class Entity implements Organism{
         String target_Id = positionMap.getOrganismAt(usePosition);
         Organism target = organismStorage.getById(target_Id);     //get Organism by Id
         UpdateGame(organism ,target, getATK());
-        if (x_change > 0 && y_change > 0) {
-            usePosition[0] -= x_change;
-            usePosition[1] -= y_change;
-        }else if(x_change < 0 && y_change < 0){
-            usePosition[0] += x_change;
-            usePosition[1] += y_change;
-        }
     }
 
     @Override
-    public void calc_damage(int damage) {
+    public synchronized void calc_damage(int damage) {
         this.HP -= damage;
         if (this.HP < 0) this.HP =0;
     }

@@ -1,5 +1,7 @@
 package server.game.Game.GameData.Model;
 
+import com.fasterxml.jackson.databind.annotation.JsonAppend;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
@@ -18,6 +20,8 @@ public class OrganismStorage {
     @Value("${max_virus_amount}")
     private   int max_virus_amount;
     private static int virus_killed;
+    @Autowired
+    private PositionMap positionMap;
 
     private OrganismStorage(){
         allAntivirus = new LinkedHashMap<>();
@@ -25,7 +29,6 @@ public class OrganismStorage {
         antibody_Id_count = 0;
         antibody_killed =0;
         virus_Id_count = 0;
-
         virus_killed = 0;
     }
     public static OrganismStorage getInstance(){
@@ -40,6 +43,8 @@ public class OrganismStorage {
         allVirus = new LinkedHashMap<>();
         antibody_Id_count = 0;
         virus_Id_count = 0;
+        antibody_killed =0;
+        virus_killed = 0;
     }
 
     public synchronized void addOrganism(Organism target){   //add target Organism to allVirus or allAntivirus by type, and count each type
@@ -62,12 +67,13 @@ public class OrganismStorage {
     public synchronized void removeOrganism(Organism target){   //add target Organism to allVirus or allAntivirus by type, and count each type
         if(target.getCategory().equals("Virus") && allVirus.containsValue(target)){
             allVirus.remove(target.getId());
-            PositionMap.getInstance().removeOrganismPosition(target);
+            positionMap.removeOrganismPosition(target);
             virus_killed++;
 
         } else if (target.getCategory().equals("Antibody") && allAntivirus.containsValue(target)){
             allAntivirus.remove(target.getId());
-            PositionMap.getInstance().removeOrganismPosition(target);
+            positionMap.removeOrganismPosition(target);
+            antibody_killed++;
         }
     }
 

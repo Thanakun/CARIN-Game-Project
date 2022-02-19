@@ -1,6 +1,7 @@
 package server.game.Game;
 
 import com.fasterxml.jackson.databind.ObjectReader;
+import jdk.swing.interop.SwingInterOpUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import server.game.Game.GameData.Controller.Menu;
 import server.game.Game.GameData.Model.*;
@@ -27,23 +28,26 @@ public class GameRunner extends Thread {
 
         while(true){
             try{
+
                 String gameState = menu.getGameState();
                 if(gameState.equals("MAIN_MENU")){
                     System.out.println("IN MAIN MENU");
                     Thread.sleep(100);
                 }
                 else if(gameState.equals("START")){
+
                     System.out.println("Loading...");
                     timer.resetTime();
                     positionMap.resetPositionMap();
                     organismStorage.resetStorage();
                     menu.setGameState("PLAYING");
-                    Thread.sleep(1000);
+                    timer.on();
 
                 }
                 else if(gameState.equals("PLAYING")) {
+
                     System.out.println("--------------------------");
-                    timer.on();
+                    System.out.println("Time Now: "+timer.getTime_count());  //time in GET is precise , but here has some bug
                     antibodyControl.activeAllAntibody();
                        virusControl.activeAllVirus();
                          virusControl.spawnNewVirus();

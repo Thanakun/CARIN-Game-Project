@@ -37,9 +37,9 @@ public class Timer extends Thread {
             while(true){
                  time_pass = (int)(time_per_unit/(double)time_speed_multiplier);
                 if(isActive){
-                    System.out.println("Current time: "+time_count+" speed:"+time_speed_multiplier);
+
                     sleep(time_pass);
-                    time_count++;
+                    ++time_count;
                 }
                 else{
                   //  System.out.println("pausing");

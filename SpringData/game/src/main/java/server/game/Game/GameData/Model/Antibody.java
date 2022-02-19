@@ -30,7 +30,7 @@ public class Antibody extends Entity implements Organism {
         this.move_cost = type*move_cost;
         this.buy_cost = type*buy_cost;
     }
-
+    public int getMove_cost(){return  this.move_cost;}
     public int getBuyCost(){
         return this.buy_cost;
     }

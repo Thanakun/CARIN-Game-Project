@@ -81,6 +81,14 @@ public class Entity implements Organism{
             position[0] += x_change;
             position[1] += y_change;
             System.out.println(category + "(" + Id + ")" + " go to position : x = " + position[0] + " y = " + position[1]);
+            if(this instanceof Antibody){
+
+                calc_damage(((Antibody) this).getMove_cost());
+                System.out.println(Id+" remaining hp from move:"+HP);
+                if(this.HP<=0){
+                    organismDie(this);
+                }
+            }
         }
         else
         {
@@ -115,21 +123,25 @@ public class Entity implements Organism{
         if (organism.getCategory().equals("Virus")) {  // organism is Virus
             if (target.getHP() == 0) {
                 System.out.println(target.getId()+" die");
-                positionMap.removeOrganismPosition(target);
-                organismStorage.removeOrganism(target);
+                 organismDie(target);
                 virusControl.spawnNewVirusAfterkill(organism.getType());
             }
             ((Virus)organism).afterAttacked(damage);
         }else if (organism.getCategory().equals("Antibody")) { // organism is Antibody
             if (target.getHP() == 0) {
                 organism.gain_HP();
-                positionMap.removeOrganismPosition(target);
-                organismStorage.removeOrganism(target);
+                organismDie(target);
                 ((Antibody)organism).overcome();
             }
 
         }
     }
+
+    private synchronized void organismDie(Organism target){
+        positionMap.removeOrganismPosition(target);
+        organismStorage.removeOrganism(target);
+    }
+
 
 
 

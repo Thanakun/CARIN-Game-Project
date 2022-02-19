@@ -57,10 +57,6 @@ public class AntibodyControl {
         return instance;
     }
 
-    public void setWantToPlaceAntibody(){
-
-    }
-
     public boolean spawnNewAntibody(int type,int[] location){  //return true if can place at that location
 
         if(!positionMap.hasOrganism(location)){  //not found any organism at location , it is empty
@@ -78,6 +74,11 @@ public class AntibodyControl {
         else{
             return false;
         }
+    }
+
+    public void updateAntibodyGenetic(String target_Id,String genetic){
+        Antibody target = (Antibody) organismStorage.getallAntibody().get(target_Id);
+        target.setGeneticCode(genetic);
     }
 
     public void activeAllAntibody(){

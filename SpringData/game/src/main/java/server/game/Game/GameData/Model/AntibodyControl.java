@@ -41,6 +41,10 @@ public class AntibodyControl {
     private AntibodyControl(){
         default_geneticCode =
                 "virusLoc = virus\n" +
+                        "if (virusLoc / 10 - 1)\n" +
+                        "then \n" +
+                        "  { }"
+                        + "else\n"+
                        " if (virusLoc)\n" +
                         "then \n" +
                         "  if (virusLoc % 10 - 7) then shoot upleft\n" +
@@ -89,7 +93,7 @@ public class AntibodyControl {
         }
     }
 
-    public void activeAllAntibody(){
+    public synchronized void activeAllAntibody(){
         LinkedHashMap<String,Organism> allAntibody =  organismStorage.getallAntibody();
         for(String id:allAntibody.keySet()){
             Antibody antibody = (Antibody) allAntibody.get(id);

@@ -71,11 +71,11 @@ public class OrganismStorage {
         return virus_Id_count;
     }
 
-    public LinkedHashMap<String, Organism> getallAntibody() {
+    public  synchronized LinkedHashMap<String, Organism> getallAntibody() {
         return allAntivirus;
     }
 
-    public LinkedHashMap<String, Organism> getallVirus() {
+    public synchronized LinkedHashMap<String, Organism> getallVirus() {
         return allVirus;
     }
 

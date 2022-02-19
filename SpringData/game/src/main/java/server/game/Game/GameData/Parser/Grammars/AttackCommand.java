@@ -17,7 +17,7 @@ public class AttackCommand implements Statement{
             , PositionMap positionMap, OrganismStorage organismStorage) {
         int direction_value = direction.eval(actor,binding
                 ,  positionMap,  organismStorage);
-        direction_value/=10; //direction only not include distance
+        direction_value%=10; //direction only not include distance
         switch (direction_value){
             case 1: actor.Attack(0,1);break; //up
             case 2: actor.Attack(1,1);break; //upright

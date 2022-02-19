@@ -36,9 +36,8 @@ public class GameRunner extends Thread {
                     timer.on();
 
                     antibodyControl.activeAllAntibody();
-                    //  antibodyControl.spawnNewAntibody();
-                    //   virusControl.activeAllVirus();
-                    //     virusControl.spawnNewVirus();
+                       virusControl.activeAllVirus();
+                         virusControl.spawnNewVirus();
                     Thread.sleep(timer.getTimePass());
                 }
                 else if(gameState.equals("PAUSE")){

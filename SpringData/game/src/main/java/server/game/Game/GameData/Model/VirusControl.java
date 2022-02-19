@@ -120,12 +120,15 @@ public class VirusControl {
         return new int[]{x_posi,y_posi};
     }
 
-    public void activeAllVirus(){
+    public synchronized void activeAllVirus(){
       LinkedHashMap<String,Organism> allVirus =  organismStorage.getallVirus();
       for(String id:allVirus.keySet()){
           System.out.println("Virus id:"+id+" is active");
-          Parser parser = new Parser(allVirus.get(id),new LinkedHashMap<>(),positionMap,organismStorage);
-          parser.evauateAll();
+          Organism current_virus = allVirus.get(id);
+          if(allVirus.containsValue(current_virus)){
+              Parser parser = new Parser(current_virus,new LinkedHashMap<>(),positionMap,organismStorage);
+              parser.evauateAll();
+          }
       }
     }
 

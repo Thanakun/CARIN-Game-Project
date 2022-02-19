@@ -28,7 +28,10 @@ public class AntibodyControl {
     private int init_atk;
     @Value("${init_antibody_gain}")
     private int init_gain;
-
+    @Value("${init_antibody_move_cost}")
+    private int init_move_cost;
+    @Value("${antibody_cost}")
+    private int init_antibody_cost;
 
 
 
@@ -68,6 +71,7 @@ public class AntibodyControl {
             ,positionMap,organismStorage);
             newAntibody.setGeneticCode(this.default_geneticCode);
             newAntibody.setStatus(init_hp,init_atk,init_gain);    //set up status and genetic code
+            newAntibody.setCost(init_move_cost,init_antibody_cost);
             organismStorage.addOrganism(newAntibody);
             return true;
         }

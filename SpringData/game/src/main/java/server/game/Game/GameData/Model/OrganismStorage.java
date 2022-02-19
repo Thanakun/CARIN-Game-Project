@@ -45,10 +45,8 @@ public class OrganismStorage {
     public synchronized void removeOrganism(Organism target){   //add target Organism to allVirus or allAntivirus by type, and count each type
         if(target.getCategory().equals("Virus") && allVirus.containsValue(target)){
             allVirus.remove(target.getId());
-            virus_count--;
         } else if (target.getCategory().equals("Antibody") && allVirus.containsValue(target)){
             allAntivirus.remove(target.getId());
-            antibody_count--;
         }
     }
 

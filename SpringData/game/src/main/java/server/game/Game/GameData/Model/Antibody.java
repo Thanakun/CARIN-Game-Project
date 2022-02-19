@@ -4,7 +4,8 @@ package server.game.Game.GameData.Model;
 
 
 public class Antibody extends Entity implements Organism {
-
+    private int move_cost;
+    private int buy_cost;
 
     public Antibody(String id, int type,int[] location_init,PositionMap positionMap,OrganismStorage organismStorage){ // for antivirus Id format is "A??????" ?is any number or character
         this.Id = id;
@@ -24,5 +25,9 @@ public class Antibody extends Entity implements Organism {
         HP += HP*0.35;
     }
 
+    public void setCost(int move_cost,int buy_cost){
+        this.move_cost = type*move_cost;
+        this.buy_cost = type*buy_cost;
+    }
 
 }

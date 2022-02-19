@@ -36,26 +36,26 @@ public class VirusControl {
     private VirusControl(){
         random = new Random();
         default_geneticCode =
-                "antivirusLoc = antivirus\n" +
+                "antibodyLoc = antibody\n" +
                 "if (antivirusLoc / 10 - 1)\n" +
                 "then \n" +
-                "  if (antivirusLoc % 10 - 7) then move upleft\n" +
-                "  else if (antivirusLoc % 10 - 6) then move left\n" +
-                "  else if (antivirusLoc % 10 - 5) then move downleft\n" +
-                "  else if (antivirusLoc % 10 - 4) then move down\n" +
-                "  else if (antivirusLoc % 10 - 3) then move downright\n" +
-                "  else if (antivirusLoc % 10 - 2) then move right\n" +
-                "  else if (antivirusLoc % 10 - 1) then move upright\n" +
+                "  if (antibodyLoc % 10 - 7) then move upleft\n" +
+                "  else if (antibodyLoc % 10 - 6) then move left\n" +
+                "  else if (antibodyLoc % 10 - 5) then move downleft\n" +
+                "  else if (antibodyLoc % 10 - 4) then move down\n" +
+                "  else if (antibodyLoc % 10 - 3) then move downright\n" +
+                "  else if (antibodyLoc % 10 - 2) then move right\n" +
+                "  else if (antibodyLoc % 10 - 1) then move upright\n" +
                 "  else move up\n" +
-                "else if (antivirusLoc)\n" +
+                "else if (antibodyLoc)\n" +
                 "then \n" +
-                "  if (antivirusLoc % 10 - 7) then shoot upleft\n" +
-                "  else if (antivirusLoc % 10 - 6) then shoot left\n" +
-                "  else if (antivirusLoc % 10 - 5) then shoot downleft\n" +
-                "  else if (antivirusLoc % 10 - 4) then shoot down\n" +
-                "  else if (antivirusLoc % 10 - 3) then shoot downright\n" +
-                "  else if (antivirusLoc % 10 - 2) then shoot right\n" +
-                "  else if (antivirusLoc % 10 - 1) then shoot upright\n" +
+                "  if (antibodyLoc % 10 - 7) then shoot upleft\n" +
+                "  else if (antibodyLoc % 10 - 6) then shoot left\n" +
+                "  else if (antibodyLoc % 10 - 5) then shoot downleft\n" +
+                "  else if (antibodyLoc % 10 - 4) then shoot down\n" +
+                "  else if (antibodyLoc % 10 - 3) then shoot downright\n" +
+                "  else if (antibodyLoc % 10 - 2) then shoot right\n" +
+                "  else if (antibodyLoc % 10 - 1) then shoot upright\n" +
                 "  else shoot up\n" +
                 "else \n" +
                 "{\n" +

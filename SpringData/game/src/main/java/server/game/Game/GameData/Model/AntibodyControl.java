@@ -81,14 +81,21 @@ public class AntibodyControl {
 
     public void updateAntibodyGenetic(String target_Id,String genetic){
         Antibody target = (Antibody) organismStorage.getallAntibody().get(target_Id);
-        target.setGeneticCode(genetic);
+        if(target!=null){
+            target.setGeneticCode(genetic);
+        }
+       else {
+            System.out.println("can't update Antibody that not exist");
+        }
     }
 
     public void activeAllAntibody(){
         LinkedHashMap<String,Organism> allAntibody =  organismStorage.getallAntibody();
         for(String id:allAntibody.keySet()){
-            System.out.println("Antibody id:"+id+" is active");
-            Parser parser = new Parser(allAntibody.get(id),new LinkedHashMap<>(),positionMap,organismStorage);
+            Antibody antibody = (Antibody) allAntibody.get(id);
+            System.out.println("Antibody id:"+id+" is active at:"+antibody.getPosition()[0]
+            +"  "+antibody.getPosition()[1]);
+            Parser parser = new Parser(antibody,new LinkedHashMap<>(),positionMap,organismStorage);
             parser.evauateAll();
         }
     }

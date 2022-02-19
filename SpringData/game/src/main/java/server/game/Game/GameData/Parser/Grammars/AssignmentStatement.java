@@ -1,6 +1,8 @@
 package server.game.Game.GameData.Parser.Grammars;
 
 import server.game.Game.GameData.Model.Organism;
+import server.game.Game.GameData.Model.OrganismStorage;
+import server.game.Game.GameData.Model.PositionMap;
 
 import java.util.Map;
 
@@ -13,8 +15,10 @@ public class AssignmentStatement implements Statement {
           this.expr = expr;
      }
      @Override
-     public void eval(Organism actor, Map<String, Integer> binding) {
-          int expr_val = expr.eval(actor,binding);
+     public void eval(Organism actor, Map<String, Integer> binding
+             , PositionMap positionMap, OrganismStorage organismStorage) {
+          int expr_val = expr.eval(actor,binding
+                  ,  positionMap,  organismStorage);
           identifier.set(binding,expr_val);
      }
 

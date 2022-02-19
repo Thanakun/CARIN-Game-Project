@@ -1,6 +1,8 @@
 package server.game.Game.GameData.Parser.Grammars;
 
 import server.game.Game.GameData.Model.Organism;
+import server.game.Game.GameData.Model.OrganismStorage;
+import server.game.Game.GameData.Model.PositionMap;
 import server.game.Game.GameData.Parser.SyntaxError;
 
 import java.util.Map;
@@ -13,7 +15,8 @@ public class Identifier implements Expression{
         this.name = name;
     }
     @Override
-    public int eval(Organism actor,Map<String, Integer> binding) throws SyntaxError {
+    public int eval(Organism actor,Map<String, Integer> binding
+            , PositionMap positionMap, OrganismStorage organismStorage) throws SyntaxError {
         if(binding==null){
             throw new SyntaxError();
         }

@@ -1,6 +1,8 @@
 package server.game.Game.GameData.Parser.Grammars;
 
 import server.game.Game.GameData.Model.Organism;
+import server.game.Game.GameData.Model.OrganismStorage;
+import server.game.Game.GameData.Model.PositionMap;
 
 import java.util.Map;
 
@@ -14,9 +16,10 @@ public class WhileStatement implements Statement{
     }
 
     @Override
-    public void eval(Organism actor, Map<String, Integer> binding) {
-        while(condition.eval(actor,binding)>0){
-            if_true.eval(actor,binding);
+    public void eval(Organism actor, Map<String, Integer> binding
+            , PositionMap positionMap, OrganismStorage organismStorage) {
+        while(condition.eval(actor,binding,  positionMap,  organismStorage)>0){
+            if_true.eval(actor,binding,  positionMap,  organismStorage);
         }
     }
 

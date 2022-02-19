@@ -1,6 +1,8 @@
 package server.game.Game.GameData.Parser.Grammars;
 
 import server.game.Game.GameData.Model.Organism;
+import server.game.Game.GameData.Model.OrganismStorage;
+import server.game.Game.GameData.Model.PositionMap;
 
 import java.util.Map;
 
@@ -16,9 +18,12 @@ public class BinaryExpr implements Expression {
     }
 
     @Override
-    public int eval(Organism actor, Map<String, Integer> binding) {
-        int l_value=left.eval(actor,binding);
-        int r_value=right.eval(actor,binding);
+    public int eval(Organism actor, Map<String, Integer> binding
+            , PositionMap positionMap, OrganismStorage organismStorage) {
+        int l_value=left.eval(actor,binding
+                ,  positionMap,  organismStorage);
+        int r_value=right.eval(actor,binding
+                ,  positionMap,  organismStorage);
         if(op.equals("+"))return l_value+r_value;
         if(op.equals("-"))return l_value-r_value;
         if(op.equals("*"))return l_value*r_value;

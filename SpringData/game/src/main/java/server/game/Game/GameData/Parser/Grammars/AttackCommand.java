@@ -1,6 +1,8 @@
 package server.game.Game.GameData.Parser.Grammars;
 
 import server.game.Game.GameData.Model.Organism;
+import server.game.Game.GameData.Model.OrganismStorage;
+import server.game.Game.GameData.Model.PositionMap;
 
 import java.util.Map;
 
@@ -11,8 +13,10 @@ public class AttackCommand implements Statement{
     }
 
     @Override
-    public void eval(Organism actor, Map<String, Integer> binding) {
-        int direction_value = direction.eval(actor,binding);
+    public void eval(Organism actor, Map<String, Integer> binding
+            , PositionMap positionMap, OrganismStorage organismStorage) {
+        int direction_value = direction.eval(actor,binding
+                ,  positionMap,  organismStorage);
         direction_value/=10; //direction only not include distance
         switch (direction_value){
             case 1: actor.Attack(0,1);break; //up

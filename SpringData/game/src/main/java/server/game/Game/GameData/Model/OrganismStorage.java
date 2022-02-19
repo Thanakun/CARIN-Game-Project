@@ -79,4 +79,7 @@ public class OrganismStorage {
         return allVirus;
     }
 
+    public int getAntibodyAmount(){return allAntivirus.size();}
+    public int getVirusAmount(){return allVirus.size();}
+
 }

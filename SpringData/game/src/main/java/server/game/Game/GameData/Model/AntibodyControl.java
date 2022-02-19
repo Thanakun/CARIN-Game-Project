@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 import server.game.Game.GameData.Parser.Parser;
+import server.game.Game.Type.AntibodyReq;
 
 import java.util.LinkedHashMap;
 
@@ -57,7 +58,7 @@ public class AntibodyControl {
         return instance;
     }
 
-    public boolean spawnNewAntibody(int type,int[] location){  //return true if can place at that location
+    public Antibody spawnNewAntibody(int type, int[] location){  //return true if can place at that location
 
         if(!positionMap.hasOrganism(location)){  //not found any organism at location , it is empty
             System.out.println("create new Antibody");
@@ -69,10 +70,10 @@ public class AntibodyControl {
             newAntibody.setStatus(init_hp,init_atk,init_gain);    //set up status and genetic code
             newAntibody.setCost(init_move_cost,init_antibody_cost);
             organismStorage.addOrganism(newAntibody);
-            return true;
+            return newAntibody;
         }
         else{
-            return false;
+            return null;
         }
     }
 

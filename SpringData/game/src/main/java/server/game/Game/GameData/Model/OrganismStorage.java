@@ -1,22 +1,32 @@
 package server.game.Game.GameData.Model;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 import java.util.LinkedHashMap;
 
 @Component
+@PropertySource("classpath:GameDataProperties.properties")
 public class OrganismStorage {
     private static OrganismStorage instance;
     private static LinkedHashMap<String,Organism> allVirus;
     private static LinkedHashMap<String,Organism> allAntivirus;
     private static int antibody_Id_count;
+    private static int antibody_killed;
     private static int virus_Id_count;
+    @Value("${max_virus_amount}")
+    private   int max_virus_amount;
+    private static int virus_killed;
 
     private OrganismStorage(){
         allAntivirus = new LinkedHashMap<>();
         allVirus = new LinkedHashMap<>();
         antibody_Id_count = 0;
+        antibody_killed =0;
         virus_Id_count = 0;
+
+        virus_killed = 0;
     }
     public static OrganismStorage getInstance(){
         if(instance==null){
@@ -53,6 +63,7 @@ public class OrganismStorage {
         if(target.getCategory().equals("Virus") && allVirus.containsValue(target)){
             allVirus.remove(target.getId());
             PositionMap.getInstance().removeOrganismPosition(target);
+            virus_killed++;
 
         } else if (target.getCategory().equals("Antibody") && allAntivirus.containsValue(target)){
             allAntivirus.remove(target.getId());
@@ -89,4 +100,14 @@ public class OrganismStorage {
     public int getAntibodyAmount(){return allAntivirus.size();}
     public int getVirusAmount(){return allVirus.size();}
 
+    public  int getMax_virus_amount() {
+        return max_virus_amount;
+    }
+
+    public  int getVirus_killed() {
+        return virus_killed;
+    }
+    public int getAntibody_killed(){
+        return antibody_killed;
+    }
 }

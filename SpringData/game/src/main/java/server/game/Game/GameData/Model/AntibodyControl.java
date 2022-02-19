@@ -106,4 +106,8 @@ public class AntibodyControl {
             parser.evauateAll();
         }
     }
+
+    public int getMinimumCost(){
+        return init_antibody_cost;
+    }
 }

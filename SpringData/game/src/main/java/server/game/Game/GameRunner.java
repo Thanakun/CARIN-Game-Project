@@ -20,9 +20,11 @@ public class GameRunner extends Thread {
     private Menu menu;
     @Autowired
     private OrganismStorage organismStorage;
+    @Autowired
+    private Player player;
 
     public void main() {
-        int count = 0;
+
         while(true){
             try{
                 String gameState = menu.getGameState();
@@ -41,12 +43,11 @@ public class GameRunner extends Thread {
                 }
                 else if(gameState.equals("PLAYING")) {
                     System.out.println("--------------------------");
-                    System.out.println("main loop number :" + count++);
                     timer.on();
-
                     antibodyControl.activeAllAntibody();
                        virusControl.activeAllVirus();
                          virusControl.spawnNewVirus();
+                         checkGame();
                     Thread.sleep(timer.getTimePass());
                 }
                 else if(gameState.equals("PAUSE")){
@@ -68,6 +69,28 @@ public class GameRunner extends Thread {
             }
         }
 
+    }
+
+
+    public void checkGame() {
+       if(organismStorage.getVirus_killed()==organismStorage.getMax_virus_amount()){
+           System.out.println(organismStorage.getMax_virus_amount()+" max virus amount");
+           // all virus get killed
+           menu.setGameState("END");
+           System.out.println("Player win, All virus die");
+       }
+       else if(organismStorage.getAntibody_killed()>0 && (organismStorage.getAntibodyAmount()==0)
+               &&(player.getCredit()<antibodyControl.getMinimumCost()) ){
+           //all antibody die and don't have enough credit
+           menu.setGameState("END");
+           System.out.println("Player lose, All antibody die");
+       }
+       else if((organismStorage.getVirusAmount()==organismStorage.getMax_virus_amount())&&
+       organismStorage.getAntibodyAmount()==0){
+           //all virus spawn but dont have any antibody on field
+           menu.setGameState("END");
+           System.out.println("Player lose, All virus has spawned");
+       }
     }
 
     @Override

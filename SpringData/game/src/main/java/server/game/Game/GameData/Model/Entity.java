@@ -99,18 +99,18 @@ public class Entity implements Organism{
         usePosition[1] = current_position[1] + y_change;
         String target_Id = positionMap.getOrganismAt(usePosition);
         Organism target = organismStorage.getById(target_Id);     //get Organism by Id
-        System.out.println(Id+" is Attacking"+target_Id+" x:"+x_change+" y:"+y_change+" remaining hp:"+HP);
+        System.out.println(Id+" is Attacking"+target_Id+" type :"+type+" x:"+x_change+" y:"+y_change+" remaining hp:"+HP);
         UpdateGame(organism ,target, getATK());
     }
 
     @Override
-    public synchronized void calc_damage(int damage) {
+    public  void calc_damage(int damage) {
         this.HP -= damage;
         if (this.HP < 0) this.HP =0;
     }
 
     @Override
-    public void UpdateGame(Organism organism, Organism target, int damage) {
+    public synchronized void UpdateGame(Organism organism, Organism target, int damage) {
         target.calc_damage(damage);
         if (organism.getCategory().equals("Virus")) {  // organism is Virus
             if (target.getHP() == 0) {
@@ -118,8 +118,6 @@ public class Entity implements Organism{
                 positionMap.removeOrganismPosition(target);
                 organismStorage.removeOrganism(target);
                 virusControl.spawnNewVirusAfterkill(organism.getType());
-                CheckGame(target);
-              //  ((Virus)organism).overcome();
             }
             ((Virus)organism).afterAttacked(damage);
         }else if (organism.getCategory().equals("Antibody")) { // organism is Antibody
@@ -127,24 +125,13 @@ public class Entity implements Organism{
                 organism.gain_HP();
                 positionMap.removeOrganismPosition(target);
                 organismStorage.removeOrganism(target);
-                CheckGame(target);
-//                ((Antibody)organism).overcome();
+                ((Antibody)organism).overcome();
             }
 
         }
     }
 
-    @Override
-    public void CheckGame(Organism target) {
-        if (target.getCategory().equals("Virus")) {
-            if (organismStorage.getVirus_count() == 0)
-                System.out.println("You win!!!");
 
-        }else if (target.getCategory().equals("Antibody")) {
-            if (organismStorage.getAntibody_count() == 0)
-                System.out.println("You Lose!!!");
-        }
-    }
 
     @Override
     public void setGeneticCode(String geneticCode){

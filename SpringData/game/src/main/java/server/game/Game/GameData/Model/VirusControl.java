@@ -26,6 +26,7 @@ public class VirusControl {
     private Random random;
     private String default_geneticCode;
 
+
     //initial value for set up virus status
     @Value("${init_virus_hp}")
     private int init_hp;
@@ -81,18 +82,21 @@ public class VirusControl {
     }
 
     public void spawnNewVirus(){
+        if(organismStorage.getMax_virus_amount()>
+                (organismStorage.getVirus_killed()+organismStorage.getVirusAmount())){ //check if virus is not exceed limit
         float ran = random.nextFloat();
         System.out.println("random="+ran);
-        if(ran<=virus_rate){
+        if(ran<=virus_rate) {
             System.out.println("create new virus");
             Virus newVirus = new Virus(
-                    "V"+ organismStorage.getVirus_count()
-                    ,random.nextInt(3)+1
-                    ,firstSpawnLocationInit()
-            ,positionMap,organismStorage,this);
+                    "V" + organismStorage.getVirus_count()
+                    , random.nextInt(3) + 1
+                    , firstSpawnLocationInit()
+                    , positionMap, organismStorage, this);
             newVirus.setGeneticCode(this.default_geneticCode);
-            newVirus.setStatus(init_hp,init_atk,init_gain);    //set up status and genetic code
+            newVirus.setStatus(init_hp, init_atk, init_gain);    //set up status and genetic code
             organismStorage.addOrganism(newVirus);
+        }
         }
     }
 

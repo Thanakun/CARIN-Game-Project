@@ -73,12 +73,7 @@ public interface Organism {
      **/
     void UpdateGame(Organism organism, Organism target, int damage);
 
-    /** Check whether game has been over, or not?
-     *  requires : target should be contained in allVirus or allAntivirus
-     *  effect : Show the winner player (you or virus)
-     *  return : none
-     **/
-    void CheckGame(Organism target);
+
     /**set Organism's genetic code**/
     void setGeneticCode(String geneticCode);
     /**get Organism's genetic code**/

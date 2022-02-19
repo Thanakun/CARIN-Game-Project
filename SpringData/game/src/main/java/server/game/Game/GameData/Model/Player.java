@@ -30,6 +30,10 @@ public class Player {
         return instance;
     }
 
+    public int getCredit(){
+        return credit;
+    }
+
     public synchronized void computeAntibodyInput(Request req){
        AntibodyReq antibodyReq=(AntibodyReq)req;
 

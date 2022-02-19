@@ -84,6 +84,15 @@ public interface Organism {
     /**get Organism's genetic code**/
     String getGeneticCode();
 
+    /** Get HP of organisms.
+     * requires : none
+     * return : Integer type, HP of this organism
+     **/
+
+    int getMax_HP();
+
+    int gain_HP();
+
     /**set up status of Organism**/
     void setStatus(int HP,int atk,int gain);
 }

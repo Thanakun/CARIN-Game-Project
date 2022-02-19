@@ -94,10 +94,9 @@ public class VirusControl {
         }
     }
 
-    public void spawnNewVirus(int type){
+    public void spawnNewVirusAfterkill(int type){
         float ran = random.nextFloat();
         System.out.println("random="+ran);
-        if(ran<=virus_rate){
             System.out.println("create new virus");
             Virus newVirus = new Virus(
                     "V"+ organismStorage.getVirus_count()
@@ -107,7 +106,6 @@ public class VirusControl {
             newVirus.setGeneticCode(this.default_geneticCode);
             newVirus.setStatus(init_hp,init_atk,init_gain);    //set up status and genetic code
             organismStorage.addOrganism(newVirus);
-        }
     }
 
     public int[] firstSpawnLocationInit(){    // to spawn first time at virus constructor

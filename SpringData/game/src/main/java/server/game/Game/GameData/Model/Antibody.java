@@ -13,11 +13,11 @@ public class Antibody extends Entity implements Organism {
         this.type = type; // types (3) : first , second , third
         this.positionMap = positionMap;
         this.organismStorage = organismStorage;
-
-        positionMap.updateOrganismPosition(this.Id,location_init);  //update on map before change in class
-        this.position = location_init;
-
-        organismStorage.addOrganism(this);
+        if(!positionMap.hasOrganism(location_init)) {
+            positionMap.updateOrganismPosition(this.Id, location_init);  //update on map before change in class
+            this.position = location_init;
+            organismStorage.addOrganism(this);
+        }
 
     }
 

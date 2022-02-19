@@ -17,10 +17,12 @@ public class Virus extends Entity implements Organism{
         this.positionMap = positionMap;
         this.organismStorage = organismStorage;
 
-        positionMap.updateOrganismPosition(this.Id,location_init);  //update on map before change on class
-        this.position = location_init;
+        if(!positionMap.hasOrganism(location_init)) {
+            positionMap.updateOrganismPosition(this.Id, location_init);  //update on map before change on class
+            this.position = location_init;
 
-        organismStorage.addOrganism(this);
+            organismStorage.addOrganism(this);
+        }
 
     }
 

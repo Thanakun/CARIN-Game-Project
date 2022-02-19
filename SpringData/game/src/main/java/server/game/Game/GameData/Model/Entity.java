@@ -1,8 +1,8 @@
 package server.game.Game.GameData.Model;
 
 
-
-
+import java.lang.annotation.Target;
+import java.util.Arrays;
 
 public class Entity implements Organism{
     protected String Id;
@@ -10,11 +10,14 @@ public class Entity implements Organism{
     protected String geneticCode="";
     protected int type;
     protected int HP;
+    protected int Max_HP;
     protected int atk;
     protected int gain;
     protected int[] position = new int[2];
     protected  PositionMap positionMap;
     protected  OrganismStorage organismStorage;
+    protected  AntibodyControl antibodyControl;
+    protected  VirusControl virusControl;
 
     public Entity(){
     }
@@ -26,6 +29,16 @@ public class Entity implements Organism{
         System.out.println("HP : " + HP);
         System.out.println("Attack Damage : " + atk);
         System.out.println("Position : x = " + position[0] + " y = " + position[1]);
+    }
+
+    @Override
+    public int gain_HP(){
+        if(HP + gain > Max_HP){
+            HP = Max_HP;
+        }else if(HP + gain <= Max_HP){
+            HP += gain;
+        }
+        return HP;
     }
 
     @Override
@@ -77,14 +90,21 @@ public class Entity implements Organism{
 
     @Override
     public void Attack(int x_change,int y_change) {
-        System.out.println("Shoot!!!");
         Organism organism =  organismStorage.getById(Id);
         int[] current_position = positionMap.getOrganismPosition(this.Id);
-        current_position[0] += x_change;
-        current_position[1] += y_change;
-        String target_Id = positionMap.getOrganismAt(current_position);
+        int[] usePosition = new int[2];
+        usePosition[0] = current_position[0] + x_change;
+        usePosition[1] = current_position[1] + y_change;
+        String target_Id = positionMap.getOrganismAt(usePosition);
         Organism target = organismStorage.getById(target_Id);     //get Organism by Id
         UpdateGame(organism ,target, getATK());
+        if (x_change > 0 && y_change > 0) {
+            usePosition[0] -= x_change;
+            usePosition[1] -= y_change;
+        }else if(x_change < 0 && y_change < 0){
+            usePosition[0] += x_change;
+            usePosition[1] += y_change;
+        }
     }
 
     @Override
@@ -99,15 +119,17 @@ public class Entity implements Organism{
         if (organism.getCategory().equals("Virus")) {  // organism is Virus
             ((Virus)organism).afterAttacked(damage);
             if (target.getHP() == 0) {
+                virusControl.spawnNewVirusAfterkill(target.getType());
                 organismStorage.removeOrganism(target);
                 CheckGame(target);
                 ((Virus)organism).overcome();
             }
         }else if (organism.getCategory().equals("Antibody")) { // organism is Antibody
             if (target.getHP() == 0) {
+                organism.gain_HP();
                 organismStorage.removeOrganism(target);
                 CheckGame(organism);
-                ((Antibody)organism).overcome();
+//                ((Antibody)organism).overcome();
             }
 
         }
@@ -134,12 +156,19 @@ public class Entity implements Organism{
     public String getGeneticCode(){
         return geneticCode;
     }
+
     @Override
-    public  void setStatus(int HP,int atk,int gain){
+    public int getMax_HP() {
+        return Max_HP;
+    }
+
+    @Override
+    public  void setStatus(int Max_HP,int atk,int gain){
         //every stat in crease by type if type lower type is weaker
-        this.HP = type*HP;
+        this.Max_HP = type*Max_HP;
         this.atk = type*atk;
         this.gain = type*gain;
+        this.HP = Max_HP;
     }
 
 

@@ -61,10 +61,12 @@ public class PositionMap {
     }
 
     public String getOrganismAt(int[] position){              //get Organism at the specified position if there exist
-        for(String organ_Id:allOrganism_Position.keySet()){
-           int[] pos = allOrganism_Position.get(organ_Id);
-            if((pos[0]==position[0])&&(pos[1]==position[1])){
-                return organ_Id;
+        if(hasOrganism(position)) {
+            for (String organ_Id : allOrganism_Position.keySet()) {
+                int[] pos = allOrganism_Position.get(organ_Id);
+                if ((pos[0] == position[0]) && (pos[1] == position[1])) {
+                    return organ_Id;
+                }
             }
         }
         return "not found";

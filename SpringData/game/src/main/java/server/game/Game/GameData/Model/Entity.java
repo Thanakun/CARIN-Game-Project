@@ -114,11 +114,12 @@ public class Entity implements Organism{
         target.calc_damage(damage);
         if (organism.getCategory().equals("Virus")) {  // organism is Virus
             if (target.getHP() == 0) {
-                virusControl.spawnNewVirusAfterkill(target.getType());
+                System.out.println(target.getId()+" die");
                 positionMap.removeOrganismPosition(target);
                 organismStorage.removeOrganism(target);
+                virusControl.spawnNewVirusAfterkill(organism.getType());
                 CheckGame(target);
-                ((Virus)organism).overcome();
+              //  ((Virus)organism).overcome();
             }
             ((Virus)organism).afterAttacked(damage);
         }else if (organism.getCategory().equals("Antibody")) { // organism is Antibody
@@ -126,7 +127,7 @@ public class Entity implements Organism{
                 organism.gain_HP();
                 positionMap.removeOrganismPosition(target);
                 organismStorage.removeOrganism(target);
-                CheckGame(organism);
+                CheckGame(target);
 //                ((Antibody)organism).overcome();
             }
 

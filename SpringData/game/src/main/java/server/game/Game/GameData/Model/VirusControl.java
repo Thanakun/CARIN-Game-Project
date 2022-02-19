@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 import server.game.Game.GameData.Parser.Parser;
 
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 @Component
@@ -87,7 +89,7 @@ public class VirusControl {
                     "V"+ organismStorage.getVirus_count()
                     ,random.nextInt(3)+1
                     ,firstSpawnLocationInit()
-            ,positionMap,organismStorage);
+            ,positionMap,organismStorage,this);
             newVirus.setGeneticCode(this.default_geneticCode);
             newVirus.setStatus(init_hp,init_atk,init_gain);    //set up status and genetic code
             organismStorage.addOrganism(newVirus);
@@ -102,7 +104,7 @@ public class VirusControl {
                     "V"+ organismStorage.getVirus_count()
                     ,type
                     ,firstSpawnLocationInit()
-                    ,positionMap,organismStorage);
+                    ,positionMap,organismStorage,this);
             newVirus.setGeneticCode(this.default_geneticCode);
             newVirus.setStatus(init_hp,init_atk,init_gain);    //set up status and genetic code
             organismStorage.addOrganism(newVirus);
@@ -122,13 +124,12 @@ public class VirusControl {
 
     public synchronized void activeAllVirus(){
       LinkedHashMap<String,Organism> allVirus =  organismStorage.getallVirus();
-      for(String id:allVirus.keySet()){
+     List<String> allKey = new LinkedList<>(allVirus.keySet());
+      for(String id:allKey){
           System.out.println("Virus id:"+id+" is active");
           Organism current_virus = allVirus.get(id);
-          if(allVirus.containsValue(current_virus)){
               Parser parser = new Parser(current_virus,new LinkedHashMap<>(),positionMap,organismStorage);
               parser.evauateAll();
-          }
       }
     }
 

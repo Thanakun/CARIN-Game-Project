@@ -54,7 +54,7 @@ public class OrganismStorage {
             allVirus.remove(target.getId());
             PositionMap.getInstance().removeOrganismPosition(target);
 
-        } else if (target.getCategory().equals("Antibody") && allVirus.containsValue(target)){
+        } else if (target.getCategory().equals("Antibody") && allAntivirus.containsValue(target)){
             allAntivirus.remove(target.getId());
             PositionMap.getInstance().removeOrganismPosition(target);
         }

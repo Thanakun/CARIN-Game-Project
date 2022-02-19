@@ -8,6 +8,8 @@ import server.game.Game.GameData.Parser.Parser;
 import server.game.Game.Type.AntibodyReq;
 
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 
 @Component
@@ -95,7 +97,8 @@ public class AntibodyControl {
 
     public synchronized void activeAllAntibody(){
         LinkedHashMap<String,Organism> allAntibody =  organismStorage.getallAntibody();
-        for(String id:allAntibody.keySet()){
+        List<String> allKey = new LinkedList<>(allAntibody.keySet());
+        for(String id:allKey){
             Antibody antibody = (Antibody) allAntibody.get(id);
             System.out.println("Antibody id:"+id+" is active at:"+antibody.getPosition()[0]
             +"  "+antibody.getPosition()[1]);

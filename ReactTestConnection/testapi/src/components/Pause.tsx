@@ -1,17 +1,23 @@
-import { useNavigate } from "react-router-dom";
+// Hook
+import { useNavigate } from 'react-router-dom'
 
-const Pause = ()=>{
-    let nav = useNavigate()
-    const unPause = () =>{
-            nav('/gameplay')
-    }
-    
+// css
+import styles from '../CSSstyle/puase.module.css'
+
+const Pause = () => {
+let nav = useNavigate()
+
+const addpath = (path : string) =>{
+    nav(path)
+}
     return (
         <div>
-            <p>Pause</p>
-            <button onClick={()=>unPause()}>unPaused</button>
+            <a onClick={() => addpath('/gameplay')} className={styles.btn}> 
+                <span>Shop</span>
+                <div className={styles.bthbefore}></div>
+            </a>
         </div>
     )
 }
 
-export default Pause;
+export default Pause

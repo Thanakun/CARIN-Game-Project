@@ -1,10 +1,11 @@
 
 import './App.css';
 import { BrowserRouter as  Router,Routes,Route } from 'react-router-dom';
-import MainMenu from './components/MainMenu';
-import Playing from './components/Playing';
-import Pause from './components/Pause';
-import End from './components/End';
+import MainMenu from './Components/MainMenu';
+import Playing from './Components/Playing';
+import Pause from './Components/Pause';
+import End from './Components/End';
+
 
 function App() {
   return (

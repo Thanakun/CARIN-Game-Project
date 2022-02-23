@@ -7,6 +7,7 @@ import server.game.Game.GameData.Model.*;
 import server.game.Game.GameData.Parser.Parser;
 import org.springframework.stereotype.Service;
 import server.game.Game.Type.AntibodyReq;
+import server.game.Game.Type.GameDataType;
 import server.game.Game.Type.MenuReq;
 import server.game.Game.Type.Request;
 
@@ -37,8 +38,8 @@ public class GameService {
         return  reqLog;
     }
     //get
-    public int getTime(){
-        return timer.getTime_count();
+    public Timer getTimer(){
+        return timer;
     }
     public int getCredit(){
         return player.getCredit();
@@ -52,13 +53,13 @@ public class GameService {
     public Map<String,int[]> getPosition(){
         return positionMap.getPositionMap();
     }
-    public int[] getMapDimension(){
-        return positionMap.getMapDimension();
-    }
     public String getGameState(){
         return menu.getGameState();
     }
 
+    public GameDataType getGameData() {
+        return new GameDataType(getTimer(),getCredit(),getGameState(),getVirus(),getAntibody());
+    }
 
     public Request saveReq(Request req){
         if(req instanceof AntibodyReq){
@@ -77,4 +78,6 @@ public class GameService {
         }
         else return null;
     }
+
+
 }

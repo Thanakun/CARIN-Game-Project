@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import server.game.Game.GameData.Model.Antibody;
 import server.game.Game.GameData.Model.Organism;
+import server.game.Game.GameData.Model.Timer;
 import server.game.Game.Type.AntibodyReq;
 import server.game.Game.Type.MenuReq;
 import server.game.Game.Type.Request;
@@ -18,6 +19,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/game")
+@CrossOrigin(origins = "http://localhost:3000/")
 public class GameController {
     private final GameService gameService;
 
@@ -31,8 +33,8 @@ public class GameController {
         return new ResponseEntity(gameService.getAllReq(),HttpStatus.OK);
     }
     @GetMapping("/get/time")
-    public ResponseEntity<Integer> getTime(){
-        return new ResponseEntity(gameService.getTime(),HttpStatus.OK);
+    public ResponseEntity<Timer> getTimer(){
+        return new ResponseEntity(gameService.getTimer(),HttpStatus.OK);
     }
     @GetMapping("/get/credit")
     public ResponseEntity<Integer> getCredit(){
@@ -54,10 +56,12 @@ public class GameController {
     public ResponseEntity<String> getGameState(){
         return new ResponseEntity(gameService.getGameState(),HttpStatus.OK);
     }
-    @GetMapping("/get/dimension")
-    public ResponseEntity<Integer> getMapDimension(){
-        return new ResponseEntity(gameService.getMapDimension(),HttpStatus.OK);
+
+    @GetMapping("/get/gameData")
+    public ResponseEntity<String> getGameData(){
+        return new ResponseEntity(gameService.getGameData(),HttpStatus.OK);
     }
+
 
 
 

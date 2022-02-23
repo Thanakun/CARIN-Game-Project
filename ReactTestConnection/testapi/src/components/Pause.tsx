@@ -9,7 +9,7 @@ const Pause = ()=>{
     return (
         <div>
             <p>Pause</p>
-            <button onClick={()=>unPause()}>unPause</button>
+            <button onClick={()=>unPause()}>unPaused</button>
         </div>
     )
 }

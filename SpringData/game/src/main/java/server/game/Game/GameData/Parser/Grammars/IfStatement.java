@@ -1,6 +1,8 @@
 package server.game.Game.GameData.Parser.Grammars;
 
 import server.game.Game.GameData.Model.Organism;
+import server.game.Game.GameData.Model.OrganismStorage;
+import server.game.Game.GameData.Model.PositionMap;
 
 import java.util.Map;
 
@@ -16,13 +18,15 @@ public class IfStatement implements Statement{
      }
 
      @Override
-     public void eval(Organism actor, Map<String, Integer> binding) {
-          int condition_value = condition.eval(actor,binding);
+     public void eval(Organism actor, Map<String, Integer> binding
+             , PositionMap positionMap, OrganismStorage organismStorage) {
+          int condition_value = condition.eval(actor,binding
+                  ,  positionMap,  organismStorage);
           if(condition_value>0){ //true
-               if_true.eval(actor,binding);
+               if_true.eval(actor,binding,  positionMap,  organismStorage);
           }
           else{
-               if_false.eval(actor,binding);
+               if_false.eval(actor,binding,  positionMap,  organismStorage);
           }
      }
 

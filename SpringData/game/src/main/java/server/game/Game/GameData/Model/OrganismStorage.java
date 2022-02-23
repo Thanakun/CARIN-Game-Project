@@ -1,28 +1,50 @@
 package server.game.Game.GameData.Model;
 
+import com.fasterxml.jackson.databind.annotation.JsonAppend;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 import java.util.LinkedHashMap;
 
 @Component
+@PropertySource("classpath:GameDataProperties.properties")
 public class OrganismStorage {
     private static OrganismStorage instance;
     private static LinkedHashMap<String,Organism> allVirus;
     private static LinkedHashMap<String,Organism> allAntivirus;
     private static int antibody_Id_count;
+    private static int antibody_killed;
     private static int virus_Id_count;
+    @Value("${max_virus_amount}")
+    private   int max_virus_amount;
+    private static int virus_killed;
+    @Autowired
+    private PositionMap positionMap;
 
     private OrganismStorage(){
         allAntivirus = new LinkedHashMap<>();
         allVirus = new LinkedHashMap<>();
         antibody_Id_count = 0;
+        antibody_killed =0;
         virus_Id_count = 0;
+        virus_killed = 0;
     }
     public static OrganismStorage getInstance(){
         if(instance==null){
             instance = new OrganismStorage();
         }
     return instance;
+    }
+
+    public void resetStorage(){
+        allAntivirus = new LinkedHashMap<>();
+        allVirus = new LinkedHashMap<>();
+        antibody_Id_count = 0;
+        virus_Id_count = 0;
+        antibody_killed =0;
+        virus_killed = 0;
     }
 
     public synchronized void addOrganism(Organism target){   //add target Organism to allVirus or allAntivirus by type, and count each type
@@ -45,8 +67,13 @@ public class OrganismStorage {
     public synchronized void removeOrganism(Organism target){   //add target Organism to allVirus or allAntivirus by type, and count each type
         if(target.getCategory().equals("Virus") && allVirus.containsValue(target)){
             allVirus.remove(target.getId());
-        } else if (target.getCategory().equals("Antibody") && allVirus.containsValue(target)){
+            positionMap.removeOrganismPosition(target);
+            virus_killed++;
+
+        } else if (target.getCategory().equals("Antibody") && allAntivirus.containsValue(target)){
             allAntivirus.remove(target.getId());
+            positionMap.removeOrganismPosition(target);
+            antibody_killed++;
         }
     }
 
@@ -68,12 +95,25 @@ public class OrganismStorage {
         return virus_Id_count;
     }
 
-    public LinkedHashMap<String, Organism> getallAntibody() {
+    public  synchronized LinkedHashMap<String, Organism> getallAntibody() {
         return allAntivirus;
     }
 
-    public LinkedHashMap<String, Organism> getallVirus() {
+    public synchronized LinkedHashMap<String, Organism> getallVirus() {
         return allVirus;
     }
 
+    public int getAntibodyAmount(){return allAntivirus.size();}
+    public int getVirusAmount(){return allVirus.size();}
+
+    public  int getMax_virus_amount() {
+        return max_virus_amount;
+    }
+
+    public  int getVirus_killed() {
+        return virus_killed;
+    }
+    public int getAntibody_killed(){
+        return antibody_killed;
+    }
 }

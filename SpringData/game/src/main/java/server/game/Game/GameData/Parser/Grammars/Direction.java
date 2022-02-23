@@ -1,6 +1,8 @@
 package server.game.Game.GameData.Parser.Grammars;
 
 import server.game.Game.GameData.Model.Organism;
+import server.game.Game.GameData.Model.OrganismStorage;
+import server.game.Game.GameData.Model.PositionMap;
 
 import java.util.Map;
 
@@ -10,7 +12,8 @@ public class Direction implements Expression{
           this.direction = direction;
      }
      @Override
-     public int eval(Organism actor,Map<String,Integer> binding) {
+     public int eval(Organism actor,Map<String,Integer> binding
+             , PositionMap positionMap, OrganismStorage organismStorage) {
      switch (direction){
           case "up":return 11;
           case "upright":return 12;

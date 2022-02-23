@@ -5,6 +5,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 @Component
 @PropertySource("classpath:GameDataProperties.properties")
@@ -28,6 +29,12 @@ public class PositionMap {
         return instance;
     }
 
+    public Map<String,int[]> getPositionMap(){
+        return allOrganism_Position;
+    }
+    public void resetPositionMap(){
+        allOrganism_Position = new LinkedHashMap<>();
+    }
     public int[] getMapDimension(){
         return  new int[]{max_x,max_y};
     }
@@ -37,7 +44,9 @@ public class PositionMap {
     }
 
     public synchronized boolean updateOrganismPosition(String target_Id,int[] position){   //update Organism location
-        if(!hasOrganism(position)){   //if that posiotion is empty
+        if(!hasOrganism(position) &&
+                (position[0]>=0)&&(position[0]<=max_x)
+        && (position[1]>=0)&&(position[1]<=max_y)){   //if that posiotion is empty
             allOrganism_Position.put(target_Id,position);
             System.out.println(target_Id+" are at :"+position[0]+" "+position[1]);
             return true;
@@ -51,19 +60,29 @@ public class PositionMap {
     }
 
     public boolean hasOrganism(int[] position){    // true if that position has an Organism
-        if(allOrganism_Position.containsValue(position)){
-            return true;
+        for(int[] pos:allOrganism_Position.values()){
+            if((pos[0]==position[0])&&(pos[1]==position[1]))
+            {
+                return true;
+            }
         }
-        else return false;
+        return false;
     }
 
     public String getOrganismAt(int[] position){              //get Organism at the specified position if there exist
-        for(String organ_Id:allOrganism_Position.keySet()){
-            if(allOrganism_Position.get(organ_Id).equals(position)){
-                return organ_Id;
+        if(hasOrganism(position)) {
+            for (String organ_Id : allOrganism_Position.keySet()) {
+                int[] pos = allOrganism_Position.get(organ_Id);
+                if ((pos[0] == position[0]) && (pos[1] == position[1])) {
+                    return organ_Id;
+                }
             }
         }
         return "not found";
+    }
+
+    public void removeOrganismPosition(Organism target){
+        allOrganism_Position.remove(target.getId());
     }
 
     

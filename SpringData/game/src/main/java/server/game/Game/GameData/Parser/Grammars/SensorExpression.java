@@ -1,5 +1,6 @@
 package server.game.Game.GameData.Parser.Grammars;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import server.game.Game.GameData.Model.PositionMap;
 import server.game.Game.GameData.Model.Organism;
 import server.game.Game.GameData.Model.OrganismStorage;
@@ -11,25 +12,25 @@ import java.util.Map;
 public class SensorExpression implements Expression{
     private String commandType;
     private Direction nearby_direction;
-    private static PositionMap map=PositionMap.getInstance();
-    private static OrganismStorage organismController = OrganismStorage.getInstance();
 
     public SensorExpression(String commandType,Direction direction){
         this.commandType = commandType;
         this.nearby_direction = direction;
     }
     @Override
-    public int eval(Organism actor,Map<String, Integer> binding) {
+    public synchronized int eval(Organism actor,Map<String, Integer> binding
+            , PositionMap positionMap, OrganismStorage organismStorage) {
         //calculate directin for nearby command
         int nearby_direction_value = 0;
         if(nearby_direction!=null){
-            nearby_direction_value = nearby_direction.eval(actor,binding);
-            nearby_direction_value=nearby_direction_value%10;  //get direction 1-8
+            nearby_direction_value = nearby_direction.eval(actor,binding
+                    ,  positionMap,  organismStorage);
+            nearby_direction_value%=10;  //get direction 1-8
         }
 
-        int[] bound = map.getMapDimension(); //{x,y}
-        int[] current = map.getOrganismPosition(actor.getId());
-
+        int[] bound = positionMap.getMapDimension(); //{x,y}
+        int[] current = positionMap.getOrganismPosition(actor.getId());
+        if(current==null)return 0;
         //find most far side in x and y axis
         Integer[] all_distance= {current[0]-1,current[1]-1,bound[0]-current[0],bound[1]-current[1]};   //distance from current position to border all 4 side;not include current itself
         Arrays.sort(all_distance, Collections.reverseOrder());
@@ -51,8 +52,8 @@ public class SensorExpression implements Expression{
                 }
                 //check if that position has Organism
                 int[] considering_position = new int[]{current[0]+x_change,current[1]+y_change};
-                if(map.hasOrganism(considering_position)){  //input for method is the considering position
-                    Organism organism_found = organismController.getById(map.getOrganismAt(considering_position));
+                if(positionMap.hasOrganism(considering_position)){  //input for method is the considering position
+                    Organism organism_found = organismStorage.getById(positionMap.getOrganismAt(considering_position));
                     if(commandType.equals("virus")){
                         if(organism_found.getCategory().equals("Virus")){
                             return distance*10+rotate;
@@ -65,12 +66,15 @@ public class SensorExpression implements Expression{
                         }
                     }
                     else if(commandType.equals("nearby")){
-                        if(organism_found.getCategory().equals("Virus")){
-                            return distance*10+1;  //nearby is virus
+                        if(nearby_direction_value==rotate){
+                            if(organism_found.getCategory().equals("Virus")){
+                                return distance*10+1;  //nearby is virus
+                            }
+                            else{
+                                return distance*10+2;  //nearby is antibody
+                            }
                         }
-                        else{
-                            return distance*10+2;  //nearby is antibody
-                        }
+
 
                     }
                 }

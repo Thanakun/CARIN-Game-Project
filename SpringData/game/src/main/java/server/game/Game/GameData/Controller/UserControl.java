@@ -1,5 +1,61 @@
 package server.game.Game.GameData.Controller;
 
-public class UserControl{
-    
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import server.game.Game.GameData.Model.Player;
+import server.game.Game.Type.Request;
+
+import java.util.Stack;
+
+@Component
+public class UserControl extends Thread{
+    private  static UserControl instance;
+    @Autowired
+    private Player player;
+    @Autowired
+    private Menu menu;
+
+    private Stack<Request> requests;
+
+    private UserControl(){
+        requests = new Stack<>();
+    }
+    public static UserControl getInstance(){
+        if(instance==null){
+            instance = new UserControl();
+        }
+        return instance;
+    }
+
+    public void addRequset(Request req){
+        this.requests.add(req);
+    }
+
+
+
+    @Override
+    public void run(){
+        try{
+            while(true){
+               if(!this.requests.isEmpty()){
+                   Request req = requests.pop();
+                   if(req.getRequestType().equals("AntibodyRequest")){
+                       System.out.println("computing antibody req");
+                       player.computeAntibodyInput(req);
+                   }
+                   else if(req.getRequestType().equals("MenuRequest")){
+                        menu.computeGameState(req);
+                   }
+                   else{
+                       throw new RuntimeException("wrong request type");
+                   }
+               }
+              //  System.out.println("Waiting for request");
+                sleep(100);
+            }
+        }catch (InterruptedException e){
+            System.out.println(e);
+        }
+
+    }
 }

@@ -37,13 +37,13 @@ public class Timer extends Thread {
             while(true){
                  time_pass = (int)(time_per_unit/(double)time_speed_multiplier);
                 if(isActive){
-                    time_count++;
-                    System.out.println("Current time: "+time_count+" speed:"+time_speed_multiplier);
+
                     sleep(time_pass);
+                    ++time_count;
                 }
                 else{
                   //  System.out.println("pausing");
-                    sleep(100); //wait for resume
+                   sleep(10); //wait for resume
                 }
             }
 
@@ -54,10 +54,20 @@ public class Timer extends Thread {
     }
 
     public void resetTime(){
-        time_count = 0;
+        isActive = false;
+        time_count =0;
+        time_per_unit = 2000;
+        time_pass = (int)(time_per_unit/(double)time_speed_multiplier);
+        time_speed_multiplier = 1;
+    }
+    public boolean getTimerStatus(){
+        return this.isActive;
     }
     public int getTimePass(){
         return time_pass;
+    }
+    public int getTime_count(){
+        return time_count;
     }
 
     public void off(){

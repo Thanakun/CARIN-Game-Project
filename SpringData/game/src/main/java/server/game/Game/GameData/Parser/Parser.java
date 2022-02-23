@@ -1,6 +1,8 @@
 package server.game.Game.GameData.Parser;
 
 import server.game.Game.GameData.Model.Organism;
+import server.game.Game.GameData.Model.OrganismStorage;
+import server.game.Game.GameData.Model.PositionMap;
 import server.game.Game.GameData.Parser.Grammars.*;
 
 
@@ -15,11 +17,16 @@ public class Parser {
     private Map<String, Integer> bindings;
     private static GrammarFactory grammarFactory;
     private Organism actor;
+    private PositionMap positionMap;
+    private OrganismStorage organismStorage;
 
-    public Parser(Organism actor,Map<String,Integer> bindings){
+    public Parser(Organism actor, Map<String,Integer> bindings
+            , PositionMap positionMap, OrganismStorage organismStorage){
         this.tkz = new Tokenizer(actor.getGeneticCode());
         this.bindings = bindings;
         this.actor = actor;
+        this.positionMap = positionMap;
+        this.organismStorage = organismStorage;
         grammarFactory = GrammarFactory.getInstance();
         ASTtree = new LinkedList<>();
         compute();
@@ -227,7 +234,7 @@ public class Parser {
 
     public void evauateAll(){
         for(Statement statement:ASTtree){
-            statement.eval(actor,bindings);
+            statement.eval(actor,bindings ,positionMap, organismStorage);
         }
     }
     public String prettyPrintAll(){

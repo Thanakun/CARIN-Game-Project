@@ -1,8 +1,8 @@
 package server.game.Game.GameData.Model;
 
 
-
-
+import java.lang.annotation.Target;
+import java.util.Arrays;
 
 public class Entity implements Organism{
     protected String Id;
@@ -10,11 +10,14 @@ public class Entity implements Organism{
     protected String geneticCode="";
     protected int type;
     protected int HP;
+    protected int Max_HP;
     protected int atk;
     protected int gain;
     protected int[] position = new int[2];
     protected  PositionMap positionMap;
     protected  OrganismStorage organismStorage;
+    protected  AntibodyControl antibodyControl;
+    protected  VirusControl virusControl;
 
     public Entity(){
     }
@@ -26,6 +29,16 @@ public class Entity implements Organism{
         System.out.println("HP : " + HP);
         System.out.println("Attack Damage : " + atk);
         System.out.println("Position : x = " + position[0] + " y = " + position[1]);
+    }
+
+    @Override
+    public int gain_HP(){
+        if(HP + gain > Max_HP){
+            HP = Max_HP;
+        }else if(HP + gain <= Max_HP){
+            HP += gain;
+        }
+        return HP;
     }
 
     @Override
@@ -59,7 +72,8 @@ public class Entity implements Organism{
     }
 
     @Override
-    public void Move(int x_change,int y_change) {
+    public synchronized void Move(int x_change,int y_change) {
+        System.out.println("trying to go to "+(position[0]+x_change)+" "+(position[1]+y_change));
         if(positionMap.updateOrganismPosition(Id,new int[]{
                 position[0]+x_change,position[1]+y_change
         })) //can update position on map
@@ -67,6 +81,14 @@ public class Entity implements Organism{
             position[0] += x_change;
             position[1] += y_change;
             System.out.println(category + "(" + Id + ")" + " go to position : x = " + position[0] + " y = " + position[1]);
+            if(this instanceof Antibody){
+
+                calc_damage(((Antibody) this).getMove_cost());
+                System.out.println(Id+" remaining hp from move:"+HP);
+                if(this.HP<=0){
+                    organismDie(this);
+                }
+            }
         }
         else
         {
@@ -76,54 +98,52 @@ public class Entity implements Organism{
     }
 
     @Override
-    public void Attack(int x_change,int y_change) {
-        System.out.println("Shoot!!!");
+    public synchronized void Attack(int x_change,int y_change) {
+
         Organism organism =  organismStorage.getById(Id);
         int[] current_position = positionMap.getOrganismPosition(this.Id);
-        current_position[0] += x_change;
-        current_position[1] += y_change;
-        String target_Id = positionMap.getOrganismAt(current_position);
+        int[] usePosition = new int[2];
+        usePosition[0] = current_position[0] + x_change;
+        usePosition[1] = current_position[1] + y_change;
+        String target_Id = positionMap.getOrganismAt(usePosition);
         Organism target = organismStorage.getById(target_Id);     //get Organism by Id
+        System.out.println(Id+" is Attacking"+target_Id+" type :"+type+" x:"+x_change+" y:"+y_change+" remaining hp:"+HP);
         UpdateGame(organism ,target, getATK());
     }
 
     @Override
-    public void calc_damage(int damage) {
+    public  void calc_damage(int damage) {
         this.HP -= damage;
         if (this.HP < 0) this.HP =0;
     }
 
     @Override
-    public void UpdateGame(Organism organism, Organism target, int damage) {
+    public synchronized void UpdateGame(Organism organism, Organism target, int damage) {
         target.calc_damage(damage);
         if (organism.getCategory().equals("Virus")) {  // organism is Virus
-            ((Virus)organism).afterAttacked(damage);
             if (target.getHP() == 0) {
-                organismStorage.removeOrganism(target);
-                CheckGame(target);
-                ((Virus)organism).overcome();
+                System.out.println(target.getId()+" die");
+                 organismDie(target);
+                virusControl.spawnNewVirusAfterkill(organism.getType());
             }
+            ((Virus)organism).afterAttacked(damage);
         }else if (organism.getCategory().equals("Antibody")) { // organism is Antibody
             if (target.getHP() == 0) {
-                organismStorage.removeOrganism(target);
-                CheckGame(organism);
+                organism.gain_HP();
+                organismDie(target);
                 ((Antibody)organism).overcome();
             }
 
         }
     }
 
-    @Override
-    public void CheckGame(Organism target) {
-        if (target.getCategory().equals("Virus")) {
-            if (organismStorage.getVirus_count() == 0)
-                System.out.println("You win!!!");
-
-        }else if (target.getCategory().equals("Antibody")) {
-            if (organismStorage.getAntibody_count() == 0)
-                System.out.println("You Lose!!!");
-        }
+    private synchronized void organismDie(Organism target){
+        positionMap.removeOrganismPosition(target);
+        organismStorage.removeOrganism(target);
     }
+
+
+
 
     @Override
     public void setGeneticCode(String geneticCode){
@@ -134,12 +154,19 @@ public class Entity implements Organism{
     public String getGeneticCode(){
         return geneticCode;
     }
+
     @Override
-    public  void setStatus(int HP,int atk,int gain){
+    public int getMax_HP() {
+        return Max_HP;
+    }
+
+    @Override
+    public  void setStatus(int Max_HP,int atk,int gain){
         //every stat in crease by type if type lower type is weaker
-        this.HP = type*HP;
+        this.Max_HP = type*Max_HP;
         this.atk = type*atk;
         this.gain = type*gain;
+        this.HP = Max_HP;
     }
 
 

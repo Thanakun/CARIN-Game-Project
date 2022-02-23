@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 import server.game.Game.GameData.Parser.Parser;
 
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 @Component
@@ -24,6 +26,7 @@ public class VirusControl {
     private Random random;
     private String default_geneticCode;
 
+
     //initial value for set up virus status
     @Value("${init_virus_hp}")
     private int init_hp;
@@ -33,11 +36,12 @@ public class VirusControl {
     private int init_gain;
 
 
+
     private VirusControl(){
         random = new Random();
         default_geneticCode =
                 "antibodyLoc = antibody\n" +
-                "if (antivirusLoc / 10 - 1)\n" +
+                "if (antibodyLoc / 10 - 1)\n" +
                 "then \n" +
                 "  if (antibodyLoc % 10 - 7) then move upleft\n" +
                 "  else if (antibodyLoc % 10 - 6) then move left\n" +
@@ -78,19 +82,36 @@ public class VirusControl {
     }
 
     public void spawnNewVirus(){
+        if(organismStorage.getMax_virus_amount()>
+                (organismStorage.getVirus_killed()+organismStorage.getVirusAmount())){ //check if virus is not exceed limit
         float ran = random.nextFloat();
         System.out.println("random="+ran);
-        if(ran<=virus_rate){
+        if(ran<=virus_rate) {
+            System.out.println("create new virus");
+            Virus newVirus = new Virus(
+                    "V" + organismStorage.getVirus_count()
+                    , random.nextInt(3) + 1
+                    , firstSpawnLocationInit()
+                    , positionMap, organismStorage, this);
+            newVirus.setGeneticCode(this.default_geneticCode);
+            newVirus.setStatus(init_hp, init_atk, init_gain);    //set up status and genetic code
+            organismStorage.addOrganism(newVirus);
+        }
+        }
+    }
+
+    public void spawnNewVirusAfterkill(int type){
+        float ran = random.nextFloat();
+        System.out.println("random="+ran);
             System.out.println("create new virus");
             Virus newVirus = new Virus(
                     "V"+ organismStorage.getVirus_count()
-                    ,random.nextInt(3)+1
+                    ,type
                     ,firstSpawnLocationInit()
-            ,positionMap,organismStorage);
+                    ,positionMap,organismStorage,this);
             newVirus.setGeneticCode(this.default_geneticCode);
             newVirus.setStatus(init_hp,init_atk,init_gain);    //set up status and genetic code
             organismStorage.addOrganism(newVirus);
-        }
     }
 
     public int[] firstSpawnLocationInit(){    // to spawn first time at virus constructor
@@ -105,12 +126,14 @@ public class VirusControl {
         return new int[]{x_posi,y_posi};
     }
 
-    public void activeAllVirus(){
+    public synchronized void activeAllVirus(){
       LinkedHashMap<String,Organism> allVirus =  organismStorage.getallVirus();
-      for(String id:allVirus.keySet()){
+     List<String> allKey = new LinkedList<>(allVirus.keySet());
+      for(String id:allKey){
           System.out.println("Virus id:"+id+" is active");
-          Parser parser = new Parser(allVirus.get(id),new LinkedHashMap<>());
-          parser.evauateAll();
+          Organism current_virus = allVirus.get(id);
+              Parser parser = new Parser(current_virus,new LinkedHashMap<>(),positionMap,organismStorage);
+              parser.evauateAll();
       }
     }
 

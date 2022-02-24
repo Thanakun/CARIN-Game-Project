@@ -45,8 +45,8 @@ public class PositionMap {
 
     public synchronized boolean updateOrganismPosition(String target_Id,int[] position){   //update Organism location
         if(!hasOrganism(position) &&
-                (position[0]>=0)&&(position[0]<=max_x)
-        && (position[1]>=0)&&(position[1]<=max_y)){   //if that posiotion is empty
+                (position[0]>=0)&&(position[0]<max_x)
+        && (position[1]>=0)&&(position[1]<max_y)){   //if that posiotion is empty
             allOrganism_Position.put(target_Id,position);
             System.out.println(target_Id+" are at :"+position[0]+" "+position[1]);
             return true;

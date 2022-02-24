@@ -11,11 +11,10 @@ import { getMap } from './Store/MapStore'
 import PositionMap from './Components/PositionMap'
 import Manu from './Components/Manu'
 import Pause from './Components/Pause'
+import End from './Components/End'
 
 // images
 import test from './Images/test.jpg'
-import greenBox from '../Images/greenBox.png'
-import redBox from '../Images/redBox.png'
 
 function App() {
   // Store
@@ -28,8 +27,8 @@ function App() {
 
 
   // variables
-  const [Xaxis, setXaxis] = useState<number>(40)
-  const [Yaxis, setYaxis] = useState<number>(20)
+  const [Xaxis, setXaxis] = useState<number>(10)
+  const [Yaxis, setYaxis] = useState<number>(10)
 
   // functions
 
@@ -38,9 +37,9 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Manu/>}/>
-        <Route path="/gameplay" element={<PositionMap x={Xaxis} y={Yaxis} map={state.map}/>}/>
+        <Route path="/gameplay" element={<PositionMap x={Xaxis} y={Yaxis} map={state.map} maxScale={state.max_scale}/>}/>
         <Route path="/pause" element={<Pause/>}/>
-        <Route path="/end"/>
+        <Route path="/end" element={<End/>}/>
       </Routes>
       {/* <img src={test}></img> */}
     </Router>

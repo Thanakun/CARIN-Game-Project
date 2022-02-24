@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState,useEffect } from "react";
 import axios from "axios";
-import { DataStore, DataStoreType } from "../Store/DataStore";
+import { DataStore, DataStoreType, useDataStore } from "../Store/DataStore";
 
 // css
 import styles from '../CSSstyle/positionMap.module.css'
@@ -42,9 +42,7 @@ const Playing = ()=>{
     const [err,setErr] = useState<boolean>(false)
     const dataStore = useDataStore()
 
-    function useDataStore():DataStoreType{  //use to pull data store element
-        return DataStore.useState(s=>s)
-    }
+   
  
 
     const fetchGamedata = async() =>{

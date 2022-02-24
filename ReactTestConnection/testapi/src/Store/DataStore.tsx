@@ -11,6 +11,10 @@ export type DataStoreType = {
     gameState: string
 }
 
+//custom hook
+export function useDataStore():DataStoreType{  //use to pull data store element
+    return DataStore.useState(s=>s)
+}
 
 export const DataStore = new Store<DataStoreType>({
     allOrganism: [],

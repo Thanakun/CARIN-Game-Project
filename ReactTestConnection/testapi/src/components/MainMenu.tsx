@@ -5,18 +5,15 @@ import { useNavigate } from 'react-router-dom'
 // component
 import Logo from './Logo' 
 
-const manu = () => { 
+const MainMenu = () => { 
     let nav = useNavigate()
 
-    const addpath = (path : string) =>{
-          nav(path)
-    }
 
     return (
         <div>
             <Logo/> 
             <div className={styles.container}>
-                <a onClick={() => addpath('/gameplay')} className={styles.btn}> 
+                <a onClick={() => nav('/gameplay')} className={styles.btn}> 
                     <span>Start</span>
                     <div className={styles.bthbefore}></div>
                 </a>
@@ -25,4 +22,4 @@ const manu = () => {
     )
 }
 
-export default manu
+export default MainMenu

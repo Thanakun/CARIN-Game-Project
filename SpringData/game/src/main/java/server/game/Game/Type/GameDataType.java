@@ -10,15 +10,25 @@ public class GameDataType {
     private Timer timer;
     private int credit;
     private String gameState;
+    private int[] dimension;
     private LinkedHashSet<Organism> allOrgan;
 
     public GameDataType(){}
-    public GameDataType(Timer timer,int credit,String gameState,Map<String,Organism> virus,Map<String,Organism> antibody){
+    public GameDataType(Timer timer,int credit,String gameState,int[] dimension,Map<String,Organism> virus,Map<String,Organism> antibody){
         this.timer = timer;
         this.credit = credit;
         this.gameState =  gameState;
+        this.dimension = dimension;
         allOrgan = new LinkedHashSet<>();
         setAllOrgan(virus,antibody);
+    }
+
+    public int[] getDimension() {
+        return dimension;
+    }
+
+    public void setDimension(int[] dimension) {
+        this.dimension = dimension;
     }
 
     public Timer getTimer() {

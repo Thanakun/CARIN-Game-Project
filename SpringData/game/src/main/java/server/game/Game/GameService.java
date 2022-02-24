@@ -56,9 +56,10 @@ public class GameService {
     public String getGameState(){
         return menu.getGameState();
     }
+    public int[] getDimension(){return positionMap.getMapDimension();}
 
     public GameDataType getGameData() {
-        return new GameDataType(getTimer(),getCredit(),getGameState(),getVirus(),getAntibody());
+        return new GameDataType(getTimer(),getCredit(),getGameState(),getDimension(),getVirus(),getAntibody());
     }
 
     public Request saveReq(Request req){

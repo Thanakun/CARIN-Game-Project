@@ -16,7 +16,7 @@ public class Timer extends Thread {
     private Timer(){
         isActive = false; //default when create instance is off
         time_count =0; //counter increase when each time unit pass
-        time_per_unit = 2000; // in ms
+        time_per_unit = 1000; // in ms
         time_pass = (int)(time_per_unit/(double)time_speed_multiplier); //total time pass in 1 time unit
         time_speed_multiplier = 1; //  if time multiplier high time will pass faster , time per unit decrease
 

@@ -41,11 +41,10 @@ public class GameRunner extends Thread {
                     positionMap.resetPositionMap();
                     organismStorage.resetStorage();
                     menu.setGameState("PLAYING");
-                    timer.on();
 
                 }
                 else if(gameState.equals("PLAYING")) {
-
+                      timer.on();
                         System.out.println("--------------------------");
                         //don't know why but some time it mismatch with time from api, api is precise
                         System.out.println("Time Now: "+timer.getTime_count());

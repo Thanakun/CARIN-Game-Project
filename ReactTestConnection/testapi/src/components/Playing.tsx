@@ -1,14 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import { useState,useEffect } from "react";
 import axios from "axios";
-import { DataStore, DataStoreType, initMap } from "../Store/DataStore";
+import { DataStore, DataStoreType } from "../Store/DataStore";
 
 // css
 import styles from '../CSSstyle/positionMap.module.css'
 
 // image 
 import greenBox from '../Images/greenBox.png'
-import redBox from '../Images/redBox.png'
+import AntibodyPic from '../Images/Red Antigen.png'
+import VirusPic from '../Images/Blue Virus.png'
+
 
 
 
@@ -35,99 +37,105 @@ export type OrganismType = {
 
 const Playing = ()=>{
     let nav = useNavigate()
-   // const [data,setData] = useState<GameDataType|null>(null)
+    const [data,setData] = useState<GameDataType|null>(null)
     const [loading,setLoading] = useState<boolean>(true)
     const [err,setErr] = useState<boolean>(false)
-    const [timepass,setTimepass] = useState<number>(1000)
-  
     const dataStore = useDataStore()
 
-    function useDataStore():DataStoreType{
+    function useDataStore():DataStoreType{  //use to pull data store element
         return DataStore.useState(s=>s)
-
     }
  
 
-    const fetchApi = async() =>{
+    const fetchGamedata = async() =>{
         try{
                 const resp = await axios.get<GameDataType>('http://localhost:8080/game/get/gameData')
-              //  setData(resp.data)
-                setLoading(false)
-               setTimepass(resp.data.timer.timePass)
-              
-                //update data store
-               DataStore.update((s)=>{
-                //update organism
-                s.max_x = resp.data.dimension[0]
-                s.max_y = resp.data.dimension[1]
-                resp.data.allOrgan.map((og)=>{    //add organism to its location in map
-                   const pos =  og.position
-                   s.organism[pos[0]][pos[1]] = og
-                })
-    
-                //update time
-                s.timer = resp.data.timer
-                //update credit
-                s.credit = resp.data.credit
-                //update gamestate
-                s.gameState = resp.data.gameState
-            })
-               
+               setData(resp.data)
+               setLoading(false)
         }
         catch(err){
             setErr(true)
-            setLoading(false)
+      
         }
     }
 
 
 
-    const clickPause = () =>{
-        nav('/pause')
-    }
-
-    //set up  fetch
+    //set up  fetch for every time unit
     useEffect(()=>{
-        setInterval(()=>{
-             setLoading(true)
-            fetchApi()
-        },timepass)  //fetch every time unit
-        //set up map
-        }
-    ,[])
-    //set texture map
-    useEffect(()=>{
-        if(dataStore.max_x!==-1 && dataStore.max_y!==-1){
-            initMap(dataStore.max_x,dataStore.max_y)
-        }
-    },[dataStore.max_x,dataStore.max_y])
-
-
-    const createGrid =  (count : number) => {
-        const output = []
-        for (let i=0; i<count; i++) {
-            output.push(i+1)
-        }
-        return output
+      const interval =  setInterval(()=>{
+            fetchGamedata()
+        },dataStore.timer.timePass)  //fetch every time unit
+        
+        return ()=>{clearInterval(interval)}  //clear serInterval
     }
+    ,[dataStore.timer.timePass])
+
+   
+    //update Data store every time incoming data change
+    useEffect(()=>{
+        if(data!=null){
+             //update data store
+           DataStore.update((s)=>{
+            //update organism
+            s.max_x = data.dimension[0]
+            s.max_y = data.dimension[1]
+            //update time
+            s.timer = data.timer
+            //update credit
+            s.credit = data.credit
+            //update gamestate
+            s.gameState = data.gameState
+            //update organism
+            s.allOrganism = data.allOrgan
+        })
+        }
+    },[data])
+
 
     const decoder = (key : string) => {
+
         switch (key) {
-            case 'G' : return greenBox; 
-            case 'R' : return redBox;
+            case "Virus" : return VirusPic; 
+            case "Antibody" : return AntibodyPic;
+            default : return greenBox;
         }
     }
 
-    const render= () =>{
-        if(loading){
-            return(
-                <div className='text-center space-y-3'>
-                <p className='text-2xl'>Loading ...</p>
-              </div>  
-               
-            )
+    const createMap = ()=>{
+        const maxX = dataStore.max_x
+        const maxY = dataStore.max_y
+
+        let organMap:JSX.Element[][] = new Array(maxY) 
+        
+        for(let i = 0;i<maxY;i++){
+            organMap[i] = new Array(maxX).fill(
+                       <img src={greenBox} alt="" style={{
+                    position: "relative",
+                    width: `calc(720px/${maxX > maxY ? maxX : maxY})`,
+                    height: `calc(720px/${maxX > maxY ? maxX : maxY})`,
+                    margin: 0
+                }}/>        
+            )   
         }
-        else if(err)
+
+        for(let i=0;i<dataStore.allOrganism.length;i++){
+            const organ = dataStore.allOrganism[i]
+            organMap[organ.position[0]][organ.position[1]] =  
+            <img src={decoder(organ.category)} alt="" style={{
+         position: "relative",
+         width: `calc(720px/${maxX > maxY ? maxX : maxY})`,
+         height: `calc(720px/${maxX > maxY ? maxX : maxY})`,
+         margin: 0
+     }}/>  
+       
+        }
+       return  organMap.map((y:JSX.Element[])=>{return <tr>{y.map((x:JSX.Element)=>{return  <td style={{margin: "0",padding: "0",}}>{x}</td>})}</tr>})
+    }
+
+
+    const render= () =>{
+         if(err)
         {
             return(
                 <div className='text-center space-y-3'>
@@ -137,40 +145,25 @@ const Playing = ()=>{
         }
         else{  // show map
 
-            const maxX = dataStore.max_x
-            const maxY = dataStore.max_y
-
                 return (
                 <div>
                     <div>
                         {dataStore.timer.time_count}
                     </div>
 
+                     <div className={styles.container}>
+                        <table className={styles.mytable}>{
+                            loading?
+                            <p>loading...</p>
+                            :createMap()
+                        }</table>
+                    </div> 
 
-                    <div className={styles.container}>
-                        <table className={styles.mytable}>{createGrid(maxY).map((i) => {
-                            return(
-                                <tr>{createGrid(maxX).map((j) => {
-                                    
-                                    return(
-                                        <td style={{margin: "0",padding: "0",}}>{
-                                            <img src={decoder(dataStore.textureMap[i-1][j-1])} alt="" style={{
-                                                position: "relative",
-                                                width: `calc(720px/${maxX > maxY ? maxX : maxY})`,
-                                                height: `calc(720px/${maxX > maxY ? maxX : maxY})`,
-                                                margin: 0
-                                            }}/>}
-                                        </td>
-                                    )
-                                })}</tr>
-                            )
-                        })}</table>
-                    </div>
                     <div>
-                        <a onClick={() => clickPause} className={styles.btnpuase}> 
+                        <button onClick={() => nav('/pause')} className={styles.btnpuase}> 
                             <span>PausE</span>
                             <div className={styles.bthbefore}></div>
-                        </a>
+                        </button>
                     
                     </div>
                 </div>
@@ -185,7 +178,6 @@ const Playing = ()=>{
     return (
         <div>
             <p>Playing</p>
-            <button onClick={()=>clickPause()}>pause</button>
             {render()}
         </div>
     )

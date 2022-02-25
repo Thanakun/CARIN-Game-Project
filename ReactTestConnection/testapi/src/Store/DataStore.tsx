@@ -1,8 +1,8 @@
 import {Store} from 'pullstate'
-import { OrganismType, TimerType } from '../Components/Playing'
+import { TimerType } from '../Components/Playing'
 
 
-export type DataStoreType = {
+ type DataStoreType = {
 
     max_x : number 
     max_y : number 

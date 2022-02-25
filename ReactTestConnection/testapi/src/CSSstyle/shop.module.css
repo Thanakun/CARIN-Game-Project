@@ -1,0 +1,92 @@
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.isnotOpen
+{
+    position: absolute;
+    /* width: 100px;
+    height: 150px; */
+    /* background-color: rgb(109, 53, 165, 0.4); */
+    display: none;
+}
+
+.isOpen
+{
+    position: absolute;
+    width: 250px;
+    height: 280px;
+    background-color: rgba(141, 99, 184, 0.8);
+    display: inline-block;
+    z-index: 5;
+    border-radius: 15px;
+    /* justify-content: space-between; */
+}
+
+.exit 
+{
+    position: absolute;
+    right: 20px;
+    /* left: 140px; */
+    /* right: 0; */
+    margin: 3px;
+}
+
+.exit span
+{
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.exit:hover
+{
+    color: #fff;
+}
+
+.item 
+{
+    margin: 30px 10px 30px 10px;
+}
+
+.item a
+{
+    color: #fff;
+    font-size: 24px;
+}
+
+.type1
+{
+    display: flex;
+    justify-content: space-between;
+    transition: 2s ease-in-out;
+}
+
+.type2
+{
+    display: flex;
+    justify-content: space-between;
+    transition: 2s ease-in-out;
+}
+
+.type1price
+{
+    cursor: pointer;
+}
+
+.type2price
+{
+    cursor: pointer;
+}
+
+.type1price:hover
+{
+    color: rgb(6, 243, 17);
+}
+
+.type2price:hover
+{
+    color: rgb(6, 243, 17);
+}

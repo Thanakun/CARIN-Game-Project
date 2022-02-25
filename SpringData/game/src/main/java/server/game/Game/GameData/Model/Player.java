@@ -36,7 +36,9 @@ public class Player {
 
     public synchronized void computeAntibodyInput(Request req){
        AntibodyReq antibodyReq=(AntibodyReq)req;
-
+        System.out.println("Antibody request------------");
+        System.out.println(antibodyReq.getTargetId()+" "+antibodyReq.getType()+" "+antibodyReq.getLocation()[0]
+                +" "+antibodyReq.getLocation()[1]+" "+antibodyReq.getGenetic());
         if(antibodyReq.getGenetic().equals("")){ // new create use default genetic
             placeNewAntibody(antibodyReq.getType(),antibodyReq.getLocation());
         }

@@ -7,7 +7,7 @@ import server.game.Game.Type.Request;
 
 @Component
 public class Menu {
-    private String gameState;     //MAIN_MENU START PLAYING PAUSE END
+    private String gameState;     //MAIN_MENU START PLAYING PAUSE WIN LOSE
     private static Menu instance;
 
     private Menu(){
@@ -31,8 +31,8 @@ public class Menu {
         if(wanted_state.equals("PLAYING")){
             gameState = "PLAYING";
         }
-        if(wanted_state.equals("END")){
-            gameState = "END";
+        if(wanted_state.equals("MAIN_MENU")){
+            gameState = "MAIN_MENU";
         }
     }
 

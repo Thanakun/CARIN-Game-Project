@@ -60,13 +60,13 @@ public class PositionMap {
     }
 
     public boolean hasOrganism(int[] position){    // true if that position has an Organism
-        for(int[] pos:allOrganism_Position.values()){
-            if((pos[0]==position[0])&&(pos[1]==position[1]))
-            {
-                return true;
+            for(int[] pos:allOrganism_Position.values()){
+                if((pos[0]==position[0])&&(pos[1]==position[1]))
+                {
+                    return true;
+                }
             }
-        }
-        return false;
+            return false;
     }
 
     public String getOrganismAt(int[] position){              //get Organism at the specified position if there exist

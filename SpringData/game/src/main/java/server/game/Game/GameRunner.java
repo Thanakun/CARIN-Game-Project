@@ -61,11 +61,15 @@ public class GameRunner extends Thread {
                     timer.off();
                     Thread.sleep(10);
                 }
-                else if(gameState.equals("END")){
-                    System.out.println("*********Game End********* ");
+                else if(gameState.equals("WIN")){
+                    System.out.println("*********You Win********* ");
                     timer.off();
-                    menu.setGameState("MAIN_MENU");
+                    Thread.sleep(10);
 
+                }
+                else if(gameState.equals("LOSE")){
+                    System.out.println("*********You Lose********* ");
+                    timer.off();
                     Thread.sleep(10);
 
                 }
@@ -83,19 +87,19 @@ public class GameRunner extends Thread {
        if(organismStorage.getVirus_killed()==organismStorage.getMax_virus_amount()){
            System.out.println(organismStorage.getMax_virus_amount()+" max virus amount");
            // all virus get killed
-           menu.setGameState("END");
+           menu.setGameState("WIN");
            System.out.println("Player win, All virus die");
        }
        else if(organismStorage.getAntibody_killed()>0 && (organismStorage.getAntibodyAmount()==0)
                &&(player.getCredit()<antibodyControl.getMinimumCost()) ){
            //all antibody die and don't have enough credit
-           menu.setGameState("END");
+           menu.setGameState("LOSE");
            System.out.println("Player lose, All antibody die");
        }
        else if((organismStorage.getVirusAmount()==organismStorage.getMax_virus_amount())&&
        organismStorage.getAntibodyAmount()==0){
            //all virus spawn but dont have any antibody on field
-           menu.setGameState("END");
+           menu.setGameState("LOSE");
            System.out.println("Player lose, All virus has spawned");
        }
     }

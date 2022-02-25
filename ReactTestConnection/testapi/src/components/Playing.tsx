@@ -10,8 +10,18 @@ import styles from '../CSSstyle/positionMap.module.css'
 import greenBox from '../Images/greenBox.png'
 import AntibodyPic from '../Images/Red Antigen.png'
 import VirusPic from '../Images/Blue Virus.png'
+import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 
 
+//export
+
+export type postStateType ={
+    wanted_state:string
+}
+export type respStateType = {
+    wanted_state: string,
+    requestType: string
+}
 
 
 export type GameDataType = {
@@ -33,6 +43,21 @@ export type OrganismType = {
         max_HP:number,
         position:number[]
 }
+
+export const postState = async( wanted_state:string)=>{
+    try{
+        const req:postStateType = {
+            wanted_state: wanted_state
+        }
+        axios.post<respStateType>('http://localhost:8080/game/input/state',req)
+            .then(resp=>console.log(resp.data.wanted_state))
+    }
+    catch(err){
+        console.log(err)
+    }
+}
+
+//main playing 
 
 
 const Playing = ()=>{
@@ -57,6 +82,27 @@ const Playing = ()=>{
         }
     }
 
+   
+
+    //start game
+    useEffect(()=>{
+        if(!loading){
+            if(dataStore.gameState==="MAIN_MENU"){  //current state is main menu
+                 postState("START")
+            }
+            else if(dataStore.gameState==="PAUSE"){
+                postState("PLAYING")
+            }
+        }
+    },[loading])
+
+    //check game status
+    useEffect(()=>{
+        if(dataStore.gameState==="WIN" || dataStore.gameState==="LOSE"){
+            nav('/end')
+        }
+    },[dataStore.gameState])
+
 
 
     //set up  fetch for every time unit
@@ -67,7 +113,7 @@ const Playing = ()=>{
         
         return ()=>{clearInterval(interval)}  //clear serInterval
     }
-    ,[dataStore.timer.timePass])
+    ,[dataStore.timer.timePass,dataStore.gameState])
 
    
     //update Data store every time incoming data change
@@ -103,6 +149,17 @@ const Playing = ()=>{
     const createMap = ()=>{
         const maxX = dataStore.max_x
         const maxY = dataStore.max_y
+        //max scale
+        let max_scale = 0
+    let x_scale : number = 1000/maxX
+    let y_scale : number = 660/maxY
+    if (maxY<maxX) {
+    if(y_scale*maxX <= 1000) max_scale = y_scale
+    else max_scale = x_scale
+    }else {
+    if(x_scale*maxX <= 660) max_scale = x_scale
+    else max_scale = y_scale
+    }
 
         let organMap:JSX.Element[][] = new Array(maxY) 
         
@@ -110,8 +167,8 @@ const Playing = ()=>{
             organMap[i] = new Array(maxX).fill(
                        <img src={greenBox} alt="" style={{
                     position: "relative",
-                    width: `calc(720px/${maxX > maxY ? maxX : maxY})`,
-                    height: `calc(720px/${maxX > maxY ? maxX : maxY})`,
+                    width: `${max_scale}px`,
+                    height: `${max_scale}px`,
                     margin: 0
                 }}/>        
             )   
@@ -122,8 +179,8 @@ const Playing = ()=>{
             organMap[organ.position[0]][organ.position[1]] =  
             <img src={decoder(organ.category)} alt="" style={{
          position: "relative",
-         width: `calc(720px/${maxX > maxY ? maxX : maxY})`,
-         height: `calc(720px/${maxX > maxY ? maxX : maxY})`,
+         width: `${max_scale}px`,
+        height: `${max_scale}px`,
          margin: 0
      }}/>  
        
@@ -142,29 +199,31 @@ const Playing = ()=>{
             )
         }
         else{  // show map
-
-                return (
-                <div>
-                    <div>
-                        {dataStore.timer.time_count}
-                    </div>
-
-                     <div className={styles.container}>
-                        <table className={styles.mytable}>{
-                            loading?
-                            <p>loading...</p>
-                            :createMap()
-                        }</table>
-                    </div> 
-
-                    <div>
-                        <button onClick={() => nav('/pause')} className={styles.btnpuase}> 
-                            <span>PausE</span>
-                            <div className={styles.bthbefore}></div>
-                        </button>
-                    
-                    </div>
+  
+               
+               return (
+              
+                <div className={styles.containerAll}>
+        <div className={styles.container1}>
+            <div className={styles.container2}>
+                <div className={styles.container3}>
+                     <TransformWrapper>
+                      <TransformComponent>
+                         <table className={styles.mytable}>{
+                            createMap()
+                          }</table>
+                     </TransformComponent>
+                   </TransformWrapper>
                 </div>
+            </div>
+        </div>
+        <div>
+            <a onClick={() => pauseClick()} className={styles.btnpuase}> 
+                <span>Pause</span>
+                    <div className={styles.bthbefore}></div>
+            </a>
+        </div>
+    </div>               
         
             )  
             
@@ -172,11 +231,25 @@ const Playing = ()=>{
         }
     }
 
+    const pauseClick = () => {
+        nav("/pause")
+        postState("PAUSE")
+    }
+ 
 
     return (
         <div>
-            <p>Playing</p>
-            {render()}
+           
+            {
+            loading?<div>
+                    <p>loading...</p>
+                     </div> 
+                     :
+                     <div>
+                           <div>{dataStore.timer.time_count}</div>
+                           {render()}
+                     </div>    
+            }
         </div>
     )
 }

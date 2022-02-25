@@ -4,13 +4,18 @@ import { useNavigate } from 'react-router-dom'
 // css
 import styles from '../CSSstyle/puase.module.css'
 
+
 const Pause = () => {
 let nav = useNavigate()
 
+const unpauseClick= ()=>{
+    nav('/gameplay')
+}
+
     return (
         <div>
-            <a onClick={() =>nav('/gameplay')} className={styles.btn}> 
-                <span>Shop</span>
+            <a onClick={()=>unpauseClick()} className={styles.btn}> 
+                <span>Unpause</span>
                 <div className={styles.bthbefore}></div>
             </a>
         </div>

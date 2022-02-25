@@ -39,7 +39,9 @@ public class Timer extends Thread {
                 if(isActive){
 
                     sleep(time_pass);
-                    ++time_count;
+                    if(isActive) {
+                        ++time_count;
+                   }
                 }
                 else{
                   //  System.out.println("pausing");

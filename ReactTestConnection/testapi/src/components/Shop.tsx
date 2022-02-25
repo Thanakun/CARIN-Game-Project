@@ -1,6 +1,6 @@
 
 import styles from '../CSSstyle/shop.module.css'
-import { AntibodyStore, postAntibody, useAntibodyStore } from '../Store/AntibodyStore'
+import { AntibodyStore, AntibodyStoreType, postAntibody, useAntibodyStore } from '../Store/AntibodyStore'
 import { useDataStore } from '../Store/DataStore'
 import { ShopStore, useShopStore } from '../Store/ShopStore'
 
@@ -33,7 +33,13 @@ const Shop = () => {
         AntibodyStore.update(s=>{
             s.type = type
         })
-        postAntibody(antibodyStore)
+        const req:AntibodyStoreType = {
+            targetId : antibodyStore.targetId,
+            type: type,
+            location:antibodyStore.location,
+            genetic: ""
+        }
+        postAntibody(req)
         closeshop(shopStore.shopLocate.index)
         updatestatusShop([0,0], [0,0])
     }

@@ -5,13 +5,21 @@ type TypemapStore = {
     x : number
     y : number
     max_scale : number
+    shopstatus : boolean
+    shoplocate: {x: number, y: number, index : number[]}
 }
 
 export const MapStore = new Store<TypemapStore>({
     map: [],
     x: 0,
     y: 0,
-    max_scale: 0
+    max_scale: 0,
+    shopstatus: false,
+    shoplocate: {
+        x : 0,
+        y : 0,
+        index : [0,0] 
+    }
 })
 
 export const getMap = (x : number, y : number) => {
@@ -37,8 +45,22 @@ export const getMap = (x : number, y : number) => {
 
     MapStore.update(
         s => {
+            s.x = x
+            s.y = y
             s.map = newmap
             s.max_scale = newmax_scale
+        }
+    )
+}
+
+export const updatestatusShop = (mouseindex : number[], index : number[]) => {
+    MapStore.update(
+        s => {
+            s.shopstatus = !s.shopstatus
+            s.shoplocate.x = mouseindex[0]
+            s.shoplocate.y = mouseindex[1]
+            s.shoplocate.index[0] = index[0]
+            s.shoplocate.index[1] = index[1]
         }
     )
 }

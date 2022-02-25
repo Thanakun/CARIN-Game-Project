@@ -2,7 +2,7 @@
 {
     padding: 0px;
     margin: 0px;
-    box-sizing: border-box;    
+    box-sizing: border-box; 
 }
 
 .containerAll
@@ -64,6 +64,18 @@ tr
     line-height: 0px;
 }
 
+td{
+    margin: 0;
+    padding: 0;
+    transition: 0.1s ease-in-out;
+}
+
+td:hover
+{
+    opacity: 0.5;
+    transform: scale(1.2);
+}
+
 .btnpuase
 {
     position: absolute;
@@ -89,4 +101,15 @@ tr
     height: 120px;
     left: 0px;
     top: 0px;
+}
+
+.bg
+{
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 790px;
+    width: 1600px;
+    z-index: 0;
+
 }

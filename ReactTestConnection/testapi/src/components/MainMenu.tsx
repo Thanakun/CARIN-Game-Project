@@ -4,10 +4,17 @@ import { useNavigate } from 'react-router-dom'
  
 // component
 import Logo from './Logo' 
+import { useEffect } from 'react'
+import { postState } from './Playing'
+
+
 
 const MainMenu = () => { 
     let nav = useNavigate()
-
+   
+    useEffect(()=>{
+        postState("MAIN_MENU")
+    },[])
 
     return (
         <div>

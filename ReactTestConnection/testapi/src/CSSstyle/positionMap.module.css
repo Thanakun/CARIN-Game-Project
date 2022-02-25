@@ -5,63 +5,88 @@
     box-sizing: border-box;    
 }
 
+.containerAll
+{
+    position: relative;
+    max-width: 1200px;
+    max-height: 770px;
+    width: 1200px;
+    height: 770px;
+    margin: 0;
+    padding: 8px;
+    /* background-color: rgb(179, 114, 17); */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container1
+{
+    position: relative;
+    margin: 0;
+    padding: 40px;
+    background-color: rgb(117, 91, 57);
+    border-radius: 20px;
+}
+
+.container2
+{
+    position: relative;
+    margin: 0;
+    padding: 8px;
+    background-color: rgb(75, 59, 38);
+    border-radius: 20px;
+}
+
+.container3
+{
+    position: relative;
+    max-width: 1000px;
+    height: auto;
+    margin: 0px;
+    padding: 0px;
+    background-color: rgba(238, 193, 125, 1);
+    border-radius: 35px;
+    overflow: hidden;
+    /* rgba(238, 193, 125, 0.8); */
+}
+
 .mytable 
 {
     border: 2px solid rgb(109, 63, 3); 
     padding: 0;
-    /* border-radius: 50px; */
 }
 
 tr 
 {
-    /* background-color: rgb(230, 169, 57); */
     margin: 0px;
     padding: 0;
     line-height: 0px;
 }
 
-td
-{
-    /* border: 2px solid rgb(109, 63, 3); 
-    margin: 0;
-    padding: 0;
-    width: 30px;
-    height: 30px; */
-    /* width: 30px;
-    height: 30px; */
-    /* display: inline-block; */
-}
-
-.mytable tr td img 
-{
-    /* position: relative;
-    left: 0;
-    width: 30px;
-    height: 30px;
-    margin: 0; */
-}
-
-.container
-{
-    position: relative;
-    width: 590px;
-    height: 590px;
-    margin: 50px;
-    /* background-color: red; */
-}
-
 .btnpuase
 {
-    position: relative;
+    position: absolute;
     cursor: pointer;
     height: 250px;
     width: 250px;
     height: 120px;
-    left: 850px;
-    top: -150px;
+    left: 0;
+    top: 0;
 }
 
 .btnpuase span 
 {
     background-color: red;
+}
+
+.btnshop
+{
+    position: absolute;
+    cursor: pointer;
+    height: 250px;
+    width: 250px;
+    height: 120px;
+    left: 0px;
+    top: 0px;
 }

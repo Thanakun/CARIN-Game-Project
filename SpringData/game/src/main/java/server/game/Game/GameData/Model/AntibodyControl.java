@@ -67,8 +67,9 @@ public class AntibodyControl {
     }
 
     public Antibody spawnNewAntibody(int type, int[] location){  //return true if can place at that location
-
-        if(!positionMap.hasOrganism(location)){  //not found any organism at location , it is empty
+    int[] maxBound = positionMap.getMapDimension();
+        if(!positionMap.hasOrganism(location) &&
+                (location[0]>=0 && location[0]<maxBound[0] && location[1]>=0 && location[1]<maxBound[1])){  //not found any organism at location and wanted place is within map range
             System.out.println("create new Antibody");
             Antibody newAntibody = new Antibody(
                     "A"+ organismStorage.getAntibody_count()

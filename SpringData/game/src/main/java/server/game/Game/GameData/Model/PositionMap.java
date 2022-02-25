@@ -45,8 +45,8 @@ public class PositionMap {
 
     public synchronized boolean updateOrganismPosition(String target_Id,int[] position){   //update Organism location
         if(!hasOrganism(position) &&
-                (position[0]>=0)&&(position[0]<=max_x)
-        && (position[1]>=0)&&(position[1]<=max_y)){   //if that posiotion is empty
+                (position[0]>=0)&&(position[0]<max_x)
+        && (position[1]>=0)&&(position[1]<max_y)){   //if that posiotion is empty
             allOrganism_Position.put(target_Id,position);
             System.out.println(target_Id+" are at :"+position[0]+" "+position[1]);
             return true;
@@ -60,13 +60,13 @@ public class PositionMap {
     }
 
     public boolean hasOrganism(int[] position){    // true if that position has an Organism
-        for(int[] pos:allOrganism_Position.values()){
-            if((pos[0]==position[0])&&(pos[1]==position[1]))
-            {
-                return true;
+            for(int[] pos:allOrganism_Position.values()){
+                if((pos[0]==position[0])&&(pos[1]==position[1]))
+                {
+                    return true;
+                }
             }
-        }
-        return false;
+            return false;
     }
 
     public String getOrganismAt(int[] position){              //get Organism at the specified position if there exist

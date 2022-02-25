@@ -87,34 +87,34 @@ const Playing = ()=>{
 
     //start and resume game when web loaded
     useEffect(()=>{
-        if(!loading){
+        if(!loading){  //if loaded complete
             if(dataStore.gameState==="MAIN_MENU"){  //current state is main menu
                  postState("START")
             }
-            else if(dataStore.gameState==="PAUSE"){
-                postState("PLAYING")
+            if(dataStore.gameState==="PAUSE"){    //if current is pause then resume
+                postState("PLAYING")  
+            }  
+            
+            //check game result
+            if(dataStore.gameState==="WIN" || dataStore.gameState==="LOSE"){
+             nav('/end')
+                }
             }
-        }
-    },[loading])
+       
+    },[loading,dataStore.gameState])
 
-    //check game result status
-    useEffect(()=>{
-        if(dataStore.gameState==="WIN" || dataStore.gameState==="LOSE"){
-            nav('/end')
-        }
-    },[dataStore.gameState])
 
 
 
     //set up  fetch for every time unit
     useEffect(()=>{
-      const interval =  setInterval(()=>{
+           const interval =  setInterval(()=>{
             fetchGamedata()
-        },dataStore.timer.timePass)  //fetch every time unit
+        },data?data.timer.timePass:100)  //fetch every time unit 
         
-        return ()=>{clearInterval(interval)}  //clear serInterval
+        return ()=>{clearInterval(interval)}  //clear serInterval 
     }
-    ,[dataStore.timer.timePass,dataStore.gameState])
+    ,[dataStore.timer.timePass])
 
    
     //update Data store every time incoming data change
@@ -122,7 +122,7 @@ const Playing = ()=>{
         if(data!=null){
              //update data store
            DataStore.update((s)=>{
-            //update organism
+            //update dimension
             s.max_x = data.dimension[0]
             s.max_y = data.dimension[1]
             //update time

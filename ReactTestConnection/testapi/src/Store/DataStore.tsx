@@ -17,7 +17,6 @@ export function useDataStore():DataStoreType{  //use to pull data store element
 }
 
 export const DataStore = new Store<DataStoreType>({
-
     max_x: 10,
     max_y: 10,
     timer : {
@@ -25,7 +24,7 @@ export const DataStore = new Store<DataStoreType>({
         timePass:100
     },
     credit : 0,
-    gameState: "MAIN_MENU"
+    gameState: ""
 })
 
 

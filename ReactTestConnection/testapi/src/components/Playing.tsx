@@ -11,9 +11,10 @@ import greenBox from '../Images/greenBox.png'
 import AntibodyPic from '../Images/Red Antigen.png'
 import VirusPic from '../Images/Blue Virus.png'
 import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
+import { isFloat32Array } from "util/types";
 
 
-//export
+//export type and function
 
 export type postStateType ={
     wanted_state:string
@@ -84,7 +85,7 @@ const Playing = ()=>{
 
    
 
-    //start game
+    //start and resume game when web loaded
     useEffect(()=>{
         if(!loading){
             if(dataStore.gameState==="MAIN_MENU"){  //current state is main menu
@@ -96,7 +97,7 @@ const Playing = ()=>{
         }
     },[loading])
 
-    //check game status
+    //check game result status
     useEffect(()=>{
         if(dataStore.gameState==="WIN" || dataStore.gameState==="LOSE"){
             nav('/end')
@@ -130,13 +131,12 @@ const Playing = ()=>{
             s.credit = data.credit
             //update gamestate
             s.gameState = data.gameState
-            //update organism
-            s.allOrganism = data.allOrgan
+
         })
         }
     },[data])
 
-
+    //return picture src of each type of organism 
     const decoder = (key : string) => {
 
         switch (key) {
@@ -146,6 +146,7 @@ const Playing = ()=>{
         }
     }
 
+    //create map with virus and antivirus assign at its position
     const createMap = ()=>{
         const maxX = dataStore.max_x
         const maxY = dataStore.max_y
@@ -174,8 +175,9 @@ const Playing = ()=>{
             )   
         }
 
-        for(let i=0;i<dataStore.allOrganism.length;i++){
-            const organ = dataStore.allOrganism[i]
+       if(data!==null){
+        for(let i=0;i<data.allOrgan.length;i++){
+        const organ = data.allOrgan[i]
             organMap[organ.position[0]][organ.position[1]] =  
             <img src={decoder(organ.category)} alt="" style={{
          position: "relative",
@@ -183,8 +185,9 @@ const Playing = ()=>{
         height: `${max_scale}px`,
          margin: 0
      }}/>  
-       
         }
+       } 
+       
        return  organMap.map((y:JSX.Element[])=>{return <tr>{y.map((x:JSX.Element)=>{return  <td style={{margin: "0",padding: "0",}}>{x}</td>})}</tr>})
     }
 
@@ -199,8 +202,6 @@ const Playing = ()=>{
             )
         }
         else{  // show map
-  
-               
                return (
               
                 <div className={styles.containerAll}>
@@ -225,15 +226,16 @@ const Playing = ()=>{
         </div>
     </div>               
         
-            )  
-            
-          
+            )   
         }
     }
 
     const pauseClick = () => {
         nav("/pause")
         postState("PAUSE")
+        DataStore.update(s=>{
+            s.gameState = "PAUSE"
+        })
     }
  
 

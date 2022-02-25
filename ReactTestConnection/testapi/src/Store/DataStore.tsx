@@ -3,7 +3,7 @@ import { OrganismType, TimerType } from '../Components/Playing'
 
 
 export type DataStoreType = {
-    allOrganism: OrganismType[]
+
     max_x : number 
     max_y : number 
     timer : TimerType
@@ -17,7 +17,7 @@ export function useDataStore():DataStoreType{  //use to pull data store element
 }
 
 export const DataStore = new Store<DataStoreType>({
-    allOrganism: [],
+
     max_x: 10,
     max_y: 10,
     timer : {
@@ -25,7 +25,7 @@ export const DataStore = new Store<DataStoreType>({
         timePass:100
     },
     credit : 0,
-    gameState: "MainMenu"
+    gameState: "MAIN_MENU"
 })
 
 

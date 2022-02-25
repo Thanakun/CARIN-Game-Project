@@ -28,10 +28,6 @@ const End = ()=>{
 
     const restartClick = ()=>{
             nav('/')
-            postState("MAIN_MENU")
-            DataStore.update(s=>{
-                s.gameState = "MAIN_MENU"
-            })
     }
 
     return(

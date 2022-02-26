@@ -1,6 +1,7 @@
 package server.game.Game.GameData.Model;
 
 
+import ch.qos.logback.classic.encoder.PatternLayoutEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -17,6 +18,8 @@ import java.util.Random;
 public class VirusControl {
     /** Controll All Virus */
     public static VirusControl instance;
+    @Autowired
+    private Player player;
     @Autowired
     private PositionMap positionMap;
     @Autowired
@@ -136,5 +139,10 @@ public class VirusControl {
               parser.evauateAll();
       }
     }
+
+    public void virusDieEffect(int died_virus_type){
+        player.addCredit(died_virus_type);
+    }
+
 
 }

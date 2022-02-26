@@ -7,6 +7,7 @@ public class Antibody extends Entity implements Organism {
     private int move_cost;
     private int buy_cost;
 
+
     public Antibody(String id, int type,int[] location_init,PositionMap positionMap
             ,OrganismStorage organismStorage){ // for antivirus Id format is "A??????" ?is any number or character
         this.Id = id;
@@ -29,6 +30,7 @@ public class Antibody extends Entity implements Organism {
     public void setCost(int move_cost,int buy_cost){
         this.move_cost = type*move_cost;
         this.buy_cost = type*buy_cost;
+
     }
     public int getMove_cost(){return  this.move_cost;}
     public int getBuyCost(){

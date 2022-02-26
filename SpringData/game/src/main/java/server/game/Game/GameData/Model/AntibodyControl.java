@@ -40,6 +40,7 @@ public class AntibodyControl {
 
 
 
+
     private AntibodyControl(){
         default_geneticCode =
                 "virusLoc = virus\n" +

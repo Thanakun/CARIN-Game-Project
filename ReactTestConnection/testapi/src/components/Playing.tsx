@@ -10,7 +10,7 @@ import styles from '../CSSstyle/positionMap.module.css'
 import greenBox from '../Images/greenBox.png'
 import AntibodyPic from '../Images/Red Antigen.png'
 import VirusPic from '../Images/Blue Virus.png'
-import BgPlaying from '../Images/bg_gameplay.png'
+import BgPlaying from '../Images/bgtest.png'
 
 
 import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
@@ -19,6 +19,8 @@ import Shop, { updatestatusShop } from "./Shop";
 import { AntibodyStore, postAntibody, useAntibodyStore } from "../Store/AntibodyStore";
 import AntibodyController, { updateAntibodyController } from "./AntibodyController";
 import { useAntibodyControllerStore } from "../Store/AntibodyControllerStore";
+import DropbarMenu from "./DropbarMenu";
+import StatusBar from "./StatusBar";
 
 
 
@@ -39,6 +41,8 @@ export type GameDataType = {
     gameState: string,
     dimension: number[],
     allOrgan:OrganismType[]
+    virus_amount:number,
+    antibody_amount:number
 }
 export type TimerType={
       time_count: number,
@@ -47,7 +51,7 @@ export type TimerType={
 export type OrganismType = {
         id:string,
         category:string,
-        tye:number,
+        type:number,
         hp:number,
         max_HP:number,
         position:number[]
@@ -76,7 +80,6 @@ const Playing = ()=>{
     const [err,setErr] = useState<boolean>(false)
     const dataStore = useDataStore()
     const shopStore = useShopStore()
-    const antibodyStore = useAntibodyStore()
     const controllerStore = useAntibodyControllerStore()
 
     const fetchGamedata = async() =>{
@@ -90,6 +93,12 @@ const Playing = ()=>{
       
         }
     }
+
+      // background
+      useEffect(() => {
+        const bg = document.querySelector('body')
+        if (bg) bg.style.cssText = `background: url(${BgPlaying}) no-repeat fixed; width: 100%;`
+    })
 
    
 
@@ -130,16 +139,16 @@ const Playing = ()=>{
         if(data!=null){
              //update data store
            DataStore.update((s)=>{
-            //update dimension
+     
             s.max_x = data.dimension[0]
             s.max_y = data.dimension[1]
-            //update time
-            s.timer = data.timer
-            //update credit
-            s.credit = data.credit
-            //update gamestate
-            s.gameState = data.gameState
 
+            s.timer = data.timer
+            s.credit = data.credit
+            s.gameState = data.gameState
+            s.virus_amount = data.virus_amount
+            s.antibody_amount = data.antibody_amount
+            
         })
         }
     },[data])
@@ -265,6 +274,7 @@ const Playing = ()=>{
 <img src={BgPlaying} alt="" className={styles.bg}/>
  <div>{dataStore.timer.time_count}</div>
   <Shop/>
+  <StatusBar/>
   <AntibodyController/>
     <div className={styles.containerAll}>
         <div className={styles.container1}>
@@ -286,7 +296,8 @@ const Playing = ()=>{
                     <div className={styles.bthbefore}></div>
             </a>
         </div>
-    </div>               
+    </div>
+    <DropbarMenu/>               
  </div>       
             )   
         }

@@ -1,0 +1,185 @@
+*
+{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.container
+{
+    position: fixed;
+    /* background-color: red; */
+    left: 20px;
+    width: 150px;
+}
+
+.bg
+{
+    position: relative;
+    margin: 0px;
+    padding: 0px;
+    top: -3px;
+    left: 0px;
+    height: 700px;
+    width: 180px; 
+}
+
+.container img
+{
+    position: absolute;
+    height: 700px;
+    width: 150px;
+}
+
+.items
+{
+    position: absolute;
+    top: 108px;
+    left: 16px;
+    height: 500px;
+    width: 120px;
+    /* background-color: aqua;  */
+    display: flex;
+    align-content: space-around;
+}
+
+.clock
+{
+    position: absolute;
+    margin: 0px;
+    padding: 0px;
+    height: 120px;
+    width: 150px;
+    z-index: 1;
+    display: flex;
+    align-content: space-between;
+}
+
+.icon
+{
+    position: absolute;
+    /* background-color: blue; */
+    width: 120px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+}
+
+.clock img
+{
+    position: relative;
+    display: block;
+    height: 60px;
+    width: auto;
+}
+
+.cost
+{
+    position: absolute;
+    width: 120px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+}
+
+.clock p
+{
+    position: relative;
+    display: block;
+    top: 70px;
+    font-size: 24px;
+    color: #fff;
+}
+
+.coin
+{
+    position: absolute;
+    top: 135px;
+    left: 0px;
+    margin: 0px;
+    padding: 0px;
+    height: 120px;
+    width: 150px;
+    z-index: 1;
+    display: flex;
+    align-content: space-between;
+}
+
+.coin img
+{
+    position: relative;
+    display: block;
+    height: 60px;
+    width: auto;
+}
+
+.coin p
+{
+    position: relative;
+    display: block;
+    top: 70px;
+    font-size: 24px;
+    color: #fff;
+}
+
+.virus
+{
+    position: absolute;
+    top: 270px;
+    left: 0px;
+    margin: 0px;
+    padding: 0px;
+    height: 120px;
+    width: 150px;
+    z-index: 1;
+    display: flex;
+    align-content: space-between;
+}
+
+.virus img
+{
+    position: relative;
+    display: block;
+    height: 60px;
+    width: auto;
+}
+
+.virus p
+{
+    position: relative;
+    display: block;
+    top: 70px;
+    font-size: 24px;
+    color: #fff;
+}
+
+.antibody
+{
+    position: absolute;
+    top: 405px;
+    left: 0px;
+    margin: 0px;
+    padding: 0px;
+    height: 120px;
+    width: 150px;
+    z-index: 1;
+    display: flex;
+    align-content: space-between;
+}
+
+.antibody img
+{
+    position: relative;
+    display: block;
+    height: 60px;
+    width: auto;
+}
+
+.antibody p
+{
+    position: relative;
+    display: block;
+    top: 65px;
+    font-size: 24px;
+    color: #fff;
+}

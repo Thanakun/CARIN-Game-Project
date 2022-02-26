@@ -9,6 +9,9 @@ import { TimerType } from '../Components/Playing'
     timer : TimerType
     credit : number
     gameState: string
+    menuState: boolean
+    virus_amount:number
+    antibody_amount:number
 }
 
 //custom hook
@@ -24,7 +27,10 @@ export const DataStore = new Store<DataStoreType>({
         timePass:100
     },
     credit : 0,
-    gameState: ""
+    gameState: "",
+    menuState:false,
+    virus_amount:0,
+    antibody_amount:0
 })
 
 

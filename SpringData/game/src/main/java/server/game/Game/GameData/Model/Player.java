@@ -15,6 +15,8 @@ public class Player {
     private static Player instance;
     @Value("${init_credits}")
     private int credit;
+    @Value("${kill_virus_credit_gain}")
+    private int kill_virus_credit_gain;
     @Autowired
     private AntibodyControl antibodyControl;
     @Autowired
@@ -32,6 +34,9 @@ public class Player {
 
     public int getCredit(){
         return credit;
+    }
+    public void addCredit(int virus_type){
+        credit+=virus_type*kill_virus_credit_gain;
     }
 
     public synchronized void computeAntibodyInput(Request req){

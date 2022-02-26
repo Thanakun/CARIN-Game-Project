@@ -23,9 +23,20 @@ import mucus4_1 from '../Images/mucus4_1.png'
 import mucus4_2 from '../Images/mucus4_2.png'
 import mucus4_3 from '../Images/mucus4_3.png'
 import mucus4_4 from '../Images/mucus4_4.png'
+import { useEffect } from 'react'
+import bgHomegreen from '../Images/bghome.png'
 
 
 const Logo = () => {
+
+      // Hook
+      useEffect(() => {
+        const bg = document.querySelector('body')
+        if (bg) bg.style.cssText = `background: url(${bgHomegreen}) 
+        no-repeat fixed; width: 100%;overflow: hidden;transition: all 0.8s;`
+      },[])
+
+      
     return (
         <div className={styles.logocontainer}>
             <div className={styles.Vesselcontainter}>

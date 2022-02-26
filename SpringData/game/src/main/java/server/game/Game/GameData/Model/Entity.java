@@ -132,6 +132,7 @@ public class Entity implements Organism{
                 organism.gain_HP();
                 organismDie(target);
                 ((Antibody)organism).overcome();
+
             }
 
         }

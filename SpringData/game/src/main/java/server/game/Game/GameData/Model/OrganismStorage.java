@@ -22,6 +22,8 @@ public class OrganismStorage {
     private static int virus_killed;
     @Autowired
     private PositionMap positionMap;
+    @Autowired
+    private Player player;
 
     private OrganismStorage(){
         allAntivirus = new LinkedHashMap<>();
@@ -68,7 +70,8 @@ public class OrganismStorage {
         if(target.getCategory().equals("Virus") && allVirus.containsValue(target)){
             allVirus.remove(target.getId());
             positionMap.removeOrganismPosition(target);
-            virus_killed++;
+            virus_killed++; //virus kill player gain credit
+            player.addCredit(target.getType());
 
         } else if (target.getCategory().equals("Antibody") && allAntivirus.containsValue(target)){
             allAntivirus.remove(target.getId());

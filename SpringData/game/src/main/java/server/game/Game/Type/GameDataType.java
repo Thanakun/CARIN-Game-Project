@@ -12,17 +12,38 @@ public class GameDataType {
     private String gameState;
     private int[] dimension;
     private LinkedHashSet<OrganismDataType> allOrgan;
+    private int virus_amount;
+    private int antibody_amount;
 
     public GameDataType(){}
 
     public GameDataType(Timer timer, int credit, String gameState, int[] dimension,
-                        Map<String,Organism> virus,Map<String,Organism> antibody) {
+                        Map<String,Organism> virus,Map<String,Organism> antibody,
+                        int virus_amount,int antibody_amount) {
         this.timer = new TimerDataType(timer.getTime_count(),timer.getTimePass());
         this.credit = credit;
         this.gameState = gameState;
         this.dimension = dimension;
+        this.virus_amount = virus_amount;
+        this.antibody_amount = antibody_amount;
         allOrgan = new LinkedHashSet<>();
         setAllOrgan(virus,antibody);
+    }
+
+    public int getVirus_amount() {
+        return virus_amount;
+    }
+
+    public void setVirus_amount(int virus_amount) {
+        this.virus_amount = virus_amount;
+    }
+
+    public int getAntibody_amount() {
+        return antibody_amount;
+    }
+
+    public void setAntibody_amount(int antibody_amount) {
+        this.antibody_amount = antibody_amount;
     }
 
     public TimerDataType getTimer() {

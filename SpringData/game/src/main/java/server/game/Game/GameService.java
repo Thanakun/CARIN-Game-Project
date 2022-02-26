@@ -59,7 +59,8 @@ public class GameService {
     public int[] getDimension(){return positionMap.getMapDimension();}
 
     public GameDataType getGameData() {
-        return new GameDataType(getTimer(),getCredit(),getGameState(),getDimension(),getVirus(),getAntibody());
+        return new GameDataType(getTimer(),getCredit(),getGameState(),getDimension(),getVirus(),getAntibody()
+        ,organismStorage.getVirusAmount(),organismStorage.getAntibodyAmount());
     }
 
     public Request saveReq(Request req){

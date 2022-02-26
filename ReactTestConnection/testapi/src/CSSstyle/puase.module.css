@@ -5,11 +5,23 @@
     box-sizing: border-box;
 }
 
-.btn
+.btnBack
 {
     position: absolute;
     cursor: pointer;
     color: red;
     width: 250px;
-    height: 150px;
+    height: 100px;
+    font-size: 35px;
+    left: 15px;
+}
+
+.btnOut
+{
+    position: absolute;
+    cursor: pointer;
+    color: blue;
+    right: 80px;
+    bottom: 60px;
+    font-size: 35px;
 }

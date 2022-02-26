@@ -26,7 +26,7 @@ const Shop = () => {
 
     const closeshop = (arr :number[]) => {
         const td = document.querySelectorAll('td')[arr[0]*dataStore.max_x+arr[1]]
-        td.style.cssText = "opacity: 1;transform: scale(1);"
+        td.style.cssText = "td{opacity: 1;transform: scale(1);transition: 0.1s ease-in-out;margin: 0;padding: 0;} td:hover{opacity: 0.5;transform: scale(1.2);}"
     }
 
     const buyAntibody = (type:number)=>{

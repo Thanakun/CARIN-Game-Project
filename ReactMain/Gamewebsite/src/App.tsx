@@ -21,13 +21,13 @@ function App() {
   const state = MapStore.useState()
 
   // AllreactHook
-  useEffect(() => {
+  useEffect(() => {   
     getMap(Xaxis, Yaxis)
   }, [])
 
 
   // variables
-  const [Xaxis, setXaxis] = useState<number>(10)
+  const [Xaxis, setXaxis] = useState<number>(20)
   const [Yaxis, setYaxis] = useState<number>(10)
 
   // functions

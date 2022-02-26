@@ -1,4 +1,5 @@
 // Hook
+import { useEffect } from 'react' 
 import { useNavigate } from 'react-router-dom'
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch'
 
@@ -13,11 +14,12 @@ import styles from '../CSSstyle/positionMap.module.css'
 
 // components
 import Shop from './Shop'
+import DropbarMenu from './DropbarMenu'
 
 // image 
 import woogBox from '../Images/woodBox.png'
 import woogStrikyBox from '../Images/woodstrickyBox.png'
-import BgPlaying from '../Images/bg_gameplay.png'
+import BgPlaying from '../Images/bgtest.png'
 
 type typePops = {
     x : number
@@ -27,6 +29,13 @@ type typePops = {
 }
 
 const positionMap = ({x, y, map, maxScale} : typePops) => {
+    // Hook
+    useEffect(() => {
+        const bg = document.querySelector('body')
+        if (bg) bg.style.cssText = `background: url(${BgPlaying}) no-repeat fixed; width: 100%;`
+    })
+
+
     // variables
     let nav = useNavigate()
     const state = MapStore.useState()
@@ -60,7 +69,7 @@ const positionMap = ({x, y, map, maxScale} : typePops) => {
 
     return (
         <div>
-            <img src={BgPlaying} alt="" className={styles.bg}/>
+            {/* <img src={BgPlaying} alt="" className={styles.bg}/> */}
             <Shop/>
             <div className={styles.containerAll}>
             <div className={styles.container1}>
@@ -89,17 +98,8 @@ const positionMap = ({x, y, map, maxScale} : typePops) => {
                 </div>
                 </div>
             </div>
-            <div>
-                    <a onClick={() => addpath('/pause')} className={styles.btnpuase}> 
-                        <span>Pause</span>
-                        <div className={styles.bthbefore}></div>
-                    </a>
-                    <a onClick={() => addpath('/shop')} className={styles.btnshop}> 
-                        <span>Shop</span>
-                        <div className={styles.bthbefore}></div>
-                    </a>
-                </div>
             </div> 
+            <DropbarMenu/>
         </div>                
     )
 } 

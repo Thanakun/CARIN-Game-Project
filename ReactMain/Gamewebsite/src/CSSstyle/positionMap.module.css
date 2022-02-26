@@ -1,7 +1,7 @@
 *
 {
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
     box-sizing: border-box; 
 }
 
@@ -45,7 +45,7 @@
     height: auto;
     margin: 0px;
     padding: 0px;
-    background-color: rgba(238, 193, 125, 1);
+    background-color: rgb(219, 186, 76);
     border-radius: 35px;
     overflow: hidden;
     /* rgba(238, 193, 125, 0.8); */
@@ -64,9 +64,11 @@ tr
     line-height: 0px;
 }
 
-td{
+td
+{
     margin: 0;
     padding: 0;
+    transform: scale(1);
     transition: 0.1s ease-in-out;
 }
 
@@ -74,7 +76,7 @@ td:hover
 {
     opacity: 0.5;
     transform: scale(1.2);
-}
+} 
 
 .btnpuase
 {
@@ -109,7 +111,6 @@ td:hover
     left: 0;
     top: 0;
     height: 790px;
-    width: 1600px;
+    width: 1700px;
     z-index: 0;
-
 }

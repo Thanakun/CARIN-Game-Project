@@ -7,6 +7,7 @@ type TypemapStore = {
     max_scale : number
     shopstatus : boolean
     shoplocate: {x: number, y: number, index : number[]}
+    menustatus : boolean
 }
 
 export const MapStore = new Store<TypemapStore>({
@@ -18,8 +19,9 @@ export const MapStore = new Store<TypemapStore>({
     shoplocate: {
         x : 0,
         y : 0,
-        index : [0,0] 
-    }
+        index : [0,0]
+    },
+    menustatus : false
 })
 
 export const getMap = (x : number, y : number) => {

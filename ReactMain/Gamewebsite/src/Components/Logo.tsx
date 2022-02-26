@@ -1,3 +1,6 @@
+// Hook
+import { useEffect } from 'react'
+
 // CSS
 import styles from '../CSSstyle/logo.module.css'
 
@@ -26,6 +29,12 @@ import mucus4_4 from '../Images/mucus4_4.png'
 
 
 const Logo = () => {
+    // Hook
+    useEffect(() => {
+        const bg = document.querySelector('body')
+            if (bg) bg.style.cssText = `background: #d1d5db no-repeat fixed; width: 100%;`
+      },[])
+
     return (
         <div className={styles.logocontainer}>
             <div className={styles.Vesselcontainter}>

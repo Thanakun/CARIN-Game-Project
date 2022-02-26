@@ -7,35 +7,29 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 
 public class GameDataType {
-    private Timer timer;
+    private TimerDataType timer;
     private int credit;
     private String gameState;
     private int[] dimension;
-    private LinkedHashSet<Organism> allOrgan;
+    private LinkedHashSet<OrganismDataType> allOrgan;
 
     public GameDataType(){}
-    public GameDataType(Timer timer,int credit,String gameState,int[] dimension,Map<String,Organism> virus,Map<String,Organism> antibody){
-        this.timer = timer;
+
+    public GameDataType(Timer timer, int credit, String gameState, int[] dimension,
+                        Map<String,Organism> virus,Map<String,Organism> antibody) {
+        this.timer = new TimerDataType(timer.getTime_count(),timer.getTimePass());
         this.credit = credit;
-        this.gameState =  gameState;
+        this.gameState = gameState;
         this.dimension = dimension;
         allOrgan = new LinkedHashSet<>();
         setAllOrgan(virus,antibody);
     }
 
-    public int[] getDimension() {
-        return dimension;
-    }
-
-    public void setDimension(int[] dimension) {
-        this.dimension = dimension;
-    }
-
-    public Timer getTimer() {
+    public TimerDataType getTimer() {
         return timer;
     }
 
-    public void setTimer(Timer timer) {
+    public void setTimer(TimerDataType timer) {
         this.timer = timer;
     }
 
@@ -55,12 +49,26 @@ public class GameDataType {
         this.gameState = gameState;
     }
 
-    public LinkedHashSet<Organism> getAllOrgan() {
+    public int[] getDimension() {
+        return dimension;
+    }
+
+    public void setDimension(int[] dimension) {
+        this.dimension = dimension;
+    }
+
+    public LinkedHashSet<OrganismDataType> getAllOrgan() {
         return allOrgan;
     }
 
-    public void setAllOrgan(Map<String,Organism> allVirus,Map<String,Organism> allAntibody){
-        allOrgan.addAll(allVirus.values());
-        allOrgan.addAll(allAntibody.values());
+    public void setAllOrgan(Map<String,Organism> virus,Map<String,Organism> antibody) {
+      for(Organism organ:virus.values()){
+          allOrgan.add(new OrganismDataType(organ.getId(),organ.getCategory(),
+                  organ.getType(),organ.getHP(),organ.getMax_HP(),organ.getPosition()));
+      }
+        for(Organism organ:antibody.values()){
+            allOrgan.add(new OrganismDataType(organ.getId(),organ.getCategory(),
+                    organ.getType(),organ.getHP(),organ.getMax_HP(),organ.getPosition()));
+        }
     }
 }

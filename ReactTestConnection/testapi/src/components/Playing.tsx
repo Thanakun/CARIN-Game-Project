@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import { useState,useEffect } from "react";
+import { useState,useEffect, MouseEvent } from "react";
 import axios from "axios";
-import { DataStore, DataStoreType, useDataStore } from "../Store/DataStore";
+import { DataStore,  useDataStore } from "../Store/DataStore";
 
 // css
 import styles from '../CSSstyle/positionMap.module.css'
@@ -10,8 +10,16 @@ import styles from '../CSSstyle/positionMap.module.css'
 import greenBox from '../Images/greenBox.png'
 import AntibodyPic from '../Images/Red Antigen.png'
 import VirusPic from '../Images/Blue Virus.png'
+import BgPlaying from '../Images/bg_gameplay.png'
+
+
 import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
-import { isFloat32Array } from "util/types";
+import { useShopStore } from "../Store/ShopStore";
+import Shop, { updatestatusShop } from "./Shop";
+import { AntibodyStore, postAntibody, useAntibodyStore } from "../Store/AntibodyStore";
+import AntibodyController, { updateAntibodyController } from "./AntibodyController";
+import { useAntibodyControllerStore } from "../Store/AntibodyControllerStore";
+
 
 
 //export type and function
@@ -67,9 +75,9 @@ const Playing = ()=>{
     const [loading,setLoading] = useState<boolean>(true)
     const [err,setErr] = useState<boolean>(false)
     const dataStore = useDataStore()
-
-   
- 
+    const shopStore = useShopStore()
+    const antibodyStore = useAntibodyStore()
+    const controllerStore = useAntibodyControllerStore()
 
     const fetchGamedata = async() =>{
         try{
@@ -165,33 +173,83 @@ const Playing = ()=>{
         let organMap:JSX.Element[][] = new Array(maxY) 
         
         for(let i = 0;i<maxY;i++){
-            organMap[i] = new Array(maxX).fill(
-                       <img src={greenBox} alt="" style={{
+            organMap[i] = new Array(maxX)
+                for(let j = 0;j<maxX;j++ ){
+                    organMap[i][j]= <a onDoubleClick={(e:MouseEvent)=>DoubleClickedBlock(e,i,j)} >
+                    <img src={greenBox} alt="" style={{
                     position: "relative",
                     width: `${max_scale}px`,
                     height: `${max_scale}px`,
                     margin: 0
-                }}/>        
-            )   
+                }}/></a>  
+                }
+                       
         }
 
        if(data!==null){
         for(let i=0;i<data.allOrgan.length;i++){
         const organ = data.allOrgan[i]
+        if(organ.category==="Antibody"){ //can select antibody to controll it
             organMap[organ.position[0]][organ.position[1]] =  
+            <a onDoubleClick={(e:MouseEvent)=>DoubleClickedAntibody(e,organ.position[0],organ.position[1])}>
             <img src={decoder(organ.category)} alt="" style={{
          position: "relative",
          width: `${max_scale}px`,
         height: `${max_scale}px`,
          margin: 0
-     }}/>  
+     }}/> </a>
+        }
+        else {  //virus , can't select
+             organMap[organ.position[0]][organ.position[1]] =  
+            <a >
+            <img src={decoder(organ.category)} alt="" style={{
+         position: "relative",
+         width: `${max_scale}px`,
+        height: `${max_scale}px`,
+         margin: 0
+     }}/> </a>
+        }
+           
         }
        } 
        
-       return  organMap.map((y:JSX.Element[])=>{return <tr>{y.map((x:JSX.Element)=>{return  <td style={{margin: "0",padding: "0",}}>{x}</td>})}</tr>})
+       return  organMap.map((y:JSX.Element[])=>{return <tr>{y.map((x:JSX.Element)=>{return  <td>{x}</td>})}</tr>})
     }
 
+    //double click to select empty block
+    const DoubleClickedBlock = (e:MouseEvent,i:number,j:number) =>{
+        if(!shopStore.shopStatus){
+            updatestatusShop([e.pageX,e.pageY],[i,j])
+            openshop([i,j])
+            AntibodyStore.update(s=>{
+                s.targetId = ""
+                s.type = 0
+                s.location = [i,j]
+                s.genetic = ""
+            }
+            )
+        }
+    }
+    //double click to select antibody
+    const DoubleClickedAntibody = (e:MouseEvent,i:number,j:number) =>{
+       
 
+        if(data!=null){
+           const [selectAntibody] =  data.allOrgan.filter(organ=>(organ.position[0]===i&&organ.position[1]===j))
+        AntibodyStore.update(s=>{
+            s.targetId = selectAntibody.id
+        }) 
+       
+        if(!controllerStore.status){
+            updateAntibodyController([e.pageX,e.pageY],[i,j])
+            opencontroller([i,j])
+        }
+    }
+        
+    } 
+
+
+    
     const render= () =>{
          if(err)
         {
@@ -203,8 +261,12 @@ const Playing = ()=>{
         }
         else{  // show map
                return (
-              
-                <div className={styles.containerAll}>
+<div>
+<img src={BgPlaying} alt="" className={styles.bg}/>
+ <div>{dataStore.timer.time_count}</div>
+  <Shop/>
+  <AntibodyController/>
+    <div className={styles.containerAll}>
         <div className={styles.container1}>
             <div className={styles.container2}>
                 <div className={styles.container3}>
@@ -225,7 +287,7 @@ const Playing = ()=>{
             </a>
         </div>
     </div>               
-        
+ </div>       
             )   
         }
     }
@@ -237,6 +299,15 @@ const Playing = ()=>{
             s.gameState = "PAUSE"
         })
     }
+
+    const openshop = (arr :number[]) => {
+        const td = document.querySelectorAll('td')[arr[0]*dataStore.max_x+arr[1]]
+        td.style.cssText = "opacity: 0.5;transform: scale(0.85);"
+    }
+    const opencontroller = (arr :number[]) => {
+        const td = document.querySelectorAll('td')[arr[0]*dataStore.max_x+arr[1]]
+        td.style.cssText = "opacity: 0.5;transform: scale(0.85);"
+    }
  
 
     return (
@@ -247,10 +318,7 @@ const Playing = ()=>{
                     <p>loading...</p>
                      </div> 
                      :
-                     <div>
-                           <div>{dataStore.timer.time_count}</div>
-                           {render()}
-                     </div>    
+                    render()
             }
         </div>
     )

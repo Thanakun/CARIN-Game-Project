@@ -15,6 +15,7 @@ import styles from '../CSSstyle/positionMap.module.css'
 // components
 import Shop from './Shop'
 import DropbarMenu from './DropbarMenu'
+import StatusBar from './StatusBar'
 
 // image 
 import woogBox from '../Images/woodBox.png'
@@ -69,8 +70,8 @@ const positionMap = ({x, y, map, maxScale} : typePops) => {
 
     return (
         <div>
-            {/* <img src={BgPlaying} alt="" className={styles.bg}/> */}
             <Shop/>
+            <StatusBar/>
             <div className={styles.containerAll}>
             <div className={styles.container1}>
                 <div className={styles.container2}>

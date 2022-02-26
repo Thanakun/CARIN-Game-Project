@@ -1,9 +1,14 @@
 // Hook
 import styles from '../CSSstyle/manu.module.css'
 import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
  
 // component
 import Logo from './Logo' 
+
+// images
+import bgHomered from '../Images/bghomered.png'
+import bgHomegreen from '../Images/bghome.png'
 
 const manu = () => { 
     let nav = useNavigate()
@@ -12,11 +17,22 @@ const manu = () => {
           nav(path)
     }
 
+    // Hook
+    const BGover = () => {
+        const bg = document.querySelector('body')
+            if (bg) bg.style.cssText += `background-image: url(${bgHomered}); transition: all 0.8s;`
+    }
+
+    const BGleave = () => {
+        const bg = document.querySelector('body')
+            if (bg) bg.style.cssText += `background-image: url(${bgHomegreen}); transition: all 0.8s;`
+    }
+
     return (
         <div>
             <Logo/> 
             <div className={styles.container}>
-                <a onClick={() => addpath('/gameplay')} className={styles.btn}> 
+                <a onMouseOverCapture={() => {BGover()}} onMouseLeave={() => {BGleave()}} onClick={() => addpath('/gameplay')} className={styles.btn}> 
                     <span>Start</span>
                     <div className={styles.bthbefore}></div>
                 </a>

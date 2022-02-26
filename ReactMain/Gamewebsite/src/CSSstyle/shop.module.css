@@ -5,56 +5,117 @@
     box-sizing: border-box;
 }
 
+.container
+{
+    position: relative;
+    transform-style: preserve-3d;
+    top: 50px;
+    left: 20px;
+    width: 200px;
+    height: 230px;
+}
+
+
+
 .isnotOpen
 {
     position: absolute;
-    /* width: 100px;
-    height: 150px; */
-    /* background-color: rgb(109, 53, 165, 0.4); */
     display: none;
 }
 
-.isOpen
+.isOpen1
 {
     position: absolute;
     width: 250px;
-    height: 280px;
-    background-color: rgba(141, 99, 184, 0.8);
+    height: 250px;
+    background-color: rgba(141, 99, 184, 0.5);
     display: inline-block;
+    border-radius: 18px;
     z-index: 5;
-    border-radius: 15px;
-    /* justify-content: space-between; */
+    backdrop-filter: blur(4px);
 }
 
-.exit 
+.isOpen2
 {
     position: absolute;
-    right: 20px;
-    /* left: 140px; */
-    /* right: 0; */
-    margin: 3px;
+    width: 220px;
+    height: 250px;
+    background-color: rgba(99, 184, 137, 0.5);
+    display: inline-block;
+    border-radius: 18px;
+    z-index: 5;
+    backdrop-filter: blur(4px);
 }
 
-.exit span
+.exit1 
 {
-    font-size: 20px;
+    position: absolute;
+    right: 105px;  
+    top: 95px;
+    margin: 0px;
+    height: 50px;
+    width: 50px;
+    /* background-color: red; */
     cursor: pointer;
-}
-
-.exit:hover
-{
+    transition: 0.2s ease-in-out;
     color: #fff;
 }
 
-.item 
+.exit1 a
 {
-    margin: 30px 10px 30px 10px;
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    /* background-color: aqua; */
+    z-index: 6;
 }
 
-.item a
+.exit1:hover 
+{
+    color: #f87171;
+}
+
+.item1 a
 {
     color: #fff;
     font-size: 24px;
+    z-index: 1;
+}
+
+.exit2
+{
+    position: absolute;
+    right: 20px;  
+    top: 5px;
+    margin: 0px;
+    height: 18px;
+    width: 18px;
+    /* background-color: red; */
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+    color: #fff;
+}
+
+.exit2 a
+{
+    position: absolute;
+    height: 18px;
+    width: 18px;
+    /* background-color: aqua; */
+    z-index: 6;
+    font-size: 30px;
+}
+
+.exit2:hover 
+{
+    color: #f87171;
+}
+
+.item2 a
+{
+    color: #fff;
+    font-size: 24px;
+    z-index: 1;
 }
 
 .type1
@@ -71,22 +132,269 @@
     transition: 2s ease-in-out;
 }
 
+.type3
+{
+    display: flex;
+    justify-content: space-between;
+    transition: 2s ease-in-out;
+}
+
 .type1price
 {
     cursor: pointer;
+    transition: 0.3s ease-in-out;
 }
 
 .type2price
 {
     cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.type3price
+{
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
 }
 
 .type1price:hover
 {
     color: rgb(6, 243, 17);
+    transform: translateX(-20px);
 }
 
 .type2price:hover
 {
     color: rgb(6, 243, 17);
+    transform: translateX(-20px);
 }
+
+.type3price:hover
+{
+    color: rgb(6, 243, 17);
+    transform: translateX(-20px);
+}
+
+.item1 
+{
+    margin: 30px 10px 30px 10px; 
+    position: absolute;
+    top: -5px;
+    left: 15px;
+    width: 200px;
+    height: 200px;
+}
+
+.item2
+{
+    margin: 30px 10px 30px 10px; 
+    position: absolute;
+    top: 12px;
+    left: 0px;
+    width: 200px;
+    height: 200px;
+}
+
+.TL
+{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 65px;
+    height: 80px;
+    transform: rotate(135deg);
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+    font-size: 6rem;
+    color: #fff;
+    /* background-color: green; */
+    display: flex;
+    justify-content: center;
+    z-index: 0;
+}
+
+.iconAll
+{
+    position: absolute;
+    bottom: -35px;
+}
+
+.TL:hover
+{
+    top: -10px;
+    left: -10px;
+    color: #4ade80;
+}
+
+.T 
+{
+    position: absolute;
+    top:  0px;
+    left: 68px;
+    width: 65px;
+    height: 80px;
+    padding: -35px;
+    transform: rotate(180deg);
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+    font-size: 6rem;
+    color: #fff;
+    /* background-color: red; */
+    display: flex;
+    justify-content: center;
+    z-index: 1;
+}
+
+.T:hover
+{
+    top: -15px;
+    color: #4ade80;
+}
+
+.TR
+{
+    position: absolute;
+    width: 65px;
+    height: 80px;
+    top: 0px;
+    right: 0px;
+    transform: rotate(-135deg);
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+    font-size: 6rem;
+    color: #fff;
+    /* background-color: blue; */
+    display: flex;
+    justify-content: center;
+    z-index: 0;
+}
+
+.TR:hover
+{
+    top: -10px;
+    right: -10px;
+    color: #4ade80;
+}
+
+.R
+{
+    position: absolute;
+    top: 60px;
+    right: 0px;
+    width: 65px;
+    height: 80px;
+    transform: rotate(-90deg);
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+    font-size: 6rem;
+    color: #fff;
+    /* background-color: navajowhite; */
+    display: flex;
+    justify-content: center;
+    z-index: 1;
+}
+
+.R:hover
+{
+    right: -15px;
+    color: #4ade80;
+}
+
+.BR
+{
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    width: 65px;
+    height: 80px;
+    transform: rotate(-45deg);
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+    font-size: 6rem;
+    color: #fff;
+    /* background-color: lawngreen; */
+    display: flex;
+    justify-content: center;
+    z-index: 0;
+}
+
+.BR:hover
+{
+    bottom: -10px;
+    right: -10px;
+    color: #4ade80;
+}
+
+.B
+{
+    position: absolute;
+    bottom: 0px;
+    right: 68px;
+    width: 65px;
+    height: 80px;
+    transform: rotate(0deg);
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+    font-size: 6rem;
+    color: #fff;
+    /* background-color: darkcyan; */
+    display: flex;
+    justify-content: center;
+    z-index: 1;
+}
+
+.B:hover
+{
+    bottom: -15px;
+    color: #4ade80;
+}
+
+.BL
+{
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 65px;
+    height: 80px;
+    transform: rotate(45deg);
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+    font-size: 6rem;
+    color: #fff;
+    /* background-color: saddlebrown; */
+    display: flex;
+    justify-content: center;
+    z-index: 0;
+}
+
+.BL:hover
+{
+    bottom: -10px;
+    left: -10px;
+    color: #4ade80;
+}
+
+.L
+{
+    position: absolute;
+    top: 60px;
+    left: 0px;
+    width: 65px;
+    height: 80px;
+    transform: rotate(90deg);
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+    font-size: 6rem;
+    color: #fff;
+    /* background-color: cornflowerblue; */
+    display: flex;
+    justify-content: center;
+    z-index: 0;
+}
+
+.L:hover 
+{
+    left: -15px; 
+    color: #4ade80;
+}
+

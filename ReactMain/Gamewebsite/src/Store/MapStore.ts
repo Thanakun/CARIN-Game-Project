@@ -31,7 +31,7 @@ export const getMap = (x : number, y : number) => {
     }
     for (let i=0;i<y;i++) {
         for (let j=0;j<x;j++) {
-            newmap[i][j] = (Math.floor(Math.random() * 5) > 0? 'W' : 'WS')
+            newmap[i][j] = (Math.floor(Math.random() * 5) > 0? 'W' : Math.floor(Math.random() * 3) > 0? 'WS' : 'WB')
         }
     }
     let newmax_scale = 0

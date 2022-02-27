@@ -9,9 +9,9 @@ import { getMap } from './Store/MapStore'
 
 // components
 import PositionMap from './Components/PositionMap'
-import Manu from './Components/Manu'
+import Menu from './Components/Menu'
 import Pause from './Components/Pause'
-import End from './Components/End'
+import Loading from './Components/Loading'
 
 // images
 import test from './Images/test.jpg'
@@ -36,10 +36,10 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Manu/>}/>
+        <Route path="/" element={<Menu/>}/>
         <Route path="/gameplay" element={<PositionMap x={Xaxis} y={Yaxis} map={state.map} maxScale={state.max_scale}/>}/>
         <Route path="/pause" element={<Pause/>}/>
-        <Route path="/end" element={<End/>}/>
+        <Route path="/loading" element={<Loading/>}/>
       </Routes>
       {/* <img src={test}></img> */}
     </Router>

@@ -21,6 +21,7 @@ import StatusBar from './StatusBar'
 import woogBox from '../Images/woodBox.png'
 import woogStrikyBox from '../Images/woodstrickyBox.png'
 import BgPlaying from '../Images/bgtest.png'
+import woogBloodBox from '../Images/woodbloodBox.png'
 
 type typePops = {
     x : number
@@ -54,6 +55,7 @@ const positionMap = ({x, y, map, maxScale} : typePops) => {
         switch (key) {
             case 'W' : return woogBox; 
             case 'WS' : return woogStrikyBox; 
+            case 'WB' : return woogBloodBox;
             case 'V' : return woogBox;
             case 'A' : return woogBox;
         }

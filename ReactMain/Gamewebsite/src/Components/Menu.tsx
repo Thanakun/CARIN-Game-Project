@@ -10,7 +10,7 @@ import Logo from './Logo'
 import bgHomered from '../Images/bghomered.png'
 import bgHomegreen from '../Images/bghome.png'
 
-const manu = () => { 
+const menu = () => { 
     let nav = useNavigate()
 
     const addpath = (path : string) =>{
@@ -41,4 +41,4 @@ const manu = () => {
     )
 }
 
-export default manu
+export default menu

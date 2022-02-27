@@ -18,6 +18,7 @@ import java.util.Random;
 public class VirusControl {
     /** Controll All Virus */
     public static VirusControl instance;
+
     @Autowired
     private Player player;
     @Autowired
@@ -140,8 +141,8 @@ public class VirusControl {
       }
     }
 
-    public void virusDieEffect(int died_virus_type){
-        player.addCredit(died_virus_type);
+    public void dieAddCredit(int dided_type){
+        player.addCredit(dided_type);
     }
 
 

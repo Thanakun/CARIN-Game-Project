@@ -24,19 +24,28 @@ public class Player {
     @Autowired
     private PositionMap positionMap;
 
-    private Player(){}
+    private int init_credit;
+
+    private Player(){
+    }
     public static Player getInstance(){
         if(instance==null){
             instance = new Player();
         }
         return instance;
     }
-
+    public void setInit_credit(int amount){
+        init_credit = amount;
+    }
     public int getCredit(){
         return credit;
     }
+    public  void resetCredit(){
+        credit=init_credit;
+    }
     public void addCredit(int virus_type){
         credit+=virus_type*kill_virus_credit_gain;
+
     }
 
     public synchronized void computeAntibodyInput(Request req){

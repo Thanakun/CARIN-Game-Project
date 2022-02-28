@@ -7,11 +7,14 @@ import { DataStore,  useDataStore } from "../Store/DataStore";
 import styles from '../CSSstyle/positionMap.module.css'
 
 // image 
-import greenBox from '../Images/greenBox.png'
-import AntibodyPic from '../Images/Red Antigen.png'
-import VirusPic from '../Images/Blue Virus.png'
 import BgPlaying from '../Images/bgtest.png'
-
+import woodBox from '../Images/woodBox.png'
+import virus1 from '../Images/Green Virus.png'
+import virus2 from '../Images/Red Virus.png'
+import virus3 from '../Images/Blue Virus.png'
+import antibody1 from '../Images/GreenAntigenv2.png'
+import antibody2 from '../Images/YellowAnitigenv2.png'
+import antibody3 from '../Images/BlueAntigenv2.png'
 
 import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 import { useShopStore } from "../Store/ShopStore";
@@ -21,6 +24,7 @@ import AntibodyController, { updateAntibodyController } from "./AntibodyControll
 import { useAntibodyControllerStore } from "../Store/AntibodyControllerStore";
 import DropbarMenu from "./DropbarMenu";
 import StatusBar from "./StatusBar";
+import Loading from "./Loading";
 
 
 
@@ -71,8 +75,6 @@ export const postState = async( wanted_state:string)=>{
 }
 
 //main playing 
-
-
 const Playing = ()=>{
     let nav = useNavigate()
     const [data,setData] = useState<GameDataType|null>(null)
@@ -97,7 +99,13 @@ const Playing = ()=>{
       // background
       useEffect(() => {
         const bg = document.querySelector('body')
-        if (bg) bg.style.cssText = `background: url(${BgPlaying}) no-repeat fixed; width: 100%;`
+        if(loading){
+            if (bg) bg.style.cssText = `background: #1e1e1e no-repeat fixed; width: 100%;overflow: hidden;`
+        }
+        else{
+            if (bg) bg.style.cssText = `background: url(${BgPlaying}) no-repeat fixed; width: 100%;`
+        }
+        
     })
 
    
@@ -154,13 +162,21 @@ const Playing = ()=>{
     },[data])
 
     //return picture src of each type of organism 
-    const decoder = (key : string) => {
-
-        switch (key) {
-            case "Virus" : return VirusPic; 
-            case "Antibody" : return AntibodyPic;
-            default : return greenBox;
-        }
+    const decoder = (key : string,type:number) => {
+            if(key==="Virus"){
+                switch(type){
+                    case 1: return virus1
+                    case 2: return virus2
+                    case 3: return virus3
+                }
+            }
+            if(key==="Antibody"){
+                switch(type){
+                    case 1: return antibody1
+                    case 2: return antibody2
+                    case 3: return antibody3
+                }
+            }
     }
 
     //create map with virus and antivirus assign at its position
@@ -185,7 +201,7 @@ const Playing = ()=>{
             organMap[i] = new Array(maxX)
                 for(let j = 0;j<maxX;j++ ){
                     organMap[i][j]= <a onDoubleClick={(e:MouseEvent)=>DoubleClickedBlock(e,i,j)} >
-                    <img src={greenBox} alt="" style={{
+                    <img src={woodBox} alt="" style={{
                     position: "relative",
                     width: `${max_scale}px`,
                     height: `${max_scale}px`,
@@ -201,7 +217,7 @@ const Playing = ()=>{
         if(organ.category==="Antibody"){ //can select antibody to controll it
             organMap[organ.position[0]][organ.position[1]] =  
             <a onDoubleClick={(e:MouseEvent)=>DoubleClickedAntibody(e,organ.position[0],organ.position[1])}>
-            <img src={decoder(organ.category)} alt="" style={{
+            <img src={decoder(organ.category,organ.type)} alt="" style={{
          position: "relative",
          width: `${max_scale}px`,
         height: `${max_scale}px`,
@@ -211,7 +227,7 @@ const Playing = ()=>{
         else {  //virus , can't select
              organMap[organ.position[0]][organ.position[1]] =  
             <a >
-            <img src={decoder(organ.category)} alt="" style={{
+            <img src={decoder(organ.category,organ.type)} alt="" style={{
          position: "relative",
          width: `${max_scale}px`,
         height: `${max_scale}px`,
@@ -272,7 +288,6 @@ const Playing = ()=>{
                return (
 <div>
 <img src={BgPlaying} alt="" className={styles.bg}/>
- <div>{dataStore.timer.time_count}</div>
   <Shop/>
   <StatusBar/>
   <AntibodyController/>
@@ -289,12 +304,6 @@ const Playing = ()=>{
                    </TransformWrapper>
                 </div>
             </div>
-        </div>
-        <div>
-            <a onClick={() => pauseClick()} className={styles.btnpuase}> 
-                <span>Pause</span>
-                    <div className={styles.bthbefore}></div>
-            </a>
         </div>
     </div>
     <DropbarMenu/>               
@@ -325,9 +334,7 @@ const Playing = ()=>{
         <div>
            
             {
-            loading?<div>
-                    <p>loading...</p>
-                     </div> 
+            loading?<Loading/>
                      :
                     render()
             }

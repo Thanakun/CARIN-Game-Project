@@ -1,0 +1,128 @@
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: #1e1e1e; */
+    height: 100vh;
+}
+
+.loader
+{
+    top: 5%;
+    width: 650px;
+    height: 650px;
+    position: relative;
+    overflow: hidden;
+    transform: scale(1);
+}
+
+.loader::after
+{
+    content: '';
+    display: block;
+    height: 650px;
+    width: 650px;
+    background: url('../Images/buttleCoke_bg.png') no-repeat;
+    background-size: contain;
+    position: relative;
+}
+
+.progress
+{
+    left: 25%;
+    height: 45%;
+    width: 45%;
+    background: radial-gradient(circle at 100% 50%, rgb(255, 72, 72)0%, rgb(255, 211, 113)35%, rgb(194, 255, 217)70%, rgb(257, 118, 198)100%);
+    animation: rotate 4.5s linear infinite,
+                moveup 8s linear infinite alternate;
+    border-radius: 30%;
+    position: absolute;
+    z-index: 0;
+}
+
+@keyframes moveup {
+    0%{
+        top: 52%
+    }
+    100% {
+        top: 6%
+    }
+}
+
+@keyframes rotate {
+    0%{
+        transform: rotateZ(0);
+    }
+    100% {
+        transform: rotateZ(360deg);
+    }
+}
+
+.loading
+{
+    text-align: center;
+    position: absolute;
+    /* background-color: aquamarine;s */
+    z-index: 8;
+    top: 60%;
+    left: 38%;
+
+}
+
+.loading::before
+{
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 2px;
+    height: 100%;
+    background-color: #00d9ff;
+    animation: blinkCursor 0.8s steps(3) infinite;
+}
+
+@keyframes blinkCursor {
+    0%, 75%{
+        opacity: 1;
+    }
+    76%, 100%{
+        opacity: 0;
+    }
+}
+
+.loading h2
+{
+    position: relative;
+    color: rgb(255, 72, 72);
+    letter-spacing: 10px;
+    font-size: 4em;
+    font-family: consolas;
+    /* text-transform: uppercase; */
+    animation: typing 8s steps(10) infinite;
+    overflow: hidden;
+}
+
+@keyframes typing {
+    0%{
+        width: 0;
+    }
+    5%{
+        color: rgb(255, 211, 113)
+    }
+    10%{
+        color: rgb(194, 255, 217)
+    }
+
+    30%{
+        width: 451.88px;
+        color: rgb(257, 118, 198)
+    }
+}

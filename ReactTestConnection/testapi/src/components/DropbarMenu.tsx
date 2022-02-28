@@ -80,13 +80,22 @@ const DropbarMenu = () => {
                 </a>
             </div>
             <div id='Pause' className={dataStore.menuState? styles.pause 
-                : styles.pausesleep} onClick={() => {goto('/pause');DataStore.update(s => {s.menuState = !s.menuState})}}><a><img src={LabelPause} alt="" /></a></div>
+                : styles.pausesleep} onClick={() => {
+                        goto('/pause');
+                        DataStore.update(s => {s.menuState = !s.menuState})
+                        
+                        }}><a><img src={LabelPause} alt="" /></a></div>
             <div id='Cash' className={dataStore.menuState? styles.cash
                  : styles.cashsleep}><a onClick={() => {}}><img src={LabelCharge} alt="" /></a></div>
             <div id='Setting'className={dataStore.menuState? styles.setting 
                 : styles.settingsleep}><a onClick={() => {}}><img src={LabelSetting} alt="" /></a></div>
             <div id='Out' className={dataStore.menuState? styles.outgame
-                 : styles.outgamesleep}><a onClick={() => {goto('/');DataStore.update(s => {s.menuState = !s.menuState})}}><img src={LabelOut} alt="" /></a></div>
+                 : styles.outgamesleep}><a onClick={() => 
+                 {
+                     goto('/');
+                 DataStore.update(s => {s.menuState = !s.menuState})
+                 
+                 }}><img src={LabelOut} alt="" /></a></div>
             <div id='Stick' className={dataStore.menuState? styles.stick 
                 : styles.sticksleep}><img src={stick} alt="" /></div>
         </div>

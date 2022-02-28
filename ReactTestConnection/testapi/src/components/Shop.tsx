@@ -1,8 +1,13 @@
 
+import { useEffect } from 'react'
 import styles from '../CSSstyle/shop.module.css'
 import { AntibodyStore, AntibodyStoreType, postAntibody, useAntibodyStore } from '../Store/AntibodyStore'
 import { useDataStore } from '../Store/DataStore'
 import { ShopStore, useShopStore } from '../Store/ShopStore'
+
+// icons
+import { IoIosArrowDown } from 'react-icons/io';
+import { IoCloseSharp } from 'react-icons/io5';
 
 
 export   const updatestatusShop = (mouseindex : number[], index : number[]) => {
@@ -44,27 +49,40 @@ const Shop = () => {
         updatestatusShop([0,0], [0,0])
     }
 
-  
+    useEffect(()=>{
+        ShopStore.update(s=>{
+            s.shopStatus = false
+        })
+    },[dataStore.gameState])
+
+   
 
     return(
-        <div id='myShop' className={shopStore.shopStatus? styles.isOpen : styles.isnotOpen} style={{top : `${shopStore.shopLocate.y}px`, left: `${shopStore.shopLocate.x}px`}}>
-            <div className={styles.exit}>
-                <a onClick={() => {
-                    closeshop(shopStore.shopLocate.index); 
-                    updatestatusShop([0,0], [0,0]);}}>
-                        <span>X</span></a>
+    
+
+        // อันเก่า
+        <div  className={shopStore.shopStatus? styles.isOpen2 : styles.isnotOpen}
+         style={{top : `${shopStore.shopLocate.y}px`, left: `${shopStore.shopLocate.x}px`}}>
+        <div id='card' className={styles.exit2}>
+            <a onClick={() => {closeshop(shopStore.shopLocate.index); updatestatusShop([0,0], [0,0]);}}>
+                <span><IoCloseSharp/></span></a>
+        </div>
+        <div className={styles.item2}>
+            <div className={styles.type1}>
+                <a className={styles.type1name}>Type1</a>
+                <a className={styles.type1price } onClick={() => {buyAntibody(1)}}>100</a>
             </div>
-            <div className={styles.item}>
-                <div className={styles.type1}>
-                    <a className={styles.type1name}>Type1</a>
-                    <a className={styles.type1price} onClick={()=>{buyAntibody(1)}}>100</a>
-                </div>
-                <div className={styles.type2}>
-                    <a className={styles.type2name} >Type2</a>
-                    <a className={styles.type2price} onClick={() => {buyAntibody(2)}}>200</a>
-                </div>
+            <div className={styles.type2}>
+                <a className={styles.type2name}>Type2</a>
+                <a className={styles.type2price} onClick={() => {buyAntibody(2)}}>200</a>
+            </div>
+            <div className={styles.type3}>
+                <a className={styles.type3name} >Type3</a>
+                <a className={styles.type3price} onClick={() => {buyAntibody(3)}}>300</a>
             </div>
         </div>
+        </div>
+        
     )
 }
 

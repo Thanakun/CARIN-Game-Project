@@ -25,19 +25,21 @@ public class GameRunner extends Thread {
     private Player player;
 
     public void main() {
-
+                 player.setInit_credit(player.getCredit());
         while(true){
             try{
 
                 String gameState = menu.getGameState();
                 if(gameState.equals("MAIN_MENU")){
                     System.out.println("IN MAIN MENU");
+
                     Thread.sleep(10);
                 }
                 else if(gameState.equals("START")){
 
                     System.out.println("Loading...");
-                   timer.resetTime();
+                    player.resetCredit();
+                    timer.resetTime();
                     positionMap.resetPositionMap();
                     organismStorage.resetStorage();
                     menu.setGameState("PLAYING");
@@ -88,6 +90,7 @@ public class GameRunner extends Thread {
            System.out.println(organismStorage.getMax_virus_amount()+" max virus amount");
            // all virus get killed
            menu.setGameState("WIN");
+           player.resetCredit();
            timer.resetTime();
            positionMap.resetPositionMap();
            organismStorage.resetStorage();
@@ -97,6 +100,7 @@ public class GameRunner extends Thread {
                &&(player.getCredit()<antibodyControl.getMinimumCost()) ){
            //all antibody die and don't have enough credit
            menu.setGameState("LOSE");
+           player.resetCredit();
            timer.resetTime();
            positionMap.resetPositionMap();
            organismStorage.resetStorage();
@@ -106,6 +110,7 @@ public class GameRunner extends Thread {
        organismStorage.getAntibodyAmount()==0){
            //all virus spawn but dont have any antibody on field
            menu.setGameState("LOSE");
+           player.resetCredit();
            timer.resetTime();
            positionMap.resetPositionMap();
            organismStorage.resetStorage();

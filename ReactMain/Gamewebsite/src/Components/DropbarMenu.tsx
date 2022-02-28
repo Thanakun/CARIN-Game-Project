@@ -90,15 +90,20 @@ const DropbarMenu = () => {
                 </a>
             </div>
             <div id='Pause' className={state.menustatus? styles.pause : styles.pausesleep} onClick={() => {
-                goto('/pause');
                 MapStore.update(s => {s.menustatus = !s.menustatus});
                 closeshop(state.shoplocate.index); 
                 updatestatusShop([0,0], [0,0]);
-                
-                }}><a><img src={LabelPause} alt="" /></a></div>
+                MapStore.update(s => {s.shopstatus = false})
+                goto('/pause');
+            }}><a><img src={LabelPause} alt="" /></a></div>
             <div id='Cash' className={state.menustatus? styles.cash : styles.cashsleep}><a onClick={() => {}}><img src={LabelCharge} alt="" /></a></div>
             <div id='Setting'className={state.menustatus? styles.setting : styles.settingsleep}><a onClick={() => {}}><img src={LabelSetting} alt="" /></a></div>
-            <div id='Out' className={state.menustatus? styles.outgame : styles.outgamesleep}><a onClick={() => {goto('/');MapStore.update(s => {s.menustatus = !s.menustatus});closeshop(state.shoplocate.index); updatestatusShop([0,0], [0,0]);}}><img src={LabelOut} alt="" /></a></div>
+            <div id='Out' className={state.menustatus? styles.outgame : styles.outgamesleep}><a onClick={() => {
+                MapStore.update(s => {s.menustatus = !s.menustatus});
+                closeshop(state.shoplocate.index); updatestatusShop([0,0], [0,0]);
+                MapStore.update(s => {s.shopstatus = false})
+                goto('/');
+            }}><img src={LabelOut} alt="" /></a></div>
             <div id='Stick' className={state.menustatus? styles.stick : styles.sticksleep}><img src={stick} alt="" /></div>
         </div>
     )

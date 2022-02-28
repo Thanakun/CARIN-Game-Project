@@ -11,7 +11,7 @@ const Loading = () => {
     // Hook
     useEffect(() => {
         const bg = document.querySelector('body')
-            if (bg) bg.style.cssText = `background: #1e1e1e no-repeat fixed; width: 100%;overflow: hidden;transition: all 0.8s;`
+            if (bg) bg.style.cssText += `background: #1e1e1e no-repeat fixed; width: 100%;overflow: hidden;transition: all 0s;`
     },[])
 
     return (

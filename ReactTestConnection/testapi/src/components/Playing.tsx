@@ -215,7 +215,7 @@ const Playing = ()=>{
         for(let i=0;i<data.allOrgan.length;i++){
         const organ = data.allOrgan[i]
         if(organ.category==="Antibody"){ //can select antibody to controll it
-            organMap[organ.position[0]][organ.position[1]] =  
+            organMap[maxY-1-organ.position[1]][organ.position[0]] =  
             <a onDoubleClick={(e:MouseEvent)=>DoubleClickedAntibody(e,organ.position[0],organ.position[1])}>
             <img src={decoder(organ.category,organ.type)} alt="" style={{
          position: "relative",
@@ -225,7 +225,7 @@ const Playing = ()=>{
      }}/> </a>
         }
         else {  //virus , can't select
-             organMap[organ.position[0]][organ.position[1]] =  
+            organMap[maxY-1-organ.position[1]][organ.position[0]] = 
             <a >
             <img src={decoder(organ.category,organ.type)} alt="" style={{
          position: "relative",
@@ -242,21 +242,21 @@ const Playing = ()=>{
     }
 
     //double click to select empty block
-    const DoubleClickedBlock = (e:MouseEvent,i:number,j:number) =>{
+    const DoubleClickedBlock = (e:MouseEvent,i:number,j:number) =>{  //i j is position in map start at left up corner
         if(!shopStore.shopStatus){
             updatestatusShop([e.pageX,e.pageY],[i,j])
             openshop([i,j])
             AntibodyStore.update(s=>{
                 s.targetId = ""
                 s.type = 0
-                s.location = [i,j]
+                s.location = [j,(dataStore.max_y-1-i)]
                 s.genetic = ""
             }
             )
         }
     }
     //double click to select antibody
-    const DoubleClickedAntibody = (e:MouseEvent,i:number,j:number) =>{
+    const DoubleClickedAntibody = (e:MouseEvent,i:number,j:number) =>{// i j is real position start at left buttom corner
        
 
         if(data!=null){
@@ -266,8 +266,8 @@ const Playing = ()=>{
         }) 
        
         if(!controllerStore.status){
-            updateAntibodyController([e.pageX,e.pageY],[i,j])
-            opencontroller([i,j])
+            updateAntibodyController([e.pageX,e.pageY],[dataStore.max_y-1-j,i])
+            opencontroller([dataStore.max_y-1-j,i])
         }
     }
         

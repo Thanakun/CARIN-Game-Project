@@ -134,14 +134,14 @@ const AntibodyController = () => {
                  }}><span><IoCloseSharp/></span></a>
             </div>
             <div className={styles.item1}>
-                <div className={styles.TL} onClick={()=>move("downleft")}><IoIosArrowDown className={styles.iconAll}/></div>
-                <div className={styles.T} onClick={()=>move("left")}><IoIosArrowDown className={styles.iconAll}/></div>
-                <div className={styles.TR} onClick={()=>move("upleft")}><IoIosArrowDown className={styles.iconAll}/></div>
-                <div className={styles.R} onClick={()=>move("up")}><IoIosArrowDown className={styles.iconAll}/></div>
-                <div className={styles.BR} onClick={()=>move("upright")}><IoIosArrowDown className={styles.iconAll}/></div>
-                <div className={styles.B} onClick={()=>move("right")}><IoIosArrowDown className={styles.iconAll}/></div>
-                <div className={styles.BL}onClick={()=>move("downright")}><IoIosArrowDown className={styles.iconAll}/></div>
-                <div className={styles.L} onClick={()=>move("down")}><IoIosArrowDown className={styles.iconAll}/></div>
+                <div className={styles.TL} onClick={()=>move("upleft")}><IoIosArrowDown className={styles.iconAll}/></div>
+                <div className={styles.T} onClick={()=>move("up")}><IoIosArrowDown className={styles.iconAll}/></div>
+                <div className={styles.TR} onClick={()=>move("upright")}><IoIosArrowDown className={styles.iconAll}/></div>
+                <div className={styles.R} onClick={()=>move("right")}><IoIosArrowDown className={styles.iconAll}/></div>
+                <div className={styles.BR} onClick={()=>move("downright")}><IoIosArrowDown className={styles.iconAll}/></div>
+                <div className={styles.B} onClick={()=>move("down")}><IoIosArrowDown className={styles.iconAll}/></div>
+                <div className={styles.BL}onClick={()=>move("downleft")}><IoIosArrowDown className={styles.iconAll}/></div>
+                <div className={styles.L} onClick={()=>move("left")}><IoIosArrowDown className={styles.iconAll}/></div>
             </div>
         </div>
     )

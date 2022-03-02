@@ -32,7 +32,7 @@ const menu = () => {
         <div>
             <Logo/> 
             <div className={styles.container}>
-                <a onMouseOverCapture={() => {BGover()}} onMouseLeave={() => {BGleave()}} onClick={() => addpath('/gameplay')} className={styles.btn}> 
+                <a onMouseOverCapture={() => {BGover()}} onMouseLeave={() => {BGleave()}} onClick={() => addpath('/test')} className={styles.btn}> 
                     <span>Start</span>
                     <div className={styles.bthbefore}></div>
                 </a>

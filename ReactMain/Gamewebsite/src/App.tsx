@@ -14,6 +14,7 @@ import Pause from './Components/Pause'
 import Loading from './Components/Loading'
 import Win from './Components/Win'
 import Lose from './Components/Lose'
+import Test from './Components/testblood'
 
 // images
 import test from './Images/test.jpg'
@@ -44,6 +45,7 @@ function App() {
         <Route path="/loading" element={<Loading/>}/>
         <Route path="/win" element={<Win/>}/>
         <Route path="/lose" element={<Lose/>}/>
+        <Route path="/test" element={<Test/>}/>
       </Routes>
       {/* <img src={test}></img> */}
     </Router>

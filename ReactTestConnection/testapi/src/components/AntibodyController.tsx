@@ -99,8 +99,8 @@ const AntibodyController = () => {
         // console.log('card : ', card, " container : ", container)
         if (container) {
             container.addEventListener('mousemove', (e : any) => {
-                let xAxis = (window.innerWidth  / 2 - e.pageX) / 9
-                let yAxis = (window.innerHeight / 2 - e.pageY) / 9
+                let xAxis = ((e.pageX - container.offsetLeft) - 124) / 5
+                let yAxis = ((e.pageY - container.offsetTop) - 124) / 5
                 container.style.cssText += `transform: rotateY(${xAxis}deg) rotateX(${yAxis}deg);`
                 // console.log(13212) 
             })

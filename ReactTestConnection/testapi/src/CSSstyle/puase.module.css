@@ -9,19 +9,468 @@
 {
     position: absolute;
     cursor: pointer;
-    color: red;
-    width: 250px;
-    height: 100px;
-    font-size: 35px;
-    left: 15px;
+    left: 0;
+    margin: 20px 0 0 20px;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 28px;
+    width: 150px;
+    height: 50px;
+    letter-spacing: 2px;
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: linear-gradient(90deg, #0162c8, #55e7fc);
+}
+
+.btnBack span
+{
+    position: absolute;
+    background: rgb(255, 255, 255);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    border-radius: 50%;
+    animation: BtnAnimate 0.8s linear ;
 }
 
 .btnOut
 {
     position: absolute;
     cursor: pointer;
-    color: blue;
-    right: 80px;
-    bottom: 60px;
-    font-size: 35px;
+    right: 0;
+    bottom: 0;
+    margin: 0 20px 20px 0;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 28px;
+    width: 150px;
+    height: 50px;
+    letter-spacing: 2px;
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: linear-gradient(90deg, #0162c8, #ff72c0);
 }
+
+.btnOut span
+{
+    position: absolute;
+    background: rgb(255, 255, 255);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    border-radius: 50%;
+    animation: BtnAnimate 0.8s linear ;
+}
+
+@keyframes BtnAnimate {
+    0%{
+        width: 0px;
+        height: 0px;
+        opacity: 0.5;
+    }100%{
+        width: 500px;
+        height: 500px;
+        opacity: 0;
+    }
+}
+
+.bowl
+{
+    position: absolute;
+    top: calc(50% - 0px);
+    left: calc(50% - 0px);
+    transform: translate(-50%, -50%);
+    width: 500px;
+    height: 500px;
+    background: rgba(119, 106, 106, 0.1);
+    border-radius: 50%;
+    /* border: 4px solid #fff; */
+    transform-origin: center center;
+    overflow: hidden;
+}
+
+.water
+{
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    
+    background:  radial-gradient(circle at 50% 100%, rgb(251, 229, 229, 0.7)0%, rgba(255, 161, 201, 0.7)15%, rgb(249, 72, 146, 0.7)55%, rgb(230, 9, 101, 0.7)100%);
+    border-bottom-left-radius: 250px;
+    border-bottom-right-radius: 250px;
+    /* rgba(62, 163, 248, 0.5); */
+    transform-origin: center top;
+    animation: animatwater 2.8s ease-in-out infinite alternate;
+}
+
+.water::before
+{
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    border-radius: 50%;
+    background: rgb(230, 9, 101, 1)
+}
+
+@keyframes animatwater {
+    0%{
+        transform: rotate(-4.5deg);
+    }100%{
+        transform: rotate(4.5deg);
+    }
+}
+
+.bowl span
+{
+    position: absolute;
+    bottom: -50px;
+    background: transparent;
+    border-radius: 50%;
+    pointer-events: none;
+    box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.5);
+    transform: scale(0.05);
+    animation: BubbleAnimate 4s linear forwards;
+}
+
+.bowl span::before
+{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform: scale(0.25) translate(-70%, -70%);
+    background: radial-gradient(#fff, transparent);
+    border-radius: 50%;
+}
+
+@keyframes BubbleAnimate {
+    0%{
+        transform: translatY(0%);
+        opacity: 1;
+    }
+    65%{
+        opacity: 1;
+    }
+    100%{
+        transform: translateY(-1000%) scale(0.6);
+        opacity: 0;
+    }
+}
+
+.superAntibody
+{
+    position: absolute;
+    height: 85px;
+    width: 85px;
+    top: 15%;
+    left: 20%;
+    z-index: 1;
+}
+
+.clouds img:nth-child(1) 
+{
+    position: absolute;
+    height: 70px;
+    width: auto;
+    right: -400px;
+    opacity: 0.5;
+    top: 8%;
+    z-index: 0;
+    animation: cloudAnimate 3.5s infinite linear;
+}
+
+.clouds img:nth-child(2) 
+{
+    position: absolute;
+    height: 90px;
+    width: 190px;
+    right: -400px;
+    opacity: 0.9;
+    top: 20%;
+    z-index: 2;
+    animation: cloudAnimate 3.5s infinite linear 0.8s;
+}
+
+.clouds img:nth-child(3) 
+{
+    position: absolute;
+    height: 120px;
+    width: auto;
+    right: -400px;
+    opacity: 0.6;
+    top: 10%;
+    z-index: 0;
+    animation: cloudAnimate 3.5s infinite linear 2s;
+}
+
+@keyframes cloudAnimate {
+    0%{
+        transform: translateX(0);
+    }
+    100%{
+        transform: translateX(-1300px);
+    }
+}
+
+.moon
+{
+    position: relative;
+    width: 40px;
+    height: 40px;
+    margin: 2px;
+    top: 10%;
+    left: calc(50% - 20px);
+    background: #fff;
+    border-radius: 50%;
+    z-index: -1;
+    box-shadow: 0 0 0 7px rgba(238, 238, 238, 0.3),
+                0 0 0 14px rgba(255, 255, 255, 0.2),
+                0 0 0 21px rgba(255, 255, 255, 0.15),
+                0 0 0 30px rgba(255, 255, 255, 0.1);
+
+}
+
+.scene
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(#111425, #3751e0);
+    background-attachment: fixed;
+    overflow: hidden;
+    z-index: -1;
+    /* background: linear-gradient(#111425, #3751e0, rgb(255, 208, 0)); */
+}
+
+.scene i
+{
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    animation: staranimate linear infinite;
+}
+
+@keyframes staranimate {
+    0%{
+        opacity: 0;
+        transform: translateY(0);
+    }
+    10%, 90%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+        transform: translateY(-100px);
+    }
+}
+
+.virus1
+{
+    position: absolute;
+    bottom: 20%;
+    left: 20%;
+    height: 70px;
+    width: 70px;
+}
+
+.virus1 img:nth-child(1)
+{
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    top: 10px;
+    left: -15px;
+}
+
+.virus1 img:nth-child(2)
+{
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    top: -40px;
+    left: -30px;
+    transform: scale(0.5);
+}
+
+.virus1 img:nth-child(3)
+{
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    top: -40px;
+    left: 50px;
+    transform: scale(0.8);
+    opacity: 0.7;
+}
+.virus1 img:nth-child(4)
+{
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    top: 60px;
+    left: 80px;
+    transform: scale(0.8);
+}
+
+.virus2
+{
+    position: absolute;
+    bottom: 10%;
+    right: 20%;
+    height: 70px;
+    width: 70px;
+}
+
+.virus2 img:nth-child(1)
+{
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    top: 0px;
+    left: -15px;
+}
+
+.virus2 img:nth-child(2)
+{
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    top: -56px;
+    left: -60px;
+    transform: scale(0.5);
+}
+
+.virus2 img:nth-child(3)
+{
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    top: -80px;
+    left: 50px;
+    transform: scale(0.8);
+    opacity: 0.7;
+}
+
+.virus2 img:nth-child(4)
+{
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    top: -20px;
+    left: 40px;
+    transform: scale(0.5);
+}
+
+.virus2 img:nth-child(5)
+{
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    top: 55px;
+    left: -45px;
+    transform: scale(0.5);
+}
+
+@keyframes rotate {
+    0%{
+        transform: rotate(0deg);
+    }100%{
+        transform: rotate(60deg);
+    }
+}
+
+.RBC
+{
+    position: absolute;
+    height: 50%;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    /* background: #fff; */
+    z-index: -1;
+}
+
+.RBC img:nth-child(1)
+{
+    position: absolute;
+    top: 150px;
+    right: -600px;
+    height: 30px;
+    width: 30px;
+    animation: RBCAnimate 8s linear infinite ;
+}
+
+.RBC img:nth-child(2)
+{
+    position: absolute;
+    top: 70px;
+    right: -600px;
+    height: 30px;
+    width: 30px;
+    transform: rotate(-252deg);
+    animation: RBCAnimate 8s linear infinite  0.5s;
+}
+
+.RBC img:nth-child(3)
+{
+    position: absolute;
+    top: 185px;
+    right: -600px;
+    height: 30px;
+    width: 30px;
+    transform: rotate(45deg);
+    animation: RBCAnimate 8s linear infinite  1.5s;
+}
+
+.RBC img:nth-child(4)
+{
+    position: absolute;
+    top: 135px;
+    right: -600px;
+    height: 30px;
+    width: 30px;
+    transform: rotate(135deg);
+    animation: RBCAnimate 8s linear infinite  4s;
+}
+
+.RBC img:nth-child(5)
+{
+    position: absolute;
+    top: 76px;
+    right: -600px;
+    height: 30px;
+    width: 30px;
+    transform: rotate(286deg);
+    animation: RBCAnimate 8s linear infinite  3s;
+}
+
+.RBC img:nth-child(6)
+{
+    position: absolute;
+    top: 25px;
+    right: -600px;
+    height: 30px;
+    width: 30px;
+    transform: rotate(-326deg);
+    animation: RBCAnimate 8s linear infinite  2.5s;
+}
+
+@keyframes RBCAnimate {
+    0%{
+        transform: translateX(0px);
+    }100%{
+        transform: translateX(-1800px) rotate(1500deg);
+    }
+}
+

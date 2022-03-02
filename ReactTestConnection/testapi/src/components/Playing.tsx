@@ -25,6 +25,7 @@ import { useAntibodyControllerStore } from "../Store/AntibodyControllerStore";
 import DropbarMenu from "./DropbarMenu";
 import StatusBar from "./StatusBar";
 import Loading from "./Loading";
+import BloodBar from "./BloodBar";
 
 
 
@@ -201,6 +202,7 @@ const Playing = ()=>{
             organMap[i] = new Array(maxX)
                 for(let j = 0;j<maxX;j++ ){
                     organMap[i][j]= <a onDoubleClick={(e:MouseEvent)=>DoubleClickedBlock(e,i,j)} >
+                       
                     <img src={woodBox} alt="" style={{
                     position: "relative",
                     width: `${max_scale}px`,
@@ -217,6 +219,7 @@ const Playing = ()=>{
         if(organ.category==="Antibody"){ //can select antibody to controll it
             organMap[maxY-1-organ.position[1]][organ.position[0]] =  
             <a onDoubleClick={(e:MouseEvent)=>DoubleClickedAntibody(e,organ.position[0],organ.position[1])}>
+             <BloodBar currentBlood={organ.hp} maxHP={organ.max_HP} max_scale={max_scale}></BloodBar>    
             <img src={decoder(organ.category,organ.type)} alt="" style={{
          position: "relative",
          width: `${max_scale}px`,
@@ -227,6 +230,7 @@ const Playing = ()=>{
         else {  //virus , can't select
             organMap[maxY-1-organ.position[1]][organ.position[0]] = 
             <a >
+                 <BloodBar currentBlood={organ.hp} maxHP={organ.max_HP} max_scale={max_scale}></BloodBar>
             <img src={decoder(organ.category,organ.type)} alt="" style={{
          position: "relative",
          width: `${max_scale}px`,

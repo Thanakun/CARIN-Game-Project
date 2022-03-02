@@ -12,6 +12,8 @@ import PositionMap from './Components/PositionMap'
 import Menu from './Components/Menu'
 import Pause from './Components/Pause'
 import Loading from './Components/Loading'
+import Win from './Components/Win'
+import Lose from './Components/Lose'
 
 // images
 import test from './Images/test.jpg'
@@ -40,6 +42,8 @@ function App() {
         <Route path="/gameplay" element={<PositionMap x={Xaxis} y={Yaxis} map={state.map} maxScale={state.max_scale}/>}/>
         <Route path="/pause" element={<Pause/>}/>
         <Route path="/loading" element={<Loading/>}/>
+        <Route path="/win" element={<Win/>}/>
+        <Route path="/lose" element={<Lose/>}/>
       </Routes>
       {/* <img src={test}></img> */}
     </Router>

@@ -50,10 +50,12 @@ const testblood = () => {
         blood()
     },[currentBlood])
 
+    const tag : JSX.Element = <a className={styles.containerBlood}></a> 
+
     return (
         <div>
             <div className={styles.containerBlood}><img src={virus} alt="" className={styles.virusHHHH}/></div>
-
+            {tag}
             {/* <input type="text" id="fname" name="fname" onChange={(e) => {setcurrentBlood(Number(e.target.value)); console.log(currentBlood)}}/><br/><br/>
             <input type="submit" value="Submit"/> */}
             {/* <span className={styles.blood}></span> */}

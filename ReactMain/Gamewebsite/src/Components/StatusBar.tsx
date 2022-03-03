@@ -8,6 +8,9 @@ import clock from '../Images/clock.png'
 import virus from '../Images/Green Virus.png'
 import antibody from '../Images/antibodyred.png'
 
+// components
+import Clock from './Clock'
+
 const StatusBar = () => {
     const num : number = 12345  /// ลบด้วย
     return (
@@ -15,7 +18,8 @@ const StatusBar = () => {
             <div className={styles.bg}><img src={statusbar} alt="" /></div>
             <div className={styles.items}>
                 <div className={styles.clock}>
-                    <div className={styles.icon}><img src={clock} alt="" /></div>
+                    {/* <div className={styles.icon}><img src={clock} alt="" /></div> */}
+                    <div className={styles.icon}><Clock/></div>
                     <div className={styles.cost}><p>{num}</p></div>
                 </div>
                 <div className={styles.coin}>

@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 // css
-import styles from '../CSSstyle/puase.module.css'
+import styles from '../CSSstyle/pause.module.css'
 // images
 import BgPuase from '../Images/Bgstart.png'
 import superAntibody from '../Images/testAnti.gif'
@@ -14,6 +14,7 @@ import RedVirus from '../Images/Red Virus.png'
 import GreenVirus from '../Images/Green Virus.png'
 import BlueVirus from '../Images/Blue Virus.png'
 import RBC1 from '../Images/RBC_1.png'
+import { DataStore } from '../Store/DataStore'
 
 const Pause = () => {
    
@@ -86,6 +87,7 @@ const effectBtn = () => {
 
 // Hook
 useEffect(() => {
+    DataStore.update(s=>{s.gameState="PAUSE"})
     setInterval(createBubble,100)
     createStar()
     effectBtn()

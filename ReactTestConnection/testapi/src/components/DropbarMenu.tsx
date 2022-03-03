@@ -68,6 +68,7 @@ const DropbarMenu = () => {
         }
     }
 
+
     return (
         <div className={styles.container}>
             <div className={styles.menu}><a onClick={() => {DataStore.update(
@@ -82,7 +83,9 @@ const DropbarMenu = () => {
             <div id='Pause' className={dataStore.menuState? styles.pause 
                 : styles.pausesleep} onClick={() => {
                         goto('/pause');
-                        DataStore.update(s => {s.menuState = !s.menuState})
+                        DataStore.update(s => {
+                            s.menuState = !s.menuState
+                        })
                         
                         }}><a><img src={LabelPause} alt="" /></a></div>
             <div id='Cash' className={dataStore.menuState? styles.cash
@@ -93,7 +96,9 @@ const DropbarMenu = () => {
                  : styles.outgamesleep}><a onClick={() => 
                  {
                      goto('/');
-                 DataStore.update(s => {s.menuState = !s.menuState})
+                 DataStore.update(s => {
+                     s.menuState = !s.menuState
+                   })
                  
                  }}><img src={LabelOut} alt="" /></a></div>
             <div id='Stick' className={dataStore.menuState? styles.stick 

@@ -25,7 +25,7 @@ import { useAntibodyControllerStore } from "../Store/AntibodyControllerStore";
 import DropbarMenu from "./DropbarMenu";
 import StatusBar from "./StatusBar";
 import Loading from "./Loading";
-import BloodBar from "./BloodBar";
+
 
 
 
@@ -179,6 +179,48 @@ const Playing = ()=>{
                 }
             }
     }
+    const removeBlood = (Id:string)=>{
+        const object = document.getElementById(Id)
+        if (object) {
+            while (object.lastElementChild!==object.children[0]) {
+            if(object.lastElementChild!==null){
+                 object.removeChild(object.lastElementChild);
+            }
+            }
+        }
+    }
+    const blood = (currentBlood:number,maxHP:number,max_scale:number,Id:string) => {
+        const object = document.getElementById(Id)
+        const blood = document.createElement('span')
+        const bloodcurrent = document.createElement('span')
+    
+        if (object) {
+        if (object.children[1] != null) 
+        {
+            object.removeChild(object.children[1]);
+        }
+          
+        blood.classList.add(`${styles.blood}`)
+        blood.style.cssText = `position: absolute; width: ${max_scale*0.8}px; height: ${max_scale*0.05}px;`
+        let Hp = (currentBlood/maxHP)*100 
+        let collorHp = '' 
+        if (Hp > 50) {
+            collorHp = 'rgb(0, 255, 34)'
+        }else if (Hp > 30) {
+            collorHp = '#fbbf24'
+        }else if (Hp > 15) {
+            collorHp = '#f97316'
+        }else {
+            collorHp = '#ef4444'
+        }
+        bloodcurrent.style.cssText = `position: absolute; width: 100%; height: 100%; left: ${Hp-100}%; background-color: ${collorHp};`
+        blood.appendChild(bloodcurrent)  
+      
+        if(object.className==="positionMap_containerBlood__dorop")
+                object.appendChild(blood)
+    }
+
+    }
 
     //create map with virus and antivirus assign at its position
     const createMap = ()=>{
@@ -198,10 +240,14 @@ const Playing = ()=>{
 
         let organMap:JSX.Element[][] = new Array(maxY) 
         
-        for(let i = 0;i<maxY;i++){
+       
+       if(data!==null){
+            for(let i = 0;i<maxY;i++){
             organMap[i] = new Array(maxX)
                 for(let j = 0;j<maxX;j++ ){
-                    organMap[i][j]= <a onDoubleClick={(e:MouseEvent)=>DoubleClickedBlock(e,i,j)} >
+                    const currentId = i.toString()+j.toString() 
+                   removeBlood(currentId)
+                    organMap[i][j]= <a id={currentId} onDoubleClick={(e:MouseEvent)=>DoubleClickedBlock(e,i,j)}>
                        
                     <img src={woodBox} alt="" style={{
                     position: "relative",
@@ -213,14 +259,25 @@ const Playing = ()=>{
                        
         }
 
-       if(data!==null){
+
         for(let i=0;i<data.allOrgan.length;i++){
         const organ = data.allOrgan[i]
+        const x_pos = maxY-1-organ.position[1]
+        const y_pos = organ.position[0]
+        const currentId:string = x_pos.toString()+y_pos.toString()
+        
+       
+        
         if(organ.category==="Antibody"){ //can select antibody to controll it
-            organMap[maxY-1-organ.position[1]][organ.position[0]] =  
-            <a onDoubleClick={(e:MouseEvent)=>DoubleClickedAntibody(e,organ.position[0],organ.position[1])}>
-             <BloodBar currentBlood={organ.hp} maxHP={organ.max_HP} max_scale={max_scale}></BloodBar>    
-            <img src={decoder(organ.category,organ.type)} alt="" style={{
+            organMap[x_pos][y_pos] =  
+            <a id={currentId} onDoubleClick={(e:MouseEvent)=>DoubleClickedAntibody(e,organ.position[0],organ.position[1])}
+               className={styles.containerBlood}
+            >
+                  {
+                blood(organ.hp,organ.max_HP,max_scale,currentId)
+            }
+            <img   
+            src={decoder(organ.category,organ.type)} alt="" style={{
          position: "relative",
          width: `${max_scale}px`,
         height: `${max_scale}px`,
@@ -229,8 +286,11 @@ const Playing = ()=>{
         }
         else {  //virus , can't select
             organMap[maxY-1-organ.position[1]][organ.position[0]] = 
-            <a >
-                 <BloodBar currentBlood={organ.hp} maxHP={organ.max_HP} max_scale={max_scale}></BloodBar>
+            <a id={currentId}  className={styles.containerBlood}
+               >
+            {
+                blood(organ.hp,organ.max_HP,max_scale,currentId)
+            }
             <img src={decoder(organ.category,organ.type)} alt="" style={{
          position: "relative",
          width: `${max_scale}px`,
@@ -316,13 +376,7 @@ const Playing = ()=>{
         }
     }
 
-    const pauseClick = () => {
-        nav("/pause")
-        postState("PAUSE")
-        DataStore.update(s=>{
-            s.gameState = "PAUSE"
-        })
-    }
+  
 
     const openshop = (arr :number[]) => {
         const td = document.querySelectorAll('td')[arr[0]*dataStore.max_x+arr[1]]

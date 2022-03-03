@@ -162,12 +162,12 @@ public class Entity implements Organism{
     }
 
     @Override
-    public  void setStatus(int Max_HP,int atk,int gain){
+    public  void setStatus(int init_HP,int atk,int gain){
         //every stat in crease by type if type lower type is weaker
-        this.Max_HP = type*Max_HP;
+        this.Max_HP = type*init_HP;
         this.atk = type*atk;
         this.gain = type*gain;
-        this.HP = Max_HP;
+        this.HP = type*init_HP;
     }
 
 

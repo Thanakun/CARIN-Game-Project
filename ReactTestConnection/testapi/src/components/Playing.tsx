@@ -240,7 +240,9 @@ const Playing = ()=>{
 
         let organMap:JSX.Element[][] = new Array(maxY) 
         
-        for(let i = 0;i<maxY;i++){
+       
+       if(data!==null){
+            for(let i = 0;i<maxY;i++){
             organMap[i] = new Array(maxX)
                 for(let j = 0;j<maxX;j++ ){
                     const currentId = i.toString()+j.toString() 
@@ -257,7 +259,6 @@ const Playing = ()=>{
                        
         }
 
-       if(data!==null){
 
         for(let i=0;i<data.allOrgan.length;i++){
         const organ = data.allOrgan[i]
@@ -268,7 +269,7 @@ const Playing = ()=>{
        
         
         if(organ.category==="Antibody"){ //can select antibody to controll it
-            organMap[maxY-1-organ.position[1]][organ.position[0]] =  
+            organMap[x_pos][y_pos] =  
             <a id={currentId} onDoubleClick={(e:MouseEvent)=>DoubleClickedAntibody(e,organ.position[0],organ.position[1])}
                className={styles.containerBlood}
             >
@@ -375,13 +376,7 @@ const Playing = ()=>{
         }
     }
 
-    const pauseClick = () => {
-        nav("/pause")
-        postState("PAUSE")
-        DataStore.update(s=>{
-            s.gameState = "PAUSE"
-        })
-    }
+  
 
     const openshop = (arr :number[]) => {
         const td = document.querySelectorAll('td')[arr[0]*dataStore.max_x+arr[1]]

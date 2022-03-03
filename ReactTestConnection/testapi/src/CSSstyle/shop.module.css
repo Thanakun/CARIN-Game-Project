@@ -158,19 +158,19 @@
 .type1price:hover
 {
     color: rgb(6, 243, 17);
-    transform: translateX(-20px);
+    transform: translateX(-10px);
 }
 
 .type2price:hover
 {
     color: rgb(6, 243, 17);
-    transform: translateX(-20px);
+    transform: translateX(-10px);
 }
 
 .type3price:hover
 {
     color: rgb(6, 243, 17);
-    transform: translateX(-20px);
+    transform: translateX(-10px);
 }
 
 .item1 

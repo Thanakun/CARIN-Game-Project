@@ -28,8 +28,9 @@ public class Virus extends Entity implements Organism{
 
     }
 
-    public void afterAttacked(int damage) {
-        HP += damage*0.15;
+    public void afterAttacked() {
+        HP +=gain;
+        if(HP>Max_HP)HP=Max_HP;
     }
 
     public void dieEffect(){

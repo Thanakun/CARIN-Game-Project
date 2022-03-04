@@ -126,7 +126,7 @@ public class Entity implements Organism{
                  organismDie(target);
                 virusControl.spawnNewVirusAfterkill(organism.getType());
             }
-            ((Virus)organism).afterAttacked(damage);
+            ((Virus)organism).afterAttacked();
         }else if (organism.getCategory().equals("Antibody")) { // organism is Antibody
             if (target.getHP() == 0) {
                 organism.gain_HP();

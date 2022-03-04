@@ -21,7 +21,7 @@
     align-items: center;
 }
 
-.plus
+.minus
 {
     position: absolute;
     left: 10%;
@@ -32,7 +32,7 @@
     cursor: pointer;
 }
 
-.plus span
+.minus span
 {
     position: absolute;
     line-height: 0.2px;
@@ -68,7 +68,7 @@
     top: 50%;
 }
 
-.minus
+.plus
 {
     position: absolute;
     right: 10%;
@@ -80,7 +80,7 @@
     cursor: pointer;
 }
 
-.minus span
+.plus span
 {
     position: absolute;
     line-height: 0.2px;

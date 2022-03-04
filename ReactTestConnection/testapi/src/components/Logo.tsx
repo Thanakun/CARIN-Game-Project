@@ -23,7 +23,7 @@ import mucus4_2 from '../Images/mucus4_2.png'
 import mucus4_3 from '../Images/mucus4_3.png'
 import mucus4_4 from '../Images/mucus4_4.png'
 import { useEffect } from 'react'
-import bgHomegreen from '../Images/bghome.png'
+import bgHomegreen from '../Images/BgHomeGreen.png'
 
 
 const Logo = () => {
@@ -31,9 +31,13 @@ const Logo = () => {
       // Hook
       useEffect(() => {
         const bg = document.querySelector('body')
-        if (bg) bg.style.cssText = `background: url(${bgHomegreen}) 
-        no-repeat fixed; width: 100%;overflow: hidden;transition: all 0.8s;`
-      },[])
+            if (bg) bg.style.cssText = `background: url(${bgHomegreen}) no-repeat center center fixed;
+            height: 100%;
+             background-size:cover;
+             overflow: hidden;
+             transition: all 0.8s;
+             `
+    },[])
 
       
     return (

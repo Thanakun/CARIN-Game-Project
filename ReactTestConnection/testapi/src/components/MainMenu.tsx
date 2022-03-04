@@ -8,8 +8,8 @@ import { useEffect } from 'react'
 import { postState } from './Playing'
 
 // images
-import bgHomered from '../Images/bghomered.png'
-import bgHomegreen from '../Images/bghome.png'
+import bgHomered from '../Images/BgHomeRed.png'
+import bgHomegreen from '../Images/BgHomeGreen.png'
 
 const MainMenu = () => { 
     let nav = useNavigate()
@@ -18,14 +18,15 @@ const MainMenu = () => {
         postState("MAIN_MENU")
     },[])
 
+    
     const BGover = () => {
         const bg = document.querySelector('body')
-            if (bg) bg.style.cssText += `background-image: url(${bgHomered}); transition: all 0.8s;`
+            if (bg) bg.style.cssText += `background-image: url(${bgHomered});`
     }
 
     const BGleave = () => {
         const bg = document.querySelector('body')
-            if (bg) bg.style.cssText += `background-image: url(${bgHomegreen}); transition: all 0.8s;`
+            if (bg) bg.style.cssText += `background-image: url(${bgHomegreen});`
     }
 
     return (

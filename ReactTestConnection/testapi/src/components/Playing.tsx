@@ -7,14 +7,14 @@ import { DataStore,  useDataStore } from "../Store/DataStore";
 import styles from '../CSSstyle/playing.module.css'
 
 // image 
-import BgPlaying from '../Images/bgtest.png'
+import BgPlaying from '../Images/BgGameplay.png'
 import woodBox from '../Images/woodBox.png'
-import virus1 from '../Images/Green Virus.png'
-import virus2 from '../Images/Red Virus.png'
-import virus3 from '../Images/Blue Virus.png'
-import antibody1 from '../Images/GreenAntigenv2.png'
-import antibody2 from '../Images/YellowAnitigenv2.png'
-import antibody3 from '../Images/BlueAntigenv2.png'
+import virus1 from '../Images/woodBoxGreenVirus.png'
+import virus2 from '../Images/woodBoxRedVirus.png'
+import virus3 from '../Images/woodBoxBlueVirus.png'
+import antibody1 from '../Images/woodBoxGreenAntibody.png'
+import antibody2 from '../Images/woodBoxYellowAntibody.png'
+import antibody3 from '../Images/woodBoxBlueAntibody.png'
 
 import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 import { useShopStore } from "../Store/ShopStore";
@@ -99,17 +99,20 @@ const Playing = ()=>{
         }
     }
 
-      // background
+     // background
       useEffect(() => {
         const bg = document.querySelector('body')
         if(loading){
             if (bg) bg.style.cssText = `background: #1e1e1e no-repeat fixed; width: 100%;overflow: hidden;`
         }
         else{
-            if (bg) bg.style.cssText = `background: url(${BgPlaying}) no-repeat fixed; width: 100%;`
+            if (bg) bg.style.cssText = `background: url(${BgPlaying}) no-repeat center center fixed;
+            height: 100%;
+             background-size:cover;
+             overflow: hidden;`
         }
         
-    })
+    },[loading])
 
    
 
@@ -353,7 +356,6 @@ const Playing = ()=>{
         else{  // show map
                return (
 <div>
-<img src={BgPlaying} alt="" className={styles.bg}/>
   <Shop/>
   <GameSpeed/>
   <StatusBar/>
@@ -362,7 +364,8 @@ const Playing = ()=>{
         <div className={styles.container1}>
             <div className={styles.container2}>
                 <div className={styles.container3}>
-                     <TransformWrapper>
+                     <TransformWrapper doubleClick={{
+                         disabled:true}}>
                       <TransformComponent>
                          <table className={styles.mytable}>{
                             createMap()

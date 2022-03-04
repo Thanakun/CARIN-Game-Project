@@ -35,13 +35,15 @@ export const getMap = (x : number, y : number) => {
         }
     }
     let newmax_scale = 0
-    let x_scale : number = 1000/x
-    let y_scale : number = 660/y
+    let winWidth = window.innerWidth*0.75
+    let winHeight = window.innerHeight*0.65
+    let x_scale : number = winWidth/x  // 1000
+    let y_scale : number = winHeight/y   // 660
     if (y<x) {
-        if(y_scale*x <= 1000) newmax_scale = y_scale
+        if(y_scale*x <= winWidth) newmax_scale = y_scale
         else newmax_scale = x_scale
     }else {
-        if(x_scale*x <= 660) newmax_scale = x_scale
+        if(x_scale*x <= winHeight) newmax_scale = x_scale
         else newmax_scale = y_scale
     }
 

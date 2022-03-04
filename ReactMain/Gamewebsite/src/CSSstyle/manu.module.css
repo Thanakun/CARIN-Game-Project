@@ -8,11 +8,8 @@
 
 .container
 {
-    /* display: none; */
     position: relative;
     top: 6rem;
-    /* background-color: forestgreen; */
-    /* border: 1px solid blue; */
     max-width: 960px;
     width:  400px;
     height: 150px;

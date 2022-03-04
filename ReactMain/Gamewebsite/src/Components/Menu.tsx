@@ -20,17 +20,17 @@ const menu = () => {
     // Hook
     const BGover = () => {
         const bg = document.querySelector('body')
-            if (bg) bg.style.cssText += `background-image: url(${bgHomered}); transition: all 0.8s;`
+            if (bg) bg.style.cssText += `background-image: url(${bgHomered}); transition: all 0.8s; background-size: cover;`
     }
 
     const BGleave = () => {
         const bg = document.querySelector('body')
-            if (bg) bg.style.cssText += `background-image: url(${bgHomegreen}); transition: all 0.8s;`
+            if (bg) bg.style.cssText += `background-image: url(${bgHomegreen}); transition: all 0.8s; background-size: cover;`
     }
 
     return (
         <div>
-            <Logo/> 
+            <Logo/>
             <div className={styles.container}>
                 <a onMouseOverCapture={() => {BGover()}} onMouseLeave={() => {BGleave()}} onClick={() => addpath('/gameplay')} className={styles.btn}> 
                     <span>Start</span>

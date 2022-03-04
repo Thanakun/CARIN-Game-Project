@@ -233,15 +233,19 @@ const Playing = ()=>{
         const maxY = dataStore.max_y
         //max scale
         let max_scale = 0
-    let x_scale : number = 1000/maxX
-    let y_scale : number = 660/maxY
-    if (maxY<maxX) {
-    if(y_scale*maxX <= 1000) max_scale = y_scale
-    else max_scale = x_scale
-    }else {
-    if(x_scale*maxX <= 660) max_scale = x_scale
-    else max_scale = y_scale
-    }
+        let winWidth = window.innerWidth*0.75
+        let winHeight = window.innerHeight*0.65
+        let x_scale : number = winWidth/maxX  // 1000
+        let y_scale : number = winHeight/maxY   // 660
+        if (maxY<maxX) {
+            if(y_scale*maxX <= winWidth) max_scale = y_scale
+            else max_scale = x_scale
+        }else {
+            if(x_scale*maxX <= winHeight) max_scale = x_scale
+            else max_scale = y_scale
+        }
+
+
 
         let organMap:JSX.Element[][] = new Array(maxY) 
         

@@ -8,9 +8,9 @@ const GameSpleed = () => {
 
     return (
         <div className={styles.container}>
-            <div className={styles.plus} onClick={() => setlevel(level+1)}><span>+</span></div>
+            <div className={styles.plus} onClick={() => setlevel(level-1)}><span>-</span></div>
             <div className={styles.scope}><span>x{level}</span></div>
-            <div className={styles.minus} onClick={() => setlevel(level-1)}><span>-</span></div>
+            <div className={styles.minus} onClick={() => setlevel(level+1)}><span>+</span></div>
         </div>
     )
 }

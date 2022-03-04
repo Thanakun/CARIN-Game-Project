@@ -76,7 +76,7 @@ const positionMap = ({x, y, map, maxScale} : typePops) => {
             <Shop/>
             <StatusBar/>
             <GameSpleed/>
-            <div className={styles.containerAll}>
+            <div className={styles.containerAll} style={{top: `calc(${window.innerHeight/2}px - ${state.max_scale*state.y/2}px - 24px)`}}>
             <div className={styles.container1}>
                 <div className={styles.container2}>
                 <div className={styles.container3}>

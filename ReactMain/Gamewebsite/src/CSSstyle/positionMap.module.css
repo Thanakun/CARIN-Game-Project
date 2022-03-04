@@ -8,10 +8,10 @@
 .containerAll
 {
     position: relative;
-    max-width: 1200px;
-    max-height: 770px;
-    width: 1200px;
-    height: 770px;
+    /* max-width: 1200px;
+    max-height: 770px; */
+    /* width: 1200px;
+    height: 770px; */
     margin: 0;
     padding: 8px;
     /* background-color: rgb(179, 114, 17); */
@@ -41,8 +41,8 @@
 .container3
 {
     position: relative;
-    max-width: 1000px;
-    height: auto;
+    /* max-width: 1000px;
+    height: auto; */
     margin: 0px;
     padding: 0px;
     background-color: rgb(219, 186, 76);

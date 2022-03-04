@@ -9,12 +9,12 @@ import styles from '../CSSstyle/playing.module.css'
 // image 
 import BgPlaying from '../Images/bgtest.png'
 import woodBox from '../Images/woodBox.png'
-import virus1 from '../Images/Green Virus.png'
-import virus2 from '../Images/Red Virus.png'
-import virus3 from '../Images/Blue Virus.png'
-import antibody1 from '../Images/GreenAntigenv2.png'
-import antibody2 from '../Images/YellowAnitigenv2.png'
-import antibody3 from '../Images/BlueAntigenv2.png'
+import virus1 from '../Images/woodBoxGreenVirus.png'
+import virus2 from '../Images/woodBoxRedVirus.png'
+import virus3 from '../Images/woodBoxBlueVirus.png'
+import antibody1 from '../Images/woodBoxGreenAntibody.png'
+import antibody2 from '../Images/woodBoxYellowAntibody.png'
+import antibody3 from '../Images/woodBoxBlueAntibody.png'
 
 import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 import { useShopStore } from "../Store/ShopStore";

@@ -27,6 +27,17 @@ const GameSpeed = () => {
 
     return (
         <div className={styles.container}>
+             {
+                dataStore.timer.speed_multiplier===0.25?null
+                :<div className={styles.minus} onClick={() =>{
+                    const req:timeReq={
+                     command:"decreaseSpeed",
+                     value:0
+                 }
+                 postTime(req)
+             }}><span>-</span></div>
+            }
+            <div className={styles.scope}><span>x{dataStore.timer.speed_multiplier}</span></div>
             {
                 dataStore.timer.speed_multiplier===3?null
                 :<div className={styles.plus} onClick={() => {
@@ -37,18 +48,7 @@ const GameSpeed = () => {
                 postTime(req)
             }}><span>+</span></div>
             }
-            
-            <div className={styles.scope}><span>x{dataStore.timer.speed_multiplier}</span></div>
-            {
-                dataStore.timer.speed_multiplier===0.25?null
-                :<div className={styles.minus} onClick={() =>{
-                    const req:timeReq={
-                     command:"decreaseSpeed",
-                     value:0
-                 }
-                 postTime(req)
-             }}><span>-</span></div>
-            }
+           
         </div>
     )
 }

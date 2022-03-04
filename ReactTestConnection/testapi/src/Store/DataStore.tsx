@@ -24,7 +24,8 @@ export const DataStore = new Store<DataStoreType>({
     max_y: 10,
     timer : {
         time_count : 0,
-        timePass:100
+        timePass:100,
+        speed_multiplier:1
     },
     credit : 0,
     gameState: "",

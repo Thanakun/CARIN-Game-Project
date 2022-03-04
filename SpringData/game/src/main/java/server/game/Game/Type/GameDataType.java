@@ -20,7 +20,7 @@ public class GameDataType {
     public GameDataType(Timer timer, int credit, String gameState, int[] dimension,
                         Map<String,Organism> virus,Map<String,Organism> antibody,
                         int virus_amount,int antibody_amount) {
-        this.timer = new TimerDataType(timer.getTime_count(),timer.getTimePass());
+        this.timer = new TimerDataType(timer.getTime_count(),timer.getTimePass(),timer.getSpeedMultiplier());
         this.credit = credit;
         this.gameState = gameState;
         this.dimension = dimension;

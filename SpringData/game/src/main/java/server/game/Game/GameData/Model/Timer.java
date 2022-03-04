@@ -1,13 +1,16 @@
 package server.game.Game.GameData.Model;
 
 import org.springframework.stereotype.Component;
+import server.game.Game.Type.Request;
+import server.game.Game.Type.TimeReq;
 
 
 @Component
 public class Timer extends Thread {
     /** Time Unit */
     private static Timer instance;
-    private  int time_speed_multiplier;
+    private  double[] time_speed_multiplier;
+    private int speed_level;
     private  int time_per_unit;
     private  int time_count;
     private  boolean isActive;
@@ -17,8 +20,10 @@ public class Timer extends Thread {
         isActive = false; //default when create instance is off
         time_count =0; //counter increase when each time unit pass
         time_per_unit = 1000; // in ms
-        time_pass = (int)(time_per_unit/(double)time_speed_multiplier); //total time pass in 1 time unit
-        time_speed_multiplier = 1; //  if time multiplier high time will pass faster , time per unit decrease
+        time_speed_multiplier = new double[]{0.25,0.5,1,2,3};
+        speed_level = 2; //default multiplier is 1
+        time_pass = (int)(time_per_unit/time_speed_multiplier[speed_level]); //total time pass in 1 time unit
+        //  if time multiplier high time will pass faster , time per unit decrease
 
     }
 
@@ -35,7 +40,7 @@ public class Timer extends Thread {
     public void run(){
         try{
             while(true){
-                 time_pass = (int)(time_per_unit/(double)time_speed_multiplier);
+                 time_pass = (int)(time_per_unit/time_speed_multiplier[speed_level]);
                 if(isActive){
 
                     sleep(time_pass);
@@ -59,8 +64,9 @@ public class Timer extends Thread {
         isActive = false;
         time_count =0;
         time_per_unit = 2000;
-        time_pass = (int)(time_per_unit/(double)time_speed_multiplier);
-        time_speed_multiplier = 1;
+        speed_level =2; //default multiplier is 1
+        time_pass = (int)(time_per_unit/time_speed_multiplier[speed_level]);
+
     }
     public boolean getTimerStatus(){
         return this.isActive;
@@ -71,6 +77,9 @@ public class Timer extends Thread {
     public int getTime_count(){
         return time_count;
     }
+    public double getSpeedMultiplier(){
+        return time_speed_multiplier[speed_level];
+    }
 
     public void off(){
         isActive = false;
@@ -79,29 +88,33 @@ public class Timer extends Thread {
         isActive = true;
     }
 
-    public boolean decreaseMultiplier(){    //return true if can decrease time speed
-        if(time_speed_multiplier<=1){
-            return false;
-        }
-        else{
-            time_speed_multiplier--;
-            return true;
-        }
-    }
-
-    public boolean increaseMultiplier(){    //return true if can increase time speed
-        if(time_speed_multiplier>=3){
-            return false;
-        }
-        else{
-            time_speed_multiplier++;
-            return true;
-        }
-    }
 
     public void setTimePerUnit(int amount){  //set time per time unit
         time_per_unit = amount;
     }
 
+    public void increaseSpeed(){
+        if(speed_level<4){
+            speed_level++;
+        }
+    }
+    public void decreaseSpeed(){
+        if(speed_level>0){
+            speed_level--;
+        }
+    }
 
+
+
+    public void computeSpeedInput(Request req) {
+        System.out.println("computing time request");
+        TimeReq newReq = (TimeReq) req;
+        String command = newReq.getCommand();
+        if(command.equals("increaseSpeed")){
+            increaseSpeed();
+        }
+        if(command.equals("decreaseSpeed")){
+            decreaseSpeed();
+        }
+    }
 }

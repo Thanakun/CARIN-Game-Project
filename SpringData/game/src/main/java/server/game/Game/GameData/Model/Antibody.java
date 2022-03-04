@@ -24,7 +24,8 @@ public class Antibody extends Entity implements Organism {
     }
 
     public void overcome() {
-        HP += gain;
+        HP +=gain;
+        if(HP>Max_HP)HP=Max_HP;
     }
 
     public void setCost(int move_cost,int buy_cost){

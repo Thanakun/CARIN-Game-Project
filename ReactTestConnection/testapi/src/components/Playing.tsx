@@ -233,7 +233,7 @@ const Playing = ()=>{
         const maxY = dataStore.max_y
         //max scale
         let max_scale = 0
-        let winWidth = window.innerWidth*0.75
+        let winWidth = window.innerWidth*0.68
         let winHeight = window.innerHeight*0.65
         let x_scale : number = winWidth/maxX  // 1000
         let y_scale : number = winHeight/maxY   // 660

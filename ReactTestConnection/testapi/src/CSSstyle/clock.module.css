@@ -1,0 +1,46 @@
+*
+{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.containerClock
+{
+    position: absolute;
+    height: 67px;
+    width: 67px;
+    background-color: #FFF;
+    border-radius: 50%;
+    border: 4px solid black;
+    /* z-index: 1; */
+}
+
+
+.shortNeedle 
+{
+    position: absolute;
+    top: calc(50% - 2.5px);
+    left: calc(50% - 2.5px);
+    width: 5px;
+    height: 16px;
+    transform-origin: 50% 2.5px;
+    border-radius: 5px;
+    background-color: black;
+    transition: 0.5s;
+    /* transform: rotate(180deg); */
+}
+
+.longtNeedle 
+{
+    position: absolute;
+    top: calc(50% - 2.5px);
+    left: calc(50% - 2.5px);
+    width: 5px;
+    height: 26px;
+    transform-origin: 50% 2.5px;
+    border-radius: 5px;
+    background-color: black;
+    transition: 0.5s;
+    /* transform: rotate(180deg); */
+}

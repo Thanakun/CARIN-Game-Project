@@ -3,6 +3,7 @@ package server.game.Game.GameData.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import server.game.Game.GameData.Model.Player;
+import server.game.Game.GameData.Model.Timer;
 import server.game.Game.Type.Request;
 
 import java.util.Stack;
@@ -14,6 +15,8 @@ public class UserControl extends Thread{
     private Player player;
     @Autowired
     private Menu menu;
+    @Autowired
+    private Timer timer;
 
     private Stack<Request> requests;
 
@@ -40,11 +43,14 @@ public class UserControl extends Thread{
                if(!this.requests.isEmpty()){
                    Request req = requests.pop();
                    if(req.getRequestType().equals("AntibodyRequest")){
-                       System.out.println("computing antibody req");
                        player.computeAntibodyInput(req);
                    }
                    else if(req.getRequestType().equals("MenuRequest")){
                         menu.computeGameState(req);
+                   }
+                   else if(req.getRequestType().equals("TimeRequest")){
+                       System.out.println("computing time requset");
+                        timer.computeSpeedInput(req);
                    }
                    else{
                        throw new RuntimeException("wrong request type");

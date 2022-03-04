@@ -4,7 +4,7 @@ import axios from "axios";
 import { DataStore,  useDataStore } from "../Store/DataStore";
 
 // css
-import styles from '../CSSstyle/positionMap.module.css'
+import styles from '../CSSstyle/playing.module.css'
 
 // image 
 import BgPlaying from '../Images/bgtest.png'
@@ -25,6 +25,7 @@ import { useAntibodyControllerStore } from "../Store/AntibodyControllerStore";
 import DropbarMenu from "./DropbarMenu";
 import StatusBar from "./StatusBar";
 import Loading from "./Loading";
+import GameSpeed from "./GameSpeed";
 
 
 
@@ -51,7 +52,8 @@ export type GameDataType = {
 }
 export type TimerType={
       time_count: number,
-        timePass: number
+        timePass: number,
+        speed_multiplier: number
 }
 export type OrganismType = {
         id:string,
@@ -216,7 +218,7 @@ const Playing = ()=>{
         bloodcurrent.style.cssText = `position: absolute; width: 100%; height: 100%; left: ${Hp-100}%; background-color: ${collorHp};`
         blood.appendChild(bloodcurrent)  
       
-        if(object.className==="positionMap_containerBlood__dorop")
+        if(object.className==="playing_containerBlood__JvxGx")
                 object.appendChild(blood)
     }
 
@@ -353,6 +355,7 @@ const Playing = ()=>{
 <div>
 <img src={BgPlaying} alt="" className={styles.bg}/>
   <Shop/>
+  <GameSpeed/>
   <StatusBar/>
   <AntibodyController/>
     <div className={styles.containerAll}>

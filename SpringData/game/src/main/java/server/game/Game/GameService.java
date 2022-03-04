@@ -6,10 +6,7 @@ import server.game.Game.GameData.Controller.UserControl;
 import server.game.Game.GameData.Model.*;
 import server.game.Game.GameData.Parser.Parser;
 import org.springframework.stereotype.Service;
-import server.game.Game.Type.AntibodyReq;
-import server.game.Game.Type.GameDataType;
-import server.game.Game.Type.MenuReq;
-import server.game.Game.Type.Request;
+import server.game.Game.Type.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.LinkedHashMap;
@@ -74,6 +71,12 @@ public class GameService {
         }
         else if(req instanceof MenuReq){
             MenuReq newReq = new MenuReq(((MenuReq)req).getWanted_state());
+            userControl.addRequset(req);
+            reqLog.add(newReq);
+            return newReq;
+        }
+        else if(req instanceof TimeReq){
+            TimeReq newReq = new TimeReq(((TimeReq)req).getCommand(),((TimeReq)req).getValue());
             userControl.addRequset(req);
             reqLog.add(newReq);
             return newReq;

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
+import server.game.Game.GameConfig;
 import server.game.Game.GameData.Parser.Parser;
 import server.game.Game.Type.AntibodyReq;
 
@@ -13,7 +14,7 @@ import java.util.List;
 
 
 @Component
-@PropertySource("classpath:GameDataProperties.properties")
+
 public class AntibodyControl {
 
     public static AntibodyControl instance;
@@ -21,19 +22,21 @@ public class AntibodyControl {
     private OrganismStorage organismStorage;
     @Autowired
     private PositionMap positionMap;
+    @Autowired
+    private GameConfig gameConfig;
 
     private String default_geneticCode;
 
     //initial value for set up virus status
-    @Value("${init_antibody_hp}")
+
     private int init_hp;
-    @Value("${init_antibody_atk}")
+
     private int init_atk;
-    @Value("${init_antibody_gain}")
+
     private int init_gain;
-    @Value("${init_antibody_move_cost}")
+
     private int init_move_cost;
-    @Value("${antibody_cost}")
+
     private int init_antibody_cost;
 
 
@@ -65,6 +68,13 @@ public class AntibodyControl {
             instance = new AntibodyControl();
         }
         return instance;
+    }
+    public void setConfigValue(){
+        setInit_antibody_cost(gameConfig.getAntibody_cost());
+        setInit_atk(gameConfig.getAntibody_atk());
+        setInit_gain(gameConfig.getAntibody_gain());
+        setInit_hp(gameConfig.getAntibody_hp());
+        setInit_move_cost(gameConfig.getAntibody_move_cost());
     }
 
     public Antibody spawnNewAntibody(int type, int[] location){  //return true if can place at that location
@@ -111,5 +121,25 @@ public class AntibodyControl {
 
     public int getMinimumCost(){
         return init_antibody_cost;
+    }
+
+    public void setInit_hp(int init_hp) {
+        this.init_hp = init_hp;
+    }
+
+    public void setInit_atk(int init_atk) {
+        this.init_atk = init_atk;
+    }
+
+    public void setInit_gain(int init_gain) {
+        this.init_gain = init_gain;
+    }
+
+    public void setInit_move_cost(int init_move_cost) {
+        this.init_move_cost = init_move_cost;
+    }
+
+    public void setInit_antibody_cost(int init_antibody_cost) {
+        this.init_antibody_cost = init_antibody_cost;
     }
 }

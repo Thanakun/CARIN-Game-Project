@@ -246,7 +246,7 @@ const Playing = ()=>{
         }
 
 
-
+ 
         let organMap:JSX.Element[][] = new Array(maxY) 
         
        

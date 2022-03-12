@@ -25,7 +25,13 @@ public class GameRunner extends Thread {
     private Player player;
 
     public void main() {
-                 player.setInit_credit(player.getCredit());
+        //set up
+        antibodyControl.setConfigValue();
+        organismStorage.setConfigValue();
+        player.setConfigValue();
+        positionMap.setConfigValue();
+        virusControl.setConfigValue();
+
         while(true){
             try{
 
@@ -97,7 +103,7 @@ public class GameRunner extends Thread {
            System.out.println("Player win, All virus die");
        }
        else if(organismStorage.getAntibody_killed()>0 && (organismStorage.getAntibodyAmount()==0)
-               &&(player.getCredit()<antibodyControl.getMinimumCost()) ){
+               &&(player.getCurrentCredit()<antibodyControl.getMinimumCost()) ){
            //all antibody die and don't have enough credit
            menu.setGameState("LOSE");
            player.resetCredit();

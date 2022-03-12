@@ -5,17 +5,18 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
+import server.game.Game.GameConfig;
 import server.game.Game.GameData.Controller.UserControl;
 import server.game.Game.Type.AntibodyReq;
 import server.game.Game.Type.Request;
 
 @Component
-@PropertySource("classpath:GameDataProperties.properties")
+
 public class Player {
     private static Player instance;
-    @Value("${init_credits}")
-    private int credit;
-    @Value("${kill_virus_credit_gain}")
+
+    private int init_credit;
+
     private int kill_virus_credit_gain;
     @Autowired
     private AntibodyControl antibodyControl;
@@ -23,10 +24,13 @@ public class Player {
     private OrganismStorage organismStorage;
     @Autowired
     private PositionMap positionMap;
+    @Autowired
+    private GameConfig gameConfig;
 
-    private int init_credit;
+    private int current_credit=0;
 
     private Player(){
+
     }
     public static Player getInstance(){
         if(instance==null){
@@ -34,17 +38,26 @@ public class Player {
         }
         return instance;
     }
-    public void setInit_credit(int amount){
-        init_credit = amount;
+    public void setConfigValue(){
+        setInit_credit(gameConfig.getInit_credits());
+        setKill_virus_credit_gain(gameConfig.getKilled_virus_credit_gain());
+        current_credit = init_credit;
     }
-    public int getCredit(){
-        return credit;
+
+    public void setCurrentCredit(int amount){
+        current_credit = amount;
+    }
+    public int getInitCredit(){
+        return init_credit;
+    }
+    public int getCurrentCredit(){
+        return current_credit;
     }
     public  void resetCredit(){
-        credit=init_credit;
+        current_credit=init_credit;
     }
     public void addCredit(int virus_type){
-        credit+=virus_type*kill_virus_credit_gain;
+        current_credit+=virus_type*kill_virus_credit_gain;
 
     }
 
@@ -64,13 +77,13 @@ public class Player {
     public synchronized void placeNewAntibody(int type,int[] location) {
             Antibody newAntibody = antibodyControl.spawnNewAntibody(type, location);
             if (newAntibody != null) {  //true if can spawn new antibody at that location
-                if (credit - newAntibody.getBuyCost() < 0) { //not enough credit
+                if (current_credit - newAntibody.getBuyCost() < 0) { //not enough credit
                     System.out.println("not enough credit");
                     organismStorage.removeOrganism(newAntibody);
                     positionMap.removeOrganismPosition(newAntibody);
                 } else { //can place successfully
-                    credit -= newAntibody.getBuyCost();
-                    System.out.println("Remaining credit:"+credit);
+                    current_credit -= newAntibody.getBuyCost();
+                    System.out.println("Remaining credit:"+current_credit);
                     System.out.println("buy antibody complete");
                 }
 
@@ -79,5 +92,11 @@ public class Player {
             }
         }
 
+    public void setInit_credit(int init_credit) {
+        this.init_credit = init_credit;
+    }
 
+    public void setKill_virus_credit_gain(int kill_virus_credit_gain) {
+        this.kill_virus_credit_gain = kill_virus_credit_gain;
+    }
 }

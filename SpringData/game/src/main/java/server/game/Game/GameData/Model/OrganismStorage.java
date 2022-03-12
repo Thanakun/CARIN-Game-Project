@@ -5,11 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
+import server.game.Game.GameConfig;
 
 import java.util.LinkedHashMap;
 
 @Component
-@PropertySource("classpath:GameDataProperties.properties")
+
 public class OrganismStorage {
     private static OrganismStorage instance;
     private static LinkedHashMap<String,Organism> allVirus;
@@ -17,11 +18,13 @@ public class OrganismStorage {
     private static int antibody_Id_count;
     private static int antibody_killed;
     private static int virus_Id_count;
-    @Value("${max_virus_amount}")
+
     private   int max_virus_amount;
     private static int virus_killed;
     @Autowired
     private PositionMap positionMap;
+    @Autowired
+    private GameConfig gameConfig;
 
 
     private OrganismStorage(){
@@ -31,12 +34,22 @@ public class OrganismStorage {
         antibody_killed =0;
         virus_Id_count = 0;
         virus_killed = 0;
+
+
     }
     public static OrganismStorage getInstance(){
         if(instance==null){
             instance = new OrganismStorage();
         }
     return instance;
+    }
+
+    public void setConfigValue(){
+        setMax_virus_amount(gameConfig.getMax_virus_amount());
+    }
+
+    public void setMax_virus_amount(int max_virus_amount) {
+        this.max_virus_amount = max_virus_amount;
     }
 
     public void resetStorage(){

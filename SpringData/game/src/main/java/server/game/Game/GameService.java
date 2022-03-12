@@ -39,7 +39,7 @@ public class GameService {
         return timer;
     }
     public int getCredit(){
-        return player.getCredit();
+        return player.getCurrentCredit();
     }
     public Map<String,Organism> getAntibody(){
         return organismStorage.getallAntibody();

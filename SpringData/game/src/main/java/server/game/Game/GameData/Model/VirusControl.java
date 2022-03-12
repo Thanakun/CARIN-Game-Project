@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
+import server.game.Game.GameConfig;
 import server.game.Game.GameData.Parser.Parser;
 
 import java.util.LinkedHashMap;
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.Random;
 
 @Component
-@PropertySource("classpath:GameDataProperties.properties")
+
 public class VirusControl {
     /** Controll All Virus */
     public static VirusControl instance;
@@ -25,18 +26,20 @@ public class VirusControl {
     private PositionMap positionMap;
     @Autowired
     private OrganismStorage organismStorage;
-    @Value("${virus_rate:0.5}")
+    @Autowired
+    private GameConfig gameConfig;
+
     private float virus_rate; //virus spawn rate
     private Random random;
     private String default_geneticCode;
 
 
     //initial value for set up virus status
-    @Value("${init_virus_hp}")
+
     private int init_hp;
-    @Value("${init_virus_atk}")
+
     private int init_atk;
-    @Value("${init_virus_gain}")
+
     private int init_gain;
 
 
@@ -77,12 +80,35 @@ public class VirusControl {
                 "  else if (dir) then move upright\n" +
                 "  else move up\n" +
                 "}\n";
+
     }
     public static VirusControl getInstance(){
         if(instance==null){
             instance = new VirusControl();
         }
         return instance;
+    }
+    public void setConfigValue(){
+        setInit_atk(gameConfig.getVirus_atk());
+        setInit_gain(gameConfig.getVirus_gain());
+        setVirus_rate(gameConfig.getVirus_rate());
+        setInit_hp(gameConfig.getVirus_hp());
+    }
+
+    public void setVirus_rate(float virus_rate) {
+        this.virus_rate = virus_rate;
+    }
+
+    public void setInit_hp(int init_hp) {
+        this.init_hp = init_hp;
+    }
+
+    public void setInit_atk(int init_atk) {
+        this.init_atk = init_atk;
+    }
+
+    public void setInit_gain(int init_gain) {
+        this.init_gain = init_gain;
     }
 
     public void spawnNewVirus(){

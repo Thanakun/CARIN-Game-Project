@@ -1,25 +1,31 @@
 package server.game.Game.GameData.Model;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
+import server.game.Game.GameConfig;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Component
-@PropertySource("classpath:GameDataProperties.properties")
+
 public class PositionMap {
     private static PositionMap instance;
     private static LinkedHashMap<String,int[]> allOrganism_Position;   //key is Organism value is its position
     //variable in positionMap
-    @Value("${max_x}")
+
     private int max_x;
-    @Value("${max_y}")
+
     private int max_y;
+
+    @Autowired
+    private GameConfig gameConfig;
 
     private PositionMap(){
         allOrganism_Position = new LinkedHashMap<>();
+
     }
 
     public static PositionMap getInstance(){
@@ -29,6 +35,10 @@ public class PositionMap {
         return instance;
     }
 
+    public void setConfigValue(){
+        setMax_x(gameConfig.getM());
+        setMax_y(gameConfig.getN());
+    }
     public Map<String,int[]> getPositionMap(){
         return allOrganism_Position;
     }
@@ -85,5 +95,11 @@ public class PositionMap {
         allOrganism_Position.remove(target.getId());
     }
 
-    
+    public void setMax_x(int max_x) {
+        this.max_x = max_x;
+    }
+
+    public void setMax_y(int max_y) {
+        this.max_y = max_y;
+    }
 }

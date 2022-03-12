@@ -2,6 +2,7 @@
 import { url } from 'inspector'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import ReactPlayer from 'react-player'
 
 // css
 import styles from '../CSSstyle/puase.module.css'
@@ -100,6 +101,7 @@ const Pause = () => {
 
     return (
         <div>
+            <ReactPlayer style={{display: "none"}} loop={true} playing={true} url='https://www.youtube.com/watch?v=jCQ_5Gj6jlg&ab_channel=Misaki'/>
             {/* <img className={styles.bg} src={BgPuase} alt="" /> */}
             <a id='back' onClick={() => addpath('/gameplay')} className={styles.btnBack}>Back</a>
             <a id='out' onClick={() => addpath('/')} className={styles.btnOut}>Out</a>

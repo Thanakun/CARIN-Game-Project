@@ -1,7 +1,8 @@
 // Hook
 import styles from '../CSSstyle/manu.module.css'
 import { useNavigate } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import ReactPlayer from 'react-player'
  
 // component
 import Logo from './Logo' 
@@ -28,11 +29,16 @@ const menu = () => {
             if (bg) bg.style.cssText += `background-image: url(${bgHomegreen}); transition: all 0.8s; background-size: cover;`
     }
 
+    const runsound = () => {
+
+    }
+
     return (
         <div>
+            <ReactPlayer style={{display: "none"}} loop={true} playing={true} url='https://www.youtube.com/watch?v=ZlZg2zJHK78&ab_channel=Dest'/>
             <Logo/>
             <div className={styles.container}>
-                <a onMouseOverCapture={() => {BGover()}} onMouseLeave={() => {BGleave()}} onClick={() => addpath('/gameplay')} className={styles.btn}> 
+                <a onMouseOverCapture={() => {BGover()}} onMouseLeave={() => {BGleave()}} onClick={() => {runsound(); addpath('/gameplay')}} className={styles.btn}> 
                     <span>Start</span>
                     <div className={styles.bthbefore}></div>
                 </a>

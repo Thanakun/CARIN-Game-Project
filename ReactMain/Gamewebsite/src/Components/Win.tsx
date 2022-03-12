@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import ReactPlayer from "react-player";
 
 // css
 import styles from '../CSSstyle/finish.module.css'
@@ -68,6 +69,7 @@ const Win = () => {
         <div>
             <a id='out' onClick={() => addpath('/')} className={styles.btnOut}>Out</a>
             <div id='scenewin' className={styles.sceneWin}><span>Victory</span></div>
+            <ReactPlayer style={{display: "none"}} loop={true} playing={true} url='https://www.youtube.com/watch?v=GMY7TYRJxRA&ab_channel=MagnusAdrian'/>
         </div>
     )    
 }

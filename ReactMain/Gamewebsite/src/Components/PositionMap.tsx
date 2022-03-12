@@ -2,6 +2,7 @@
 import { useEffect } from 'react' 
 import { useNavigate } from 'react-router-dom'
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch'
+import ReactPlayer from 'react-player'
 
 // Store
 import { MapStore } from '../Store/MapStore'
@@ -73,6 +74,7 @@ const positionMap = ({x, y, map, maxScale} : typePops) => {
 
     return (
         <div>
+            <ReactPlayer style={{display: "none"}} loop={true} playing={true} url="https://www.youtube.com/watch?v=iqtkk6bYEpk&ab_channel=player2403"/>
             <Shop/>
             <StatusBar/>
             <GameSpleed/>

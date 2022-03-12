@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import ReactPlayer from "react-player";
 
 // css
 import styles from '../CSSstyle/finish.module.css'
@@ -64,10 +65,15 @@ const Lose = () => {
             btnout.addEventListener('mouseover', (e) => {WaveEffect(e, btnout)})
     }
 
+    const audio = new Audio("../JSstyle/testsound.mp4")
+
+    const playSong = () => {audio.play}
+
     return (
         <div>
             <a id='out' onClick={() => addpath('/')} className={styles.btnOut}>Out</a>
             <div id='scenelose' className={styles.sceneLose}><span>Defeat</span></div>
+            <ReactPlayer style={{display: "none"}} loop={true} playing={true} url='https://www.youtube.com/watch?v=K1qjt_1geiI&ab_channel=Misaki'/>
         </div>
     )
 }

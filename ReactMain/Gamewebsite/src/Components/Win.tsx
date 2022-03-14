@@ -5,6 +5,9 @@ import ReactPlayer from "react-player";
 // css
 import styles from '../CSSstyle/finish.module.css'
 
+// components
+import NyanCat from "./NyanCat";
+
 const Win = () => {
     // Hook
     useEffect(() => {
@@ -67,6 +70,7 @@ const Win = () => {
 
     return(
         <div>
+            <NyanCat/>
             <a id='out' onClick={() => addpath('/')} className={styles.btnOut}>Out</a>
             <div id='scenewin' className={styles.sceneWin}><span>Victory</span></div>
             <ReactPlayer style={{display: "none"}} loop={true} playing={true} url='https://www.youtube.com/watch?v=GMY7TYRJxRA&ab_channel=MagnusAdrian'/>

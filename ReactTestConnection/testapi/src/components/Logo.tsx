@@ -1,6 +1,8 @@
 // CSS
 import styles from '../CSSstyle/logo.module.css'
 
+import ReactPlayer from 'react-player'
+
 // image
 import Name from '../Images/name.png'
 import RBC1 from '../Images/RBC_1.png'
@@ -42,6 +44,8 @@ const Logo = () => {
       
     return (
         <div className={styles.logocontainer}>
+             <ReactPlayer style={{display: "none"}} loop={true} playing={true} 
+             url='https://www.youtube.com/watch?v=ZlZg2zJHK78&ab_channel=Dest'/>
             <div className={styles.Vesselcontainter}>
 
             {/* RBC */}

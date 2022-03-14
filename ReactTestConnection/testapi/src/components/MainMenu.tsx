@@ -1,6 +1,7 @@
 // Hook
 import styles from '../CSSstyle/manu.module.css'
 import { useNavigate } from 'react-router-dom'
+import ReactPlayer from 'react-player'
  
 // component
 import Logo from './Logo' 

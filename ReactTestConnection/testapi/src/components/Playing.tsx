@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useState,useEffect, MouseEvent } from "react";
 import axios from "axios";
 import { DataStore,  useDataStore } from "../Store/DataStore";
+import ReactPlayer from "react-player";
 
 // css
 import styles from '../CSSstyle/playing.module.css'
@@ -294,7 +295,7 @@ const Playing = ()=>{
      }}/> </a>
         }
         else {  //virus , can't select
-            organMap[maxY-1-organ.position[1]][organ.position[0]] = 
+            organMap[x_pos][y_pos] = 
             <a id={currentId}  className={styles.containerBlood}
                >
             {
@@ -360,6 +361,8 @@ const Playing = ()=>{
         else{  // show map
                return (
 <div>
+<ReactPlayer style={{display: "none"}} loop={true} playing={true}
+ url="https://www.youtube.com/watch?v=iqtkk6bYEpk&ab_channel=player2403"/>
   <Shop/>
   <GameSpeed/>
   <StatusBar/>

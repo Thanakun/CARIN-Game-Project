@@ -150,8 +150,8 @@ public class VirusControl {
         int y_posi = random.nextInt(maxbound[1]);
 
         while(positionMap.hasOrganism(new int[]{x_posi,y_posi})){  //loop until successfuly add this in map; prevent spawn at not empty position
-            x_posi = random.nextInt(maxbound[0]+1);
-            y_posi = random.nextInt(maxbound[1]+1);
+            x_posi = random.nextInt(maxbound[0]);
+            y_posi = random.nextInt(maxbound[1]);
         }
         return new int[]{x_posi,y_posi};
     }

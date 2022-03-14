@@ -131,17 +131,20 @@ public class VirusControl {
     }
 
     public void spawnNewVirusAfterkill(int type){
-        float ran = random.nextFloat();
-        System.out.println("random="+ran);
+        if(organismStorage.getMax_virus_amount()>
+                (organismStorage.getVirus_killed()+organismStorage.getVirusAmount())) { //check if virus is not exceed limit
+            float ran = random.nextFloat();
+            System.out.println("random=" + ran);
             System.out.println("create new virus");
             Virus newVirus = new Virus(
-                    "V"+ organismStorage.getVirus_count()
-                    ,type
-                    ,firstSpawnLocationInit()
-                    ,positionMap,organismStorage,this);
+                    "V" + organismStorage.getVirus_count()
+                    , type
+                    , firstSpawnLocationInit()
+                    , positionMap, organismStorage, this);
             newVirus.setGeneticCode(this.default_geneticCode);
-            newVirus.setStatus(init_hp,init_atk,init_gain);    //set up status and genetic code
+            newVirus.setStatus(init_hp, init_atk, init_gain);    //set up status and genetic code
             organismStorage.addOrganism(newVirus);
+        }
     }
 
     public int[] firstSpawnLocationInit(){    // to spawn first time at virus constructor

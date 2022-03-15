@@ -27,7 +27,10 @@ const Setup = ()=>{
         <div>
             <button onClick={e=>nav("/")}>Back</button>
             <form>
-                <input type="text" name="genetic" placeholder="Enter genetic code" onChange={(e)=>{setGenetic(e.target.value)}} ></input>
+                {/* <input type="text" name="genetic" placeholder="Enter genetic code" onChange={(e)=>{setGenetic(e.target.value)}} ></input> */}
+                <form>
+                     <textarea  placeholder="Enter genetic code..." onChange={(e)=>{setGenetic(e.target.value)}}></textarea>
+                </form>
                 <button type="button" onClick={e=>{
                     postGenetic("default")
                     

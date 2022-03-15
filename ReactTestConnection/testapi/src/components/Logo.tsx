@@ -44,8 +44,6 @@ const Logo = () => {
       
     return (
         <div className={styles.logocontainer}>
-             <ReactPlayer style={{display: "none"}} loop={true} playing={true} 
-             url='https://www.youtube.com/watch?v=ZlZg2zJHK78&ab_channel=Dest'/>
             <div className={styles.Vesselcontainter}>
 
             {/* RBC */}

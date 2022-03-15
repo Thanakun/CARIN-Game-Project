@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 import server.game.Game.GameConfig;
 import server.game.Game.GameData.Parser.Parser;
 import server.game.Game.Type.AntibodyReq;
+import server.game.Game.Type.Request;
+
 
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -25,7 +27,24 @@ public class AntibodyControl {
     @Autowired
     private GameConfig gameConfig;
 
-    private String default_geneticCode;
+    private boolean setGeneticState = false;
+    private String geneticCode;
+    private String default_geneticCode  =
+            "virusLoc = virus\n" +
+                    "if (virusLoc / 10 - 1)\n" +
+                    "then \n" +
+                    "  { }"
+                    + "else\n"+
+                    " if (virusLoc)\n" +
+                    "then \n" +
+                    "  if (virusLoc % 10 - 7) then shoot upleft\n" +
+                    "  else if (virusLoc % 10 - 6) then shoot left\n" +
+                    "  else if (virusLoc % 10 - 5) then shoot downleft\n" +
+                    "  else if (virusLoc % 10 - 4) then shoot down\n" +
+                    "  else if (virusLoc % 10 - 3) then shoot downright\n" +
+                    "  else if (virusLoc % 10 - 2) then shoot right\n" +
+                    "  else if (virusLoc % 10 - 1) then shoot upright\n" +
+                    "  else shoot up\n";
 
     //initial value for set up virus status
 
@@ -45,22 +64,6 @@ public class AntibodyControl {
 
 
     private AntibodyControl(){
-        default_geneticCode =
-                "virusLoc = virus\n" +
-                        "if (virusLoc / 10 - 1)\n" +
-                        "then \n" +
-                        "  { }"
-                        + "else\n"+
-                       " if (virusLoc)\n" +
-                        "then \n" +
-                        "  if (virusLoc % 10 - 7) then shoot upleft\n" +
-                        "  else if (virusLoc % 10 - 6) then shoot left\n" +
-                        "  else if (virusLoc % 10 - 5) then shoot downleft\n" +
-                        "  else if (virusLoc % 10 - 4) then shoot down\n" +
-                        "  else if (virusLoc % 10 - 3) then shoot downright\n" +
-                        "  else if (virusLoc % 10 - 2) then shoot right\n" +
-                        "  else if (virusLoc % 10 - 1) then shoot upright\n" +
-                        "  else shoot up\n";
 
     }
     public static AntibodyControl getInstance(){
@@ -69,6 +72,24 @@ public class AntibodyControl {
         }
         return instance;
     }
+
+    public boolean isSetGeneticState() {
+        return setGeneticState;
+    }
+
+    public void setSetGeneticState(boolean setGeneticState) {
+        this.setGeneticState = setGeneticState;
+    }
+
+   public void setGeneticCode(String newgenetic){
+        if(newgenetic.equals("default")){
+            geneticCode = default_geneticCode;
+        }
+        else{
+            geneticCode = newgenetic;
+        }
+
+   }
     public void setConfigValue(){
         setInit_antibody_cost(gameConfig.getAntibody_cost());
         setInit_atk(gameConfig.getAntibody_atk());
@@ -86,7 +107,7 @@ public class AntibodyControl {
                     "A"+ organismStorage.getAntibody_count()
                     ,type,location
             ,positionMap,organismStorage);
-            newAntibody.setGeneticCode(this.default_geneticCode);
+            newAntibody.setGeneticCode(this.geneticCode);
             newAntibody.setStatus(init_hp,init_atk,init_gain);    //set up status and genetic code
             newAntibody.setCost(init_move_cost,init_antibody_cost);
             organismStorage.addOrganism(newAntibody);
@@ -105,6 +126,17 @@ public class AntibodyControl {
        else {
             System.out.println("can't update Antibody that not exist");
         }
+    }
+
+    public void moveAntibody(String target_Id,int[] dest){
+        Antibody target = (Antibody) organismStorage.getById(target_Id);
+        if(target!=null){
+            target.changeLocation(dest);
+        }
+        else{
+            System.out.println("not found target");
+        }
+
     }
 
     public synchronized void activeAllAntibody(){
@@ -142,4 +174,5 @@ public class AntibodyControl {
     public void setInit_antibody_cost(int init_antibody_cost) {
         this.init_antibody_cost = init_antibody_cost;
     }
+
 }

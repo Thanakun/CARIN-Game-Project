@@ -2,6 +2,7 @@ package server.game.Game.GameData.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import server.game.Game.GameData.Model.AntibodyControl;
 import server.game.Game.GameData.Model.Player;
 import server.game.Game.GameData.Model.Timer;
 import server.game.Game.Type.Request;
@@ -17,6 +18,7 @@ public class UserControl extends Thread{
     private Menu menu;
     @Autowired
     private Timer timer;
+
 
     private Stack<Request> requests;
 

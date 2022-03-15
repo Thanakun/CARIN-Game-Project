@@ -112,7 +112,7 @@ public class VirusControl {
     }
 
     public void spawnNewVirus(){
-        if(organismStorage.getMax_virus_amount()>
+        if((organismStorage.getMax_virus_amount()+organismStorage.getAntibody_killed())>
                 (organismStorage.getVirus_killed()+organismStorage.getVirusAmount())){ //check if virus is not exceed limit
         float ran = random.nextFloat();
         System.out.println("random="+ran);
@@ -131,7 +131,7 @@ public class VirusControl {
     }
 
     public void spawnNewVirusAfterkill(int type){
-        if(organismStorage.getMax_virus_amount()>
+        if((organismStorage.getMax_virus_amount()+organismStorage.getAntibody_killed())>
                 (organismStorage.getVirus_killed()+organismStorage.getVirusAmount())) { //check if virus is not exceed limit
             float ran = random.nextFloat();
             System.out.println("random=" + ran);

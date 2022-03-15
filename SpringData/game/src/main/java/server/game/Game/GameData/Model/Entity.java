@@ -71,6 +71,31 @@ public class Entity implements Organism{
         return position;
     }
 
+
+    public void changeLocation(int[] dest){  //for antibody
+        if(positionMap.updateOrganismPosition(Id,new int[]{
+                dest[0],dest[1]
+        })) //can update position on map
+        {
+            System.out.println(Id+" change location from "+position[0]+" "+position[1]+" to "+dest[0]+" "+dest[1]);
+            position[0] =dest[0];
+            position[1] = dest[1];
+            //damage from move
+            if(this instanceof Antibody){
+                calc_damage(((Antibody) this).getMove_cost());
+                System.out.println(Id+" remaining hp from move:"+HP);
+                if(this.HP<=0){
+                    organismDie(this);
+                }
+            }
+        }
+        else
+        {
+            System.out.println("cannot go there");
+        }
+    }
+
+
     @Override
     public synchronized void Move(int x_change,int y_change) {
         System.out.println("trying to go to "+(position[0]+x_change)+" "+(position[1]+y_change));
@@ -81,14 +106,14 @@ public class Entity implements Organism{
             position[0] += x_change;
             position[1] += y_change;
             System.out.println(category + "(" + Id + ")" + " go to position : x = " + position[0] + " y = " + position[1]);
-            if(this instanceof Antibody){
-
-                calc_damage(((Antibody) this).getMove_cost());
-                System.out.println(Id+" remaining hp from move:"+HP);
-                if(this.HP<=0){
-                    organismDie(this);
-                }
-            }
+//            if(this instanceof Antibody){
+//
+//                calc_damage(((Antibody) this).getMove_cost());
+//                System.out.println(Id+" remaining hp from move:"+HP);
+//                if(this.HP<=0){
+//                    organismDie(this);
+//                }
+//            }
         }
         else
         {
@@ -125,13 +150,14 @@ public class Entity implements Organism{
                 System.out.println(target.getId()+" die");
                  organismDie(target);
                 virusControl.spawnNewVirusAfterkill(organism.getType());
+                ((Antibody)target).dieEffect();
             }
             ((Virus)organism).afterAttacked();
         }else if (organism.getCategory().equals("Antibody")) { // organism is Antibody
             if (target.getHP() == 0) {
                 organism.gain_HP();
                 organismDie(target);
-                ((Antibody)organism).overcome();
+                ((Antibody)organism).killedVirus();
                 ((Virus)target).dieEffect();
             }
 

@@ -64,7 +64,7 @@ public class GameService {
         if(req instanceof AntibodyReq){
             AntibodyReq newReq = new AntibodyReq(((AntibodyReq)req).getTargetId()
                     ,((AntibodyReq)req).getType(),((AntibodyReq)req).getLocation()
-                    ,((AntibodyReq)req).getGenetic());
+                    ,((AntibodyReq)req).getCmd(),((AntibodyReq)req).getGenetic());
             userControl.addRequset(req);
             reqLog.add(newReq);
             return newReq;

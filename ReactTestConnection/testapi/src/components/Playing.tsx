@@ -92,8 +92,10 @@ const Playing = ()=>{
     const fetchGamedata = async() =>{
         try{
                 const resp = await axios.get<GameDataType>('http://localhost:8080/game/get/gameData')
-               setData(resp.data)
-               setLoading(false)
+               setTimeout(() => {
+                    setData(resp.data)
+                    setLoading(false)
+               }, 5000)
         }
         catch(err){
             setErr(true)

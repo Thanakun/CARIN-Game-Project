@@ -6,6 +6,7 @@ import { AntibodyStore, AntibodyStoreType, postAntibody, useAntibodyStore } from
 import { useDataStore } from '../Store/DataStore'
 import { IoIosArrowDown } from 'react-icons/io';
 import { IoCloseSharp } from 'react-icons/io5';
+import { ShopStore, useShopStore } from '../Store/ShopStore'
 
 
 export   const updateAntibodyController = (mouseindex : number[], index : number[]) => {
@@ -23,17 +24,19 @@ export   const updateAntibodyController = (mouseindex : number[], index : number
 
 export const closecontroller = (arr :number[],max_x:number) => {
     const td = document.querySelectorAll('td')[arr[0]*max_x+arr[1]]
-    td.style.cssText = "opacity: 1;transform: scale(1);"
+    // td.style.cssText = "opacity: 1;transform: scale(1);"
+    td.style.cssText = "td{opacity: 1;transform: scale(1);transition: 0.1s ease-in-out;margin: 0;padding: 0;} td:hover{opacity: 0.5;transform: scale(1.2);}"
 }
 
 
 const AntibodyController = () => {
+    const shopStore = useShopStore()
     const dataStore = useDataStore()
     const controllerStore = useAntibodyControllerStore()
 
 
 
-    const notmove = ()=>{
+    const notmove = (arr :number[])=>{
         closecontroller(controllerStore.locate.index,dataStore.max_x)
         updateAntibodyController([0,0], [0,0])
     }
@@ -44,8 +47,8 @@ const AntibodyController = () => {
         // console.log('card : ', card, " container : ", container)
         if (container) {
             container.addEventListener('mousemove', (e : any) => {
-                let xAxis = ((e.pageX - container.offsetLeft) - 124) / 5
-                let yAxis = ((e.pageY - container.offsetTop) - 124) / 5
+                let xAxis = ((e.pageX - container.offsetLeft) - 30) / 2
+                let yAxis = ((e.pageY - container.offsetTop) - 30) / 2
                 container.style.cssText += `transform: rotateY(${xAxis}deg) rotateX(${yAxis}deg);`
                 // console.log(13212) 
             })
@@ -75,7 +78,7 @@ const AntibodyController = () => {
           style={{top : `${controllerStore.locate.y-25}px`, left: `${controllerStore.locate.x-25}px`}}>
             <div id='card' className={styles.exit1}>
                 <a onClick={() => {
-                    notmove()
+                    notmove(shopStore.shopLocate.index)
                  }}><span><IoCloseSharp/></span></a>
             </div>
             {/* <div className={styles.item1}>

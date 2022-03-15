@@ -8,7 +8,7 @@ import ReactPlayer from "react-player";
 import styles from '../CSSstyle/playing.module.css'
 
 // image 
-import BgPlaying from '../Images/BgGameplay.png'
+import BgPlaying from '../Images/bgGameplay.png'
 import woodBox from '../Images/woodBox.png'
 import virus1 from '../Images/woodBoxGreenVirus.png'
 import virus2 from '../Images/woodBoxRedVirus.png'
@@ -208,7 +208,7 @@ const Playing = ()=>{
         }
           
         blood.classList.add(`${styles.blood}`)
-        blood.style.cssText = `position: absolute; width: ${max_scale*0.8}px; height: ${max_scale*0.05}px;`
+        blood.style.cssText = `position: absolute; width: ${max_scale*0.8}px; height: ${max_scale*0.05}px; left: ${max_scale*0.1}px;`
         let Hp = (currentBlood/maxHP)*100 
         let collorHp = '' 
         if (Hp > 50) {
@@ -223,7 +223,7 @@ const Playing = ()=>{
         bloodcurrent.style.cssText = `position: absolute; width: 100%; height: 100%; left: ${Hp-100}%; background-color: ${collorHp};`
         blood.appendChild(bloodcurrent)  
       
-        if(object.className==="playing_containerBlood__JvxGx")
+        if(object.className==="playing_containerBlood__pDK0N")
                 object.appendChild(blood)
     }
 

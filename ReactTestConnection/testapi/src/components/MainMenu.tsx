@@ -35,7 +35,7 @@ const MainMenu = () => {
             <Logo/> 
             <div className={styles.container}>
             <a onMouseOverCapture={() => {BGover()}} onMouseLeave={() => {BGleave()}} 
-            onClick={() => nav('/gameplay')} className={styles.btn}> 
+            onClick={() => nav('/setup')} className={styles.btn}> 
                     <span>Start</span>
                     <div className={styles.bthbefore}></div>
                 </a>

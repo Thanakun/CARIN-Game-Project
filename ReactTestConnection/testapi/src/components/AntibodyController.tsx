@@ -34,7 +34,7 @@ const AntibodyController = () => {
 
     const move = (direction:string)=>{
         AntibodyStore.update(s=>{
-            s.genetic = "move "+direction
+            s.genetic = ""
         }
         )
 
@@ -42,7 +42,8 @@ const AntibodyController = () => {
             targetId : antibodyStore.targetId,
             type:antibodyStore.type,
             location:antibodyStore.location,
-            genetic: "move "+direction
+            cmd:"move",
+            genetic: ""
         }
         postAntibody(req)
         closecontroller(controllerStore.locate.index)
@@ -72,21 +73,8 @@ const AntibodyController = () => {
             targetId : antibodyStore.targetId,
             type:antibodyStore.type,
             location:antibodyStore.location,
-            genetic: "virusLoc = virus\n" +
-            "if (virusLoc / 10 - 1)\n" +
-            "then \n" +
-            "  { }"
-            + "else\n"+
-           " if (virusLoc)\n" +
-            "then \n" +
-            "  if (virusLoc % 10 - 7) then shoot upleft\n" +
-            "  else if (virusLoc % 10 - 6) then shoot left\n" +
-            "  else if (virusLoc % 10 - 5) then shoot downleft\n" +
-            "  else if (virusLoc % 10 - 4) then shoot down\n" +
-            "  else if (virusLoc % 10 - 3) then shoot downright\n" +
-            "  else if (virusLoc % 10 - 2) then shoot right\n" +
-            "  else if (virusLoc % 10 - 1) then shoot upright\n" +
-            "  else shoot up\n"
+            cmd:"move",
+            genetic: ""
         }
         postAntibody(req)
         closecontroller(controllerStore.locate.index)

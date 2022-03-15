@@ -20,9 +20,9 @@ import antibody3 from '../Images/woodBoxBlueAntibody.png'
 import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 import { useShopStore } from "../Store/ShopStore";
 import Shop, { updatestatusShop } from "./Shop";
-import { AntibodyStore, postAntibody, useAntibodyStore } from "../Store/AntibodyStore";
-import AntibodyController, { updateAntibodyController } from "./AntibodyController";
-import { useAntibodyControllerStore } from "../Store/AntibodyControllerStore";
+import { AntibodyStore, AntibodyStoreType, postAntibody, useAntibodyStore } from "../Store/AntibodyStore";
+import AntibodyController, { closecontroller, updateAntibodyController } from "./AntibodyController";
+import { AntibodyControllerStore, useAntibodyControllerStore } from "../Store/AntibodyControllerStore";
 import DropbarMenu from "./DropbarMenu";
 import StatusBar from "./StatusBar";
 import Loading from "./Loading";
@@ -86,6 +86,7 @@ const Playing = ()=>{
     const [err,setErr] = useState<boolean>(false)
     const dataStore = useDataStore()
     const shopStore = useShopStore()
+    const antibodyStore = useAntibodyStore()
     const controllerStore = useAntibodyControllerStore()
 
     const fetchGamedata = async() =>{
@@ -228,6 +229,8 @@ const Playing = ()=>{
 
     }
 
+
+
     //create map with virus and antivirus assign at its position
     const createMap = ()=>{
         const maxX = dataStore.max_x
@@ -257,7 +260,7 @@ const Playing = ()=>{
                 for(let j = 0;j<maxX;j++ ){
                     const currentId = i.toString()+j.toString() 
                    removeBlood(currentId)
-                    organMap[i][j]= <a id={currentId} onDoubleClick={(e:MouseEvent)=>DoubleClickedBlock(e,i,j)}>
+                    organMap[i][j]= <a id={currentId} onDoubleClick={(e:MouseEvent)=>DoubleClickedBlock(e,i,j)} onClick={(e:MouseEvent)=>ClicktoPlace(i,j)}>
                        
                     <img src={woodBox} alt="" style={{
                     position: "relative",
@@ -313,6 +316,21 @@ const Playing = ()=>{
        } 
        
        return  organMap.map((y:JSX.Element[])=>{return <tr>{y.map((x:JSX.Element)=>{return  <td>{x}</td>})}</tr>})
+    }
+    //click to place antibody to new position
+    const ClicktoPlace = (i:number,j:number) =>{
+        if(controllerStore.status===true){ // controller open
+            const req:AntibodyStoreType = {
+                targetId : antibodyStore.targetId,
+                type:0,
+                location:[j,(dataStore.max_y-1-i)],
+                cmd:"move",
+                genetic: ""
+            }
+            postAntibody(req)
+            closecontroller(controllerStore.locate.index,dataStore.max_x)
+            updateAntibodyController([0,0], [0,0])
+        }
     }
 
     //double click to select empty block

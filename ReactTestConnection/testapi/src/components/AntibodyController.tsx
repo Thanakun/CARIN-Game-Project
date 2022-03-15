@@ -21,63 +21,20 @@ export   const updateAntibodyController = (mouseindex : number[], index : number
 }
 
 
+export const closecontroller = (arr :number[],max_x:number) => {
+    const td = document.querySelectorAll('td')[arr[0]*max_x+arr[1]]
+    td.style.cssText = "opacity: 1;transform: scale(1);"
+}
+
 
 const AntibodyController = () => {
     const dataStore = useDataStore()
-    const antibodyStore = useAntibodyStore()
     const controllerStore = useAntibodyControllerStore()
 
-    const closecontroller = (arr :number[]) => {
-        const td = document.querySelectorAll('td')[arr[0]*dataStore.max_x+arr[1]]
-        td.style.cssText = "opacity: 1;transform: scale(1);"
-    }
 
-    const move = (direction:string)=>{
-        AntibodyStore.update(s=>{
-            s.genetic = ""
-        }
-        )
-
-        const req:AntibodyStoreType = {
-            targetId : antibodyStore.targetId,
-            type:antibodyStore.type,
-            location:antibodyStore.location,
-            cmd:"move",
-            genetic: ""
-        }
-        postAntibody(req)
-        closecontroller(controllerStore.locate.index)
-        updateAntibodyController([0,0], [0,0])
-    }
 
     const notmove = ()=>{
-        AntibodyStore.update(s=>{
-            s.genetic = "virusLoc = virus\n" +
-            "if (virusLoc / 10 - 1)\n" +
-            "then \n" +
-            "  { }"
-            + "else\n"+
-           " if (virusLoc)\n" +
-            "then \n" +
-            "  if (virusLoc % 10 - 7) then shoot upleft\n" +
-            "  else if (virusLoc % 10 - 6) then shoot left\n" +
-            "  else if (virusLoc % 10 - 5) then shoot downleft\n" +
-            "  else if (virusLoc % 10 - 4) then shoot down\n" +
-            "  else if (virusLoc % 10 - 3) then shoot downright\n" +
-            "  else if (virusLoc % 10 - 2) then shoot right\n" +
-            "  else if (virusLoc % 10 - 1) then shoot upright\n" +
-            "  else shoot up\n"
-        }
-        )
-        const req:AntibodyStoreType = {
-            targetId : antibodyStore.targetId,
-            type:antibodyStore.type,
-            location:antibodyStore.location,
-            cmd:"move",
-            genetic: ""
-        }
-        postAntibody(req)
-        closecontroller(controllerStore.locate.index)
+        closecontroller(controllerStore.locate.index,dataStore.max_x)
         updateAntibodyController([0,0], [0,0])
     }
 
@@ -115,13 +72,13 @@ const AntibodyController = () => {
 
     return(
           <div id='container' className={controllerStore.status? styles.isOpen1 : styles.isnotOpen} 
-          style={{top : `${controllerStore.locate.y-125}px`, left: `${controllerStore.locate.x-125}px`}}>
+          style={{top : `${controllerStore.locate.y-25}px`, left: `${controllerStore.locate.x-25}px`}}>
             <div id='card' className={styles.exit1}>
                 <a onClick={() => {
                     notmove()
                  }}><span><IoCloseSharp/></span></a>
             </div>
-            <div className={styles.item1}>
+            {/* <div className={styles.item1}>
                 <div className={styles.TL} onClick={()=>move("upleft")}><IoIosArrowDown className={styles.iconAll}/></div>
                 <div className={styles.T} onClick={()=>move("up")}><IoIosArrowDown className={styles.iconAll}/></div>
                 <div className={styles.TR} onClick={()=>move("upright")}><IoIosArrowDown className={styles.iconAll}/></div>
@@ -130,7 +87,7 @@ const AntibodyController = () => {
                 <div className={styles.B} onClick={()=>move("down")}><IoIosArrowDown className={styles.iconAll}/></div>
                 <div className={styles.BL}onClick={()=>move("downleft")}><IoIosArrowDown className={styles.iconAll}/></div>
                 <div className={styles.L} onClick={()=>move("left")}><IoIosArrowDown className={styles.iconAll}/></div>
-            </div>
+            </div> */}
         </div>
     )
 }

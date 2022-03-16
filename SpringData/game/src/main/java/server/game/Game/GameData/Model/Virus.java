@@ -35,10 +35,9 @@ public class Virus extends Entity implements Organism{
 
     public void dieEffect(){
         virusControl.dieAddCredit(this.type);
+        organismStorage.increaseVirusKilled();
     }
 
-    public void overcome() {
-      //  organismStorage.addOrganism(new Virus("V" + Integer.toString(organismStorage.getVirus_count()), this.type,this.position));
-    }
+
 
 }

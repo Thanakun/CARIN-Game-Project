@@ -2,10 +2,12 @@
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import {  useDataStore } from "../Store/DataStore"
+import ReactPlayer from "react-player";
 
 
 // css
 import styles from '../CSSstyle/finish.module.css'
+import NyanCat from "./NyanCat";
 
 
 const End = ()=>{
@@ -76,8 +78,11 @@ const End = ()=>{
         if(dataStore.gameState==="WIN"){
             return (
                 <div>
+                    <NyanCat/>
                 <a id='out' onClick={() => nav('/')} className={styles.btnOut}>Out</a>
                 <div id='scenewin' className={styles.sceneWin}><span>Victory</span></div>
+                <ReactPlayer style={{display: "none"}} loop={true} playing={true} 
+                url='https://www.youtube.com/watch?v=GMY7TYRJxRA&ab_channel=MagnusAdrian'/>
             </div>
             )
         }
@@ -86,6 +91,8 @@ const End = ()=>{
                 <div>
                 <a id='out' onClick={() => nav('/')} className={styles.btnOut}>Out</a>
                 <div id='scenelose' className={styles.sceneLose}><span>Defeat</span></div>
+                <ReactPlayer style={{display: "none"}} loop={true} playing={true}
+                 url='https://www.youtube.com/watch?v=K1qjt_1geiI&ab_channel=Misaki'/>
             </div>
             )
         }

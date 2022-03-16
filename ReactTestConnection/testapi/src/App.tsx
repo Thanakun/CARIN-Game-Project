@@ -5,6 +5,7 @@ import MainMenu from './Components/MainMenu';
 import Playing from './Components/Playing';
 import Pause from './Components/Pause';
 import End from './Components/End';
+import Setup from './Components/Setup';
 
 
 
@@ -14,7 +15,8 @@ function App() {
      <Routes>
       <Route path='/' element={<MainMenu/>}>
       </Route>
-
+      <Route path='/setup' element={ <Setup/>}>
+      </Route>
       <Route path='/gameplay' element={ <Playing/>}>
       </Route>
 

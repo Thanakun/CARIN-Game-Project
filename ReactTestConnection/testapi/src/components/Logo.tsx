@@ -1,6 +1,8 @@
 // CSS
 import styles from '../CSSstyle/logo.module.css'
 
+import ReactPlayer from 'react-player'
+
 // image
 import Name from '../Images/name.png'
 import RBC1 from '../Images/RBC_1.png'

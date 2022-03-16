@@ -16,7 +16,7 @@ const Clock = () => {
         const min = document.getElementById('long')
         const houre = document.getElementById('short')
         if (min) min.style.cssText += `transform: rotate(${Math.floor(dataStore.timer.time_count/60)*30-180}deg);`
-        if (houre) houre.style.cssText += `transform: rotate(${(dataStore.timer.time_count%60)*6-180}deg);`
+        if (houre) houre.style.cssText += `transform: rotate(${(dataStore.timer.time_count)*6-180}deg);`
     }
 
     return (

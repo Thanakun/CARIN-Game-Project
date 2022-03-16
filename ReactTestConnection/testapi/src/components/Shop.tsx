@@ -42,6 +42,7 @@ const Shop = () => {
             targetId : antibodyStore.targetId,
             type: type,
             location:antibodyStore.location,
+            cmd:"buy",
             genetic: ""
         }
         postAntibody(req)

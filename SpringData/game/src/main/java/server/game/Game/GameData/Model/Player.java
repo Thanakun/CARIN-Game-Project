@@ -64,14 +64,21 @@ public class Player {
     public synchronized void computeAntibodyInput(Request req){
        AntibodyReq antibodyReq=(AntibodyReq)req;
         System.out.println("Antibody request------------");
-        System.out.println(antibodyReq.getTargetId()+" "+antibodyReq.getType()+" "+antibodyReq.getLocation()[0]
-                +" "+antibodyReq.getLocation()[1]+" "+antibodyReq.getGenetic());
-        if(antibodyReq.getGenetic().equals("")){ // new create use default genetic
+
+        if(antibodyReq.getCmd().equals("buy")){
             placeNewAntibody(antibodyReq.getType(),antibodyReq.getLocation());
         }
-        else{ //update antibody that already exist
-            antibodyControl.updateAntibodyGenetic(antibodyReq.getTargetId(),antibodyReq.getGenetic());
+        else if(antibodyReq.getCmd().equals("move")){
+            antibodyControl.moveAntibody(antibodyReq.getTargetId(),antibodyReq.getLocation());
         }
+        else if(antibodyReq.getCmd().equals("setup")){
+            System.out.println("genetic form post"+antibodyReq.getGenetic());
+             antibodyControl.setGeneticCode(antibodyReq.getGenetic());
+        }
+        else{
+            System.out.println("antibody request error");
+        }
+
     }
 
     public synchronized void placeNewAntibody(int type,int[] location) {

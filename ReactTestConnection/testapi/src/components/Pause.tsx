@@ -1,6 +1,7 @@
 // Hook
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import ReactPlayer from 'react-player'
 
 // css
 import styles from '../CSSstyle/pause.module.css'
@@ -15,6 +16,7 @@ import GreenVirus from '../Images/Green Virus.png'
 import BlueVirus from '../Images/Blue Virus.png'
 import RBC1 from '../Images/RBC_1.png'
 import { DataStore } from '../Store/DataStore'
+import { postState } from './Playing'
 
 const Pause = () => {
    
@@ -88,6 +90,7 @@ const effectBtn = () => {
 // Hook
 useEffect(() => {
     DataStore.update(s=>{s.gameState="PAUSE"})
+    postState("PAUSE")
     setInterval(createBubble,100)
     createStar()
     effectBtn()
@@ -96,6 +99,8 @@ useEffect(() => {
 
     return (
         <div>
+              <ReactPlayer style={{display: "none"}} loop={true} playing={true}
+               url='https://www.youtube.com/watch?v=jCQ_5Gj6jlg&ab_channel=Misaki'/>
             {/* <img className={styles.bg} src={BgPuase} alt="" /> */}
             <a id='back' onClick={() => nav('/gameplay')} className={styles.btnBack}>Back</a>
             <a id='out' onClick={() => nav('/')} className={styles.btnOut}>Out</a>

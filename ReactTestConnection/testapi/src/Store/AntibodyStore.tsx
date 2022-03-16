@@ -5,6 +5,7 @@ export type AntibodyStoreType = {
     targetId: string,
     type:number,
     location:number[],
+    cmd:string,
     genetic:string
 }
 
@@ -12,6 +13,7 @@ export const AntibodyStore = new Store<AntibodyStoreType>({
     targetId : "",
     type:0,
     location:[0,0],
+    cmd:"",
     genetic:""
 })
 

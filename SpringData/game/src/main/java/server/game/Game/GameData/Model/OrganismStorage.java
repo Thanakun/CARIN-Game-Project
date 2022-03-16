@@ -82,13 +82,18 @@ public class OrganismStorage {
         if(target.getCategory().equals("Virus") && allVirus.containsValue(target)){
             allVirus.remove(target.getId());
             positionMap.removeOrganismPosition(target);
-            virus_killed++; //virus kill player gain credit
 
         } else if (target.getCategory().equals("Antibody") && allAntivirus.containsValue(target)){
             allAntivirus.remove(target.getId());
             positionMap.removeOrganismPosition(target);
-            antibody_killed++;
         }
+    }
+
+    public synchronized void increaseAntibodyKilled(){
+        antibody_killed++;
+    }
+    public synchronized void increaseVirusKilled(){
+        virus_killed++;
     }
 
     public Organism getById(String Id){  //get Organism by input Id

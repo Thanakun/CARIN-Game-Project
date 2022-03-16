@@ -23,7 +23,7 @@ public class Antibody extends Entity implements Organism {
 
     }
 
-    public void overcome() {
+    public void killedVirus() {
         HP +=gain;
         if(HP>Max_HP)HP=Max_HP;
     }
@@ -37,5 +37,11 @@ public class Antibody extends Entity implements Organism {
     public int getBuyCost(){
         return this.buy_cost;
     }
+
+    public void dieEffect(){
+        organismStorage.increaseAntibodyKilled();
+    }
+
+
 
 }

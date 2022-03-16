@@ -6,13 +6,23 @@ public class AntibodyReq implements Request {
     private String targetId;//target antibody's id
     private int type;
     private int[] location  ;
+    private String cmd; // buy|move|setup
     private String genetic;
 
     public AntibodyReq(){}
-    public AntibodyReq(String id,int type,int[] loc,String genetic){
+    public AntibodyReq(String id,int type,int[] loc,String cmd,String genetic){
         this.targetId = id;
         this.type = type;
         this.location =loc;
+        this.cmd = cmd;
+        this.genetic = genetic;
+    }
+
+    public String getGenetic() {
+        return genetic;
+    }
+
+    public void setGenetic(String genetic) {
         this.genetic = genetic;
     }
 
@@ -40,12 +50,12 @@ public class AntibodyReq implements Request {
         this.location = location;
     }
 
-    public String getGenetic() {
-        return genetic;
+    public String getCmd() {
+        return cmd;
     }
 
-    public void setGenetic(String genetic) {
-        this.genetic = genetic;
+    public void setCmd(String cmd) {
+        this.cmd = cmd;
     }
 
     @Override

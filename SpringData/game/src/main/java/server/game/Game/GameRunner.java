@@ -41,6 +41,11 @@ public class GameRunner extends Thread {
 
                     Thread.sleep(10);
                 }
+                else if(gameState.equals("SETUP")){
+                    //wait for setup  antibody genetic code
+                    System.out.println("Set up");
+                    Thread.sleep(10);
+                }
                 else if(gameState.equals("START")){
 
                     System.out.println("Loading...");
@@ -92,7 +97,7 @@ public class GameRunner extends Thread {
 
 
     public void checkGame() {
-       if(organismStorage.getVirus_killed()==organismStorage.getMax_virus_amount()){
+       if(organismStorage.getVirus_killed()==organismStorage.getMax_virus_amount()+organismStorage.getAntibody_killed()){
            System.out.println(organismStorage.getMax_virus_amount()+" max virus amount");
            // all virus get killed
            menu.setGameState("WIN");

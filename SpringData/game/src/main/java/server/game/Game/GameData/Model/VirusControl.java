@@ -28,6 +28,8 @@ public class VirusControl {
     private OrganismStorage organismStorage;
     @Autowired
     private GameConfig gameConfig;
+    @Autowired
+    private Timer timer;
 
     private float virus_rate; //virus spawn rate
     private Random random;
@@ -45,7 +47,7 @@ public class VirusControl {
 
 
     private VirusControl(){
-        random = new Random();
+        random = new Random(System.currentTimeMillis());
         default_geneticCode =
                 "antibodyLoc = antibody\n" +
                 "if (antibodyLoc / 10 - 1)\n" +
@@ -111,8 +113,45 @@ public class VirusControl {
         this.init_gain = init_gain;
     }
 
+    public int virusSpawnType(){
+        int prob = random.nextInt(100)+1;
+        int timenow = timer.getTime_count();
+        int type1rate;
+        int type2rate;
+        int type3rate;
+        //compute rate each type
+        if(timenow<=20){
+            type1rate=100;
+            type2rate=0;
+            type3rate=0;
+        }
+        else if(timenow<=40){
+            type1rate = 50;
+            type2rate = 30;
+            type3rate = 20;
+        }
+        else if(timenow<=60){
+            type1rate = 30;
+            type2rate = 50;
+            type3rate = 20;
+        }
+        else{
+            type1rate = 20;
+            type2rate = 30;
+            type3rate = 50;
+        }
+    //probability
+        if(prob<=type1rate){
+            return 1;
+        }
+        else if(prob<=type1rate+type2rate){
+            return 2;
+        }
+        else return 3;
+    }
+
     public void spawnNewVirus(){
-        if(organismStorage.getMax_virus_amount()>
+        if((organismStorage.getMax_virus_amount()+organismStorage.getAntibody_killed())>
                 (organismStorage.getVirus_killed()+organismStorage.getVirusAmount())){ //check if virus is not exceed limit
         float ran = random.nextFloat();
         System.out.println("random="+ran);
@@ -120,7 +159,7 @@ public class VirusControl {
             System.out.println("create new virus");
             Virus newVirus = new Virus(
                     "V" + organismStorage.getVirus_count()
-                    , random.nextInt(3) + 1
+                    , virusSpawnType()
                     , firstSpawnLocationInit()
                     , positionMap, organismStorage, this);
             newVirus.setGeneticCode(this.default_geneticCode);
@@ -131,17 +170,20 @@ public class VirusControl {
     }
 
     public void spawnNewVirusAfterkill(int type){
-        float ran = random.nextFloat();
-        System.out.println("random="+ran);
+        if((organismStorage.getMax_virus_amount()+organismStorage.getAntibody_killed())>
+                (organismStorage.getVirus_killed()+organismStorage.getVirusAmount())) { //check if virus is not exceed limit
+            float ran = random.nextFloat();
+            System.out.println("random=" + ran);
             System.out.println("create new virus");
             Virus newVirus = new Virus(
-                    "V"+ organismStorage.getVirus_count()
-                    ,type
-                    ,firstSpawnLocationInit()
-                    ,positionMap,organismStorage,this);
+                    "V" + organismStorage.getVirus_count()
+                    , type
+                    , firstSpawnLocationInit()
+                    , positionMap, organismStorage, this);
             newVirus.setGeneticCode(this.default_geneticCode);
-            newVirus.setStatus(init_hp,init_atk,init_gain);    //set up status and genetic code
+            newVirus.setStatus(init_hp, init_atk, init_gain);    //set up status and genetic code
             organismStorage.addOrganism(newVirus);
+        }
     }
 
     public int[] firstSpawnLocationInit(){    // to spawn first time at virus constructor
@@ -150,8 +192,8 @@ public class VirusControl {
         int y_posi = random.nextInt(maxbound[1]);
 
         while(positionMap.hasOrganism(new int[]{x_posi,y_posi})){  //loop until successfuly add this in map; prevent spawn at not empty position
-            x_posi = random.nextInt(maxbound[0]+1);
-            y_posi = random.nextInt(maxbound[1]+1);
+            x_posi = random.nextInt(maxbound[0]);
+            y_posi = random.nextInt(maxbound[1]);
         }
         return new int[]{x_posi,y_posi};
     }

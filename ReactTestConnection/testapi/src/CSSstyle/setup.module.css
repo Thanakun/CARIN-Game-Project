@@ -1,0 +1,194 @@
+*
+{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+
+}
+
+.containerBtn
+{
+    position: absolute;
+    width: 450px;
+    height: 60px;
+    left: calc(50% - 225px);
+    bottom: 0;
+    /* background-color: blue; */
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    /* letter-spacing: 5px; */
+    font-family: Fantasy;
+}
+
+.btnRe
+{
+    position: relative;
+    width: 80px;
+    height: 35px;
+    background-color: rgb(16, 177, 88);
+    border-radius: 5px;
+    /* border: 3px rgb(0, 0, 0) solid; */
+    transition: all 0.5s ease-in-out;
+    /* transition:  background-color 0.2s ease-in-out; */
+    opacity: 0;
+}
+
+.btnRe:hover
+{
+    background-color: rgb(87, 214, 144);
+    color: #fff;
+}
+
+.btnDe
+{
+    position: relative;
+    width: 80px;
+    height: 35px;
+    background-color: rgb(214, 187, 67);
+    border-radius: 5px;
+    transition: all 0.5s ease-in-out;
+    opacity: 0;
+}
+
+.btnDe:hover
+{
+    background-color: rgb(238, 221, 146);
+    color: #fff;
+}
+
+.btnSub
+{
+    position: relative;
+    width: 80px;
+    height: 35px;
+    background-color: rgb(20, 146, 230);
+    border-radius: 5px;
+    transition: all 0.5s ease-in-out;
+    opacity: 0;
+}
+
+.btnSub:hover
+{
+    background-color: rgb(134, 202, 247);;
+    color: #fff;
+}
+
+.containerAll
+{
+    position: relative;
+    width: 700px;
+    height: 900px;
+    display: flex;
+    justify-content: center;
+    /* background-color: aqua; */
+    top: -32px;
+}
+
+.container
+{
+    position: relative;
+    width: 500px;
+    height: 700px;
+    /* background-color: rgb(243, 243, 243); */
+    background-color: rgb(73, 73, 73);
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    transform-style: preserve-3d;
+    border-radius: 12px;
+    top: 55px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.container form
+{
+    position: relative;
+    /* background-color: black; */
+    z-index: 5;
+    height: 620px;
+}
+
+.container textarea 
+{
+    position: relative;
+    width: 450px;
+    height: 660px;
+    resize: none;
+    border-radius: 15px;
+    padding: 15px;
+    color: rgb(0, 0, 0);
+    font-size: 18px;
+    font-family: Fantasy;
+    /* background-color: rgb(71, 71, 71); */
+    background: linear-gradient(45deg, #0162c8, #000000);
+    transition: 0.5s;
+    /* border: rgb(0, 0, 0) 3px solid; */
+}
+
+.container textarea::placeholder {
+    color: rgb(255, 255, 255);
+    transition: 1.2s;
+}
+
+.container textarea:focus::placeholder {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.container textarea:focus 
+{
+    position: relative;
+    width: 450px;
+    height: 620px;
+    resize: none;
+    border-radius: 15px;
+    padding: 15px;
+    color: rgb(0, 0, 0);
+    opacity: 1;
+    background: radial-gradient(circle at 0% 100%, rgb(255, 72, 72)0%, rgb(255, 211, 113)25%, rgb(194, 255, 217)70%, rgb(257, 118, 198)100%);
+    outline: none;
+    border: none;
+}
+
+.btnBack
+{
+    position: absolute;
+    cursor: pointer;
+    left: 0;
+    margin: 20px 0 0 20px;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 28px;
+    width: 150px;
+    height: 50px;
+    letter-spacing: 2px;
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: linear-gradient(90deg, #0162c8, #55e7fc);
+}
+
+.btnBack span
+{
+    position: absolute;
+    background: rgb(255, 255, 255);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    border-radius: 50%;
+    animation: BtnAnimate 0.8s linear;
+}
+
+@keyframes BtnAnimate {
+    0%{
+        width: 0px;
+        height: 0px;
+        opacity: 0.5;
+    }100%{
+        width: 500px;
+        height: 500px;
+        opacity: 0;
+    }
+}
+

@@ -120,25 +120,25 @@ public class VirusControl {
         int type2rate;
         int type3rate;
         //compute rate each type
-        if(timenow<=15){
+        if(timenow<=20){
             type1rate=100;
             type2rate=0;
             type3rate=0;
         }
-        else if(timenow<=30){
-            type1rate = 55;
+        else if(timenow<=40){
+            type1rate = 50;
             type2rate = 30;
-            type3rate = 15;
+            type3rate = 20;
         }
         else if(timenow<=60){
-            type1rate = 0;
+            type1rate = 30;
             type2rate = 50;
-            type3rate = 50;
+            type3rate = 20;
         }
         else{
-            type1rate = 0;
-            type2rate = 0;
-            type3rate =100;
+            type1rate = 20;
+            type2rate = 30;
+            type3rate = 50;
         }
     //probability
         if(prob<=type1rate){

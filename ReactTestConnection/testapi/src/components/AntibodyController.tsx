@@ -2,11 +2,9 @@
 import { useEffect } from 'react'
 import styles from '../CSSstyle/shop.module.css'
 import { AntibodyControllerStore, useAntibodyControllerStore } from '../Store/AntibodyControllerStore'
-import { AntibodyStore, AntibodyStoreType, postAntibody, useAntibodyStore } from '../Store/AntibodyStore'
 import { useDataStore } from '../Store/DataStore'
-import { IoIosArrowDown } from 'react-icons/io';
 import { IoCloseSharp } from 'react-icons/io5';
-import { ShopStore, useShopStore } from '../Store/ShopStore'
+import {  useShopStore } from '../Store/ShopStore'
 
 
 export   const updateAntibodyController = (mouseindex : number[], index : number[]) => {
@@ -24,7 +22,6 @@ export   const updateAntibodyController = (mouseindex : number[], index : number
 
 export const closecontroller = (arr :number[],max_x:number) => {
     const td = document.querySelectorAll('td')[arr[0]*max_x+arr[1]]
-    // td.style.cssText = "opacity: 1;transform: scale(1);"
     td.style.cssText = "td{opacity: 1;transform: scale(1);transition: 0.1s ease-in-out;margin: 0;padding: 0;} td:hover{opacity: 0.5;transform: scale(1.2);}"
 }
 
@@ -42,15 +39,14 @@ const AntibodyController = () => {
     }
 
     const cardmove = () => {
-        // const card = document.getElementById('myShop')
+     
         const container = document.getElementById('container')
-        // console.log('card : ', card, " container : ", container)
+        
         if (container) {
             container.addEventListener('mousemove', (e : any) => {
                 let xAxis = ((e.pageX - container.offsetLeft) - 30) / 2
                 let yAxis = ((e.pageY - container.offsetTop) - 30) / 2
                 container.style.cssText += `transform: rotateY(${xAxis}deg) rotateX(${yAxis}deg);`
-                // console.log(13212) 
             })
             container.addEventListener('mouseenter', (e : any) => {
                 container.style.cssText += 'transition: none'
@@ -81,16 +77,6 @@ const AntibodyController = () => {
                     notmove(shopStore.shopLocate.index)
                  }}><span><IoCloseSharp/></span></a>
             </div>
-            {/* <div className={styles.item1}>
-                <div className={styles.TL} onClick={()=>move("upleft")}><IoIosArrowDown className={styles.iconAll}/></div>
-                <div className={styles.T} onClick={()=>move("up")}><IoIosArrowDown className={styles.iconAll}/></div>
-                <div className={styles.TR} onClick={()=>move("upright")}><IoIosArrowDown className={styles.iconAll}/></div>
-                <div className={styles.R} onClick={()=>move("right")}><IoIosArrowDown className={styles.iconAll}/></div>
-                <div className={styles.BR} onClick={()=>move("downright")}><IoIosArrowDown className={styles.iconAll}/></div>
-                <div className={styles.B} onClick={()=>move("down")}><IoIosArrowDown className={styles.iconAll}/></div>
-                <div className={styles.BL}onClick={()=>move("downleft")}><IoIosArrowDown className={styles.iconAll}/></div>
-                <div className={styles.L} onClick={()=>move("left")}><IoIosArrowDown className={styles.iconAll}/></div>
-            </div> */}
         </div>
     )
 }

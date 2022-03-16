@@ -1,7 +1,6 @@
 // CSS
 import styles from '../CSSstyle/logo.module.css'
 
-import ReactPlayer from 'react-player'
 
 // image
 import Name from '../Images/name.png'
@@ -114,9 +113,7 @@ const Logo = () => {
                 <img src={BlueVirus}></img>
             </div>
 
-            {/* <div className={styles.NeonVirus}>
-                <img src={NeonVirus}></img>
-            </div> */}
+
 
             {/* Antigen */}
             <div className={styles.GreenAntigen}>

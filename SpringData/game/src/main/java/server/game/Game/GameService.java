@@ -1,15 +1,12 @@
 package server.game.Game;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import server.game.Game.GameData.Controller.Menu;
+import server.game.Game.GameData.Controller.GameState;
 import server.game.Game.GameData.Controller.UserControl;
 import server.game.Game.GameData.Model.*;
-import server.game.Game.GameData.Parser.Parser;
 import org.springframework.stereotype.Service;
 import server.game.Game.Type.*;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +25,7 @@ public class GameService {
     @Autowired
     private Player player;
     @Autowired
-    private Menu menu;
+    private GameState gameState;
 
 
     public List<Request> getAllReq(){
@@ -51,7 +48,7 @@ public class GameService {
         return positionMap.getPositionMap();
     }
     public String getGameState(){
-        return menu.getGameState();
+        return gameState.getGameState();
     }
     public int[] getDimension(){return positionMap.getMapDimension();}
 

@@ -1,11 +1,8 @@
 package server.game.Game.GameData.Model;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 import server.game.Game.GameConfig;
-
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -13,11 +10,9 @@ import java.util.Map;
 
 public class PositionMap {
     private static PositionMap instance;
-    private static LinkedHashMap<String,int[]> allOrganism_Position;   //key is Organism value is its position
-    //variable in positionMap
 
+    private static LinkedHashMap<String,int[]> allOrganism_Position;   //key is Organism's Id value is its position
     private int max_x;
-
     private int max_y;
 
     @Autowired
@@ -49,19 +44,16 @@ public class PositionMap {
         return  new int[]{max_x,max_y};
     }
 
-    public synchronized void resetMap(){
-        instance = new PositionMap();
-    }
 
     public synchronized boolean updateOrganismPosition(String target_Id,int[] position){   //update Organism location
         if(!hasOrganism(position) &&
                 (position[0]>=0)&&(position[0]<max_x)
-        && (position[1]>=0)&&(position[1]<max_y)){   //if that posiotion is empty
+        && (position[1]>=0)&&(position[1]<max_y)){   //if that position is empty
             allOrganism_Position.put(target_Id,position);
             System.out.println(target_Id+" are at :"+position[0]+" "+position[1]);
             return true;
         }
-        else{                       //if that position not empty, update postition fail
+        else{                       //if that position not empty, update position fail
             return false;
         }
     }

@@ -1,9 +1,6 @@
 package server.game.Game.GameData.Model;
 
 
-import java.lang.annotation.Target;
-import java.util.Arrays;
-
 public class Entity implements Organism{
     protected String Id;
     protected String category;
@@ -16,7 +13,6 @@ public class Entity implements Organism{
     protected int[] position = new int[2];
     protected  PositionMap positionMap;
     protected  OrganismStorage organismStorage;
-    protected  AntibodyControl antibodyControl;
     protected  VirusControl virusControl;
 
     public Entity(){
@@ -98,7 +94,6 @@ public class Entity implements Organism{
 
     @Override
     public synchronized void Move(int x_change,int y_change) {
-        System.out.println("trying to go to "+(position[0]+x_change)+" "+(position[1]+y_change));
         if(positionMap.updateOrganismPosition(Id,new int[]{
                 position[0]+x_change,position[1]+y_change
         })) //can update position on map
@@ -106,14 +101,6 @@ public class Entity implements Organism{
             position[0] += x_change;
             position[1] += y_change;
             System.out.println(category + "(" + Id + ")" + " go to position : x = " + position[0] + " y = " + position[1]);
-//            if(this instanceof Antibody){
-//
-//                calc_damage(((Antibody) this).getMove_cost());
-//                System.out.println(Id+" remaining hp from move:"+HP);
-//                if(this.HP<=0){
-//                    organismDie(this);
-//                }
-//            }
         }
         else
         {
@@ -146,7 +133,7 @@ public class Entity implements Organism{
     public synchronized void UpdateGame(Organism organism, Organism target, int damage) {
         target.calc_damage(damage);
         if (organism.getCategory().equals("Virus")) {  // organism is Virus
-            if (target.getHP() == 0) {
+            if (target.getHP() == 0) { //antibody die
                 System.out.println(target.getId()+" die");
                  organismDie(target);
                 virusControl.spawnNewVirusAfterkill(organism.getType());
@@ -154,7 +141,7 @@ public class Entity implements Organism{
             }
             ((Virus)organism).afterAttacked();
         }else if (organism.getCategory().equals("Antibody")) { // organism is Antibody
-            if (target.getHP() == 0) {
+            if (target.getHP() == 0) { //virus die
                 organism.gain_HP();
                 organismDie(target);
                 ((Antibody)organism).killedVirus();

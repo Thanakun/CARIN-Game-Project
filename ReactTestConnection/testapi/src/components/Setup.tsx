@@ -32,7 +32,7 @@ const Setup = ()=>{
 
     const showBtn = () => {
         const btns = document.querySelectorAll('button')
-        // console.log(btns)
+      
         if (btns) {
             for (let i=0;i<btns.length;i++) {
                 btns[i].style.cssText += 'z-index: 0; opacity: 1; transition: all 0.5s ease-in-out;'
@@ -42,7 +42,7 @@ const Setup = ()=>{
 
     const closeBtn = () => {
         const btns = document.querySelectorAll('button')
-        // console.log(btns)
+       
         if (btns) {
             for (let i=0;i<btns.length;i++) {
                 btns[i].style.cssText += 'z-index: -1; opacity: 0; transition: all 0.5s ease-in-out;'
@@ -81,11 +81,8 @@ const Setup = ()=>{
             console.log("container : ", container)
         if (container) {
             container.addEventListener('mousemove', (e : any) => {
-                // console.log('W : ', e.pageX - container.offsetLeft)
-                // console.log('H : ', e.pageY - container.offsetTop)
                 let xAxis = ((e.pageX - container.offsetLeft) - 220) / 20
                 let yAxis = ((e.pageY - container.offsetTop) - 320) / 20
-                // container.style.cssText += `transform-origin: center center;`
                 container.style.cssText += 'transition: none;'
                 container.style.cssText += `transform: rotateY(${xAxis}deg) rotateX(${yAxis}deg);`
             })

@@ -6,7 +6,6 @@ import { useDataStore } from '../Store/DataStore'
 import { ShopStore, useShopStore } from '../Store/ShopStore'
 
 // icons
-import { IoIosArrowDown } from 'react-icons/io';
 import { IoCloseSharp } from 'react-icons/io5';
 
 
@@ -60,8 +59,6 @@ const Shop = () => {
 
     return(
     
-
-        // อันเก่า
         <div  className={shopStore.shopStatus? styles.isOpen2 : styles.isnotOpen}
          style={{top : `${shopStore.shopLocate.y}px`, left: `${shopStore.shopLocate.x}px`}}>
         <div id='card' className={styles.exit2}>

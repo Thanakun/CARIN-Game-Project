@@ -6,16 +6,16 @@ import server.game.Game.Type.MenuReq;
 import server.game.Game.Type.Request;
 
 @Component
-public class Menu {
+public class GameState {
     private String gameState;     //MAIN_MENU SETUP START PLAYING PAUSE WIN LOSE
-    private static Menu instance;
+    private static GameState instance;
 
-    private Menu(){
+    private GameState(){
         gameState = "MAIN_MENU";
     }
-    public static Menu getInstance(){
+    public static GameState getInstance(){
         if(instance==null){
-            instance = new Menu();
+            instance = new GameState();
         }
         return instance;
     }

@@ -5,7 +5,7 @@ import ReactPlayer from 'react-player'
  
 // component
 import Logo from './Logo' 
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { postState } from './Playing'
 
 // images
@@ -14,11 +14,10 @@ import bgHomegreen from '../Images/BgHomeGreen.png'
 
 const MainMenu = () => { 
     let nav = useNavigate()
-
-    const [play, setplaying] = useState<boolean>(true)
-   
+ 
     useEffect(()=>{
         postState("MAIN_MENU")
+    
      },[])
 
     
@@ -34,8 +33,9 @@ const MainMenu = () => {
 
     return (
         <div>
-            <ReactPlayer style={{display: "none"}} loop={play} playing={play} onReady={() => {setplaying(true)}}
+            <ReactPlayer style={{display: "none"}} loop={true} playing={true} 
              url='https://www.youtube.com/watch?v=ZlZg2zJHK78&ab_channel=Dest'/>
+             
             <Logo/> 
             <div className={styles.container}>
             <a onMouseOverCapture={() => {BGover()}} onMouseLeave={() => {BGleave()}} 

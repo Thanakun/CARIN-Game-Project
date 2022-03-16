@@ -1,9 +1,7 @@
 package server.game.Game;
 
-import com.fasterxml.jackson.databind.ObjectReader;
-import jdk.swing.interop.SwingInterOpUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import server.game.Game.GameData.Controller.Menu;
+import server.game.Game.GameData.Controller.GameState;
 import server.game.Game.GameData.Model.*;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +16,7 @@ public class GameRunner extends Thread {
     @Autowired
     private AntibodyControl antibodyControl;
     @Autowired
-    private Menu menu;
+    private GameState gameState;
     @Autowired
     private OrganismStorage organismStorage;
     @Autowired
@@ -35,7 +33,7 @@ public class GameRunner extends Thread {
         while(true){
             try{
 
-                String gameState = menu.getGameState();
+                String gameState = this.gameState.getGameState();
                 if(gameState.equals("MAIN_MENU")){
                     System.out.println("IN MAIN MENU");
 
@@ -53,7 +51,7 @@ public class GameRunner extends Thread {
                     timer.resetTime();
                     positionMap.resetPositionMap();
                     organismStorage.resetStorage();
-                    menu.setGameState("PLAYING");
+                    this.gameState.setGameState("PLAYING");
 
                 }
                 else if(gameState.equals("PLAYING")) {
@@ -100,7 +98,7 @@ public class GameRunner extends Thread {
        if(organismStorage.getVirus_killed()==organismStorage.getMax_virus_amount()+organismStorage.getAntibody_killed()){
            System.out.println(organismStorage.getMax_virus_amount()+" max virus amount");
            // all virus get killed
-           menu.setGameState("WIN");
+           gameState.setGameState("WIN");
            player.resetCredit();
            timer.resetTime();
            positionMap.resetPositionMap();
@@ -110,7 +108,7 @@ public class GameRunner extends Thread {
        else if(organismStorage.getAntibody_killed()>0 && (organismStorage.getAntibodyAmount()==0)
                &&(player.getCurrentCredit()<antibodyControl.getMinimumCost()) ){
            //all antibody die and don't have enough credit
-           menu.setGameState("LOSE");
+           gameState.setGameState("LOSE");
            player.resetCredit();
            timer.resetTime();
            positionMap.resetPositionMap();
@@ -118,9 +116,9 @@ public class GameRunner extends Thread {
            System.out.println("Player lose, All antibody die");
        }
        else if((organismStorage.getVirusAmount()==organismStorage.getMax_virus_amount())&&
-       organismStorage.getAntibodyAmount()==0){
-           //all virus spawn but dont have any antibody on field
-           menu.setGameState("LOSE");
+               (player.getCurrentCredit()==player.getInit_credit()&&organismStorage.getAntibody_killed()==0)){
+           //all virus spawn and player idle
+           gameState.setGameState("LOSE");
            player.resetCredit();
            timer.resetTime();
            positionMap.resetPositionMap();

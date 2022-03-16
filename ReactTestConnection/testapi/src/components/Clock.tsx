@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import styles from '../CSSstyle/clock.module.css' 
 import { useDataStore } from '../Store/DataStore'
 

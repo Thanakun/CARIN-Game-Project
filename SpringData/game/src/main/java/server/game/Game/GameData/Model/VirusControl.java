@@ -1,14 +1,11 @@
 package server.game.Game.GameData.Model;
 
 
-import ch.qos.logback.classic.encoder.PatternLayoutEncoder;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 import server.game.Game.GameConfig;
 import server.game.Game.GameData.Parser.Parser;
-
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -39,9 +36,7 @@ public class VirusControl {
     //initial value for set up virus status
 
     private int init_hp;
-
     private int init_atk;
-
     private int init_gain;
 
 

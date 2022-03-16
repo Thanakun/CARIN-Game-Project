@@ -1,15 +1,9 @@
 package server.game.Game.GameData.Model;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 import server.game.Game.GameConfig;
 import server.game.Game.GameData.Parser.Parser;
-import server.game.Game.Type.AntibodyReq;
-import server.game.Game.Type.Request;
-
-
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -49,17 +43,10 @@ public class AntibodyControl {
     //initial value for set up virus status
 
     private int init_hp;
-
     private int init_atk;
-
     private int init_gain;
-
     private int init_move_cost;
-
     private int init_antibody_cost;
-
-
-
 
 
 
@@ -73,18 +60,13 @@ public class AntibodyControl {
         return instance;
     }
 
-    public boolean isSetGeneticState() {
-        return setGeneticState;
-    }
 
-
-
-   public void setGeneticCode(String newgenetic){
-        if(newgenetic.equals("default")){
+   public void setGeneticCode(String newGenetic){
+        if(newGenetic.equals("default")){
             geneticCode = default_geneticCode;
         }
         else{
-            geneticCode = newgenetic;
+            geneticCode = newGenetic;
         }
 
    }
@@ -96,7 +78,7 @@ public class AntibodyControl {
         setInit_move_cost(gameConfig.getAntibody_move_cost());
     }
 
-    public Antibody spawnNewAntibody(int type, int[] location){  //return true if can place at that location
+    public Antibody spawnNewAntibody(int type, int[] location){  //return new antibody at that location, null if can't place new antibody to that location
     int[] maxBound = positionMap.getMapDimension();
         if(!positionMap.hasOrganism(location) &&
                 (location[0]>=0 && location[0]<maxBound[0] && location[1]>=0 && location[1]<maxBound[1])){  //not found any organism at location and wanted place is within map range
@@ -105,8 +87,8 @@ public class AntibodyControl {
                     "A"+ organismStorage.getAntibody_count()
                     ,type,location
             ,positionMap,organismStorage);
-            newAntibody.setGeneticCode(this.geneticCode);
-            newAntibody.setStatus(init_hp,init_atk,init_gain);    //set up status and genetic code
+            newAntibody.setGeneticCode(this.geneticCode);       //set up status and genetic code
+            newAntibody.setStatus(init_hp,init_atk,init_gain);
             newAntibody.setCost(init_move_cost,init_antibody_cost);
             organismStorage.addOrganism(newAntibody);
             return newAntibody;
@@ -116,15 +98,6 @@ public class AntibodyControl {
         }
     }
 
-    public void updateAntibodyGenetic(String target_Id,String genetic){
-        Antibody target = (Antibody) organismStorage.getallAntibody().get(target_Id);
-        if(target!=null){
-            target.setGeneticCode(genetic);
-        }
-       else {
-            System.out.println("can't update Antibody that not exist");
-        }
-    }
 
     public void moveAntibody(String target_Id,int[] dest){
         Antibody target = (Antibody) organismStorage.getById(target_Id);

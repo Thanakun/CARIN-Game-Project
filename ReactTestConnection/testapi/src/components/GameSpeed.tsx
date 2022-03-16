@@ -1,6 +1,5 @@
 // css
 import axios from 'axios'
-import { useState } from 'react'
 import styles from '../CSSstyle/gamespeed.module.css'
 import { useDataStore } from '../Store/DataStore'
 

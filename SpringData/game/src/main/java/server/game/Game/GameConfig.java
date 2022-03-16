@@ -1,23 +1,13 @@
 package server.game.Game;
 
 import org.springframework.stereotype.Component;
-import server.game.Game.GameData.Controller.UserControl;
-import server.game.Game.GameData.Model.Timer;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Properties;
 import java.util.Scanner;
 
 @Component

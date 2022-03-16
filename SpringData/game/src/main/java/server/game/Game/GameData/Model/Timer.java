@@ -49,7 +49,6 @@ public class Timer extends Thread {
                    }
                 }
                 else{
-                  //  System.out.println("pausing");
                    sleep(10); //wait for resume
                 }
             }
@@ -88,10 +87,6 @@ public class Timer extends Thread {
         isActive = true;
     }
 
-
-    public void setTimePerUnit(int amount){  //set time per time unit
-        time_per_unit = amount;
-    }
 
     public void increaseSpeed(){
         if(speed_level<4){

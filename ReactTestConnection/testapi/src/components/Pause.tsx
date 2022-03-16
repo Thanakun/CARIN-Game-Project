@@ -6,7 +6,6 @@ import ReactPlayer from 'react-player'
 // css
 import styles from '../CSSstyle/pause.module.css'
 // images
-import BgPuase from '../Images/Bgstart.png'
 import superAntibody from '../Images/testAnti.gif'
 import cloud1 from '../Images/cloud1.png'
 import cloud2 from '../Images/cloud2.png'
@@ -101,7 +100,6 @@ useEffect(() => {
         <div>
               <ReactPlayer style={{display: "none"}} loop={true} playing={true}
                url='https://www.youtube.com/watch?v=jCQ_5Gj6jlg&ab_channel=Misaki'/>
-            {/* <img className={styles.bg} src={BgPuase} alt="" /> */}
             <a id='back' onClick={() => nav('/gameplay')} className={styles.btnBack}>Back</a>
             <a id='out' onClick={() => nav('/')} className={styles.btnOut}>Out</a>
             <div id='circle' className={styles.bowl}>

@@ -4,8 +4,6 @@ import { useEffect } from 'react'
 // css
 import styles from '../CSSstyle/loading.module.css'
 
-// image
-import buttle from '../Images/bottleCoke.png'
 
 const Loading = () => {
   

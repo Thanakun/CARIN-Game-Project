@@ -9,9 +9,9 @@ public class Antibody extends Entity implements Organism {
 
 
     public Antibody(String id, int type,int[] location_init,PositionMap positionMap
-            ,OrganismStorage organismStorage){ // for antivirus Id format is "A??????" ?is any number or character
+            ,OrganismStorage organismStorage){ // for antivirus Id format is "A??????" ?is any number
         this.Id = id;
-        this.category = new String("Antibody");
+        this.category = "Antibody";
         this.type = type; // types (3) : first , second , third
         this.positionMap = positionMap;
         this.organismStorage = organismStorage;

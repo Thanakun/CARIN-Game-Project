@@ -1,12 +1,8 @@
 package server.game.Game.GameData.Model;
 
-import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 import server.game.Game.GameConfig;
-
 import java.util.LinkedHashMap;
 
 @Component
@@ -18,7 +14,6 @@ public class OrganismStorage {
     private static int antibody_Id_count;
     private static int antibody_killed;
     private static int virus_Id_count;
-
     private   int max_virus_amount;
     private static int virus_killed;
     @Autowired
@@ -34,7 +29,6 @@ public class OrganismStorage {
         antibody_killed =0;
         virus_Id_count = 0;
         virus_killed = 0;
-
 
     }
     public static OrganismStorage getInstance(){

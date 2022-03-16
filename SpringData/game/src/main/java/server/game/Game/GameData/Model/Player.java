@@ -15,9 +15,6 @@ import server.game.Game.Type.Request;
 public class Player {
     private static Player instance;
 
-    private int init_credit;
-
-    private int kill_virus_credit_gain;
     @Autowired
     private AntibodyControl antibodyControl;
     @Autowired
@@ -27,11 +24,11 @@ public class Player {
     @Autowired
     private GameConfig gameConfig;
 
+    private int init_credit;
     private int current_credit=0;
+    private int kill_virus_credit_gain;
 
-    private Player(){
-
-    }
+    private Player(){}
     public static Player getInstance(){
         if(instance==null){
             instance = new Player();
@@ -44,12 +41,7 @@ public class Player {
         current_credit = init_credit;
     }
 
-    public void setCurrentCredit(int amount){
-        current_credit = amount;
-    }
-    public int getInitCredit(){
-        return init_credit;
-    }
+    public int getInit_credit(){return init_credit;}
     public int getCurrentCredit(){
         return current_credit;
     }
@@ -58,12 +50,11 @@ public class Player {
     }
     public void addCredit(int virus_type){
         current_credit+=virus_type*kill_virus_credit_gain;
-
     }
 
     public synchronized void computeAntibodyInput(Request req){
        AntibodyReq antibodyReq=(AntibodyReq)req;
-        System.out.println("Antibody request------------");
+        System.out.println("---------Antibody request------------");
 
         if(antibodyReq.getCmd().equals("buy")){
             placeNewAntibody(antibodyReq.getType(),antibodyReq.getLocation());
@@ -72,7 +63,7 @@ public class Player {
             antibodyControl.moveAntibody(antibodyReq.getTargetId(),antibodyReq.getLocation());
         }
         else if(antibodyReq.getCmd().equals("setup")){
-            System.out.println("genetic form post"+antibodyReq.getGenetic());
+            System.out.println("genetic form post :"+antibodyReq.getGenetic());
              antibodyControl.setGeneticCode(antibodyReq.getGenetic());
         }
         else{

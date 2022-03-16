@@ -96,7 +96,7 @@ const Playing = ()=>{
                 if(loading===true){
                      setTimeout(() => {
                      setLoading(false)
-                }, 3000);
+                }, 3500);
                 }
         }
         catch(err){

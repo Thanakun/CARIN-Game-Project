@@ -28,7 +28,7 @@ const End = ()=>{
         if(dataStore.gameState==="WIN"){
             scene = document.getElementById('scenewin')
         }
-       
+        if(scene){scene.style.cssText  += `position: fixed;overscrollBehavior: none;overflow: hidden;`}
         let i = 0
         while(i < count) {
             let star = document.createElement('i')
@@ -77,10 +77,9 @@ const End = ()=>{
     const render = ()=>{
         if(dataStore.gameState==="WIN"){
             return (
-                <div>
-                    <NyanCat/>
+                <div style={{overscrollBehavior: 'none'}}>
                 <a id='out' onClick={() => nav('/')} className={styles.btnOut}>Out</a>
-                <div id='scenewin' className={styles.sceneWin}><span>Victory</span></div>
+                <div id='scenewin' className={styles.sceneWin}><span>Victory</span> <NyanCat/></div>
                 <ReactPlayer style={{display: "none"}} loop={true} playing={true} 
                 url='https://www.youtube.com/watch?v=GMY7TYRJxRA&ab_channel=MagnusAdrian'/>
             </div>

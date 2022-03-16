@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { AntibodyStoreType, postAntibody } from "../Store/AntibodyStore"
 import { postState } from './Playing'
+import ReactPlayer from "react-player";
 
 // css
 import styles from '../CSSstyle/setup.module.css'
@@ -112,6 +113,7 @@ const Setup = ()=>{
 
  return (
         <>
+        <ReactPlayer style={{display: "none"}} loop={true} playing={true}url="https://www.youtube.com/watch?v=zcIDJd-ncHI"/>
             <a id='back' onClick={() => nav('/')} className={styles.btnBack}>Back</a>
             <div id='containerSetup' className={styles.containerAll}>
             <div className={styles.container}>

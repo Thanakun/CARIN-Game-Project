@@ -11,7 +11,7 @@
     left: -300px;
     width: 300px;
     height: auto;
-    animation: nyanCatAnimate 20s linear forwards 1s;
+    animation: nyanCatAnimate 20s linear forwards 2s;
 }
 
 @keyframes nyanCatAnimate {
@@ -19,28 +19,28 @@
         transform: translateX(0);
     }
     20%{
-        transform: translateX(1850px);
+        transform: translateX(2500px);
     }
     21%{
-        transform: translateX(1850px) rotateY(180deg);
+        transform: translateX(2500px) rotateY(180deg);
     }
     40%{
         transform: translateX(0px) rotateY(180deg);
     } 
     41%{
         transform-origin: center center;
-        transform: translate(0px, 450px) rotateY(0deg);
+        transform: translate(0px, 700px) rotateY(0deg);
     }
     70%{
-        transform: translate(2050px, 450px) rotate(1200deg);
+        transform: translate(2700px, 700px) rotate(1200deg);
     }
     90%{
-        transform: translate(0px, 450px) rotate(1200deg);
+        transform: translate(0px, 700px) rotate(1200deg);
     }
     91%{
         transform: translate(-300px, 0px);
     }
     100%{
-        transform: translateX(950px);
+        transform: translateX(1150px);
     }
 }

@@ -230,7 +230,6 @@ const Playing = ()=>{
         bloodcurrent.style.cssText = `position: absolute; width: 100%; height: 100%; left: ${Hp-100}%; background-color: ${collorHp};`
         blood.appendChild(bloodcurrent)  
       
-        if(object.className==="playing_containerBlood__pDK0N")
                 object.appendChild(blood)
     }
 
@@ -293,30 +292,30 @@ const Playing = ()=>{
             <a id={currentId} onDoubleClick={(e:MouseEvent)=>DoubleClickedAntibody(e,organ.position[0],organ.position[1])}
                className={styles.containerBlood}
             >
-                  {
-                blood(organ.hp,organ.max_HP,max_scale,currentId)
-            }
+                
             <img   
             src={decoder(organ.category,organ.type)} alt="" style={{
          position: "relative",
          width: `${max_scale}px`,
         height: `${max_scale}px`,
          margin: 0
-     }}/> </a>
+     }}/>  {
+                blood(organ.hp,organ.max_HP,max_scale,currentId)
+            } </a>
         }
         else {  //virus , can't select
             organMap[x_pos][y_pos] = 
             <a id={currentId}  className={styles.containerBlood}
                >
-            {
-                blood(organ.hp,organ.max_HP,max_scale,currentId)
-            }
+           
             <img src={decoder(organ.category,organ.type)} alt="" style={{
          position: "relative",
          width: `${max_scale}px`,
         height: `${max_scale}px`,
          margin: 0
-     }}/> </a>
+     }}/>  {
+                blood(organ.hp,organ.max_HP,max_scale,currentId)
+            }</a>
         }
            
         }

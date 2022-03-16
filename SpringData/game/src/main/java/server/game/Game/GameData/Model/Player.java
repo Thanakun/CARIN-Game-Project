@@ -74,7 +74,6 @@ public class Player {
         else if(antibodyReq.getCmd().equals("setup")){
             System.out.println("genetic form post"+antibodyReq.getGenetic());
              antibodyControl.setGeneticCode(antibodyReq.getGenetic());
-            antibodyControl.setSetGeneticState(true);
         }
         else{
             System.out.println("antibody request error");

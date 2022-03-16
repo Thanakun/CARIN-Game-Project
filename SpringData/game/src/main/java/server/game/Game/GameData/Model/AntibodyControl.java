@@ -77,9 +77,7 @@ public class AntibodyControl {
         return setGeneticState;
     }
 
-    public void setSetGeneticState(boolean setGeneticState) {
-        this.setGeneticState = setGeneticState;
-    }
+
 
    public void setGeneticCode(String newgenetic){
         if(newgenetic.equals("default")){

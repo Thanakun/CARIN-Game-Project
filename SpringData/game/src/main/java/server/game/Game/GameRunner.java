@@ -43,10 +43,7 @@ public class GameRunner extends Thread {
                 }
                 else if(gameState.equals("SETUP")){
                     //wait for setup  antibody genetic code
-                    if(antibodyControl.isSetGeneticState()){ //if setup complete
-                        menu.setGameState("START");
-                    }
-                    antibodyControl.setSetGeneticState(false);
+                    System.out.println("Set up");
                     Thread.sleep(10);
                 }
                 else if(gameState.equals("START")){

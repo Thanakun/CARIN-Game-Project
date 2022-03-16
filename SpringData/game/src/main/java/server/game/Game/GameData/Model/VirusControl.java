@@ -28,6 +28,8 @@ public class VirusControl {
     private OrganismStorage organismStorage;
     @Autowired
     private GameConfig gameConfig;
+    @Autowired
+    private Timer timer;
 
     private float virus_rate; //virus spawn rate
     private Random random;
@@ -45,7 +47,7 @@ public class VirusControl {
 
 
     private VirusControl(){
-        random = new Random();
+        random = new Random(System.currentTimeMillis());
         default_geneticCode =
                 "antibodyLoc = antibody\n" +
                 "if (antibodyLoc / 10 - 1)\n" +
@@ -111,6 +113,43 @@ public class VirusControl {
         this.init_gain = init_gain;
     }
 
+    public int virusSpawnType(){
+        int prob = random.nextInt(100)+1;
+        int timenow = timer.getTime_count();
+        int type1rate;
+        int type2rate;
+        int type3rate;
+        //compute rate each type
+        if(timenow<=15){
+            type1rate=100;
+            type2rate=0;
+            type3rate=0;
+        }
+        else if(timenow<=30){
+            type1rate = 55;
+            type2rate = 30;
+            type3rate = 15;
+        }
+        else if(timenow<=60){
+            type1rate = 0;
+            type2rate = 50;
+            type3rate = 50;
+        }
+        else{
+            type1rate = 0;
+            type2rate = 0;
+            type3rate =100;
+        }
+    //probability
+        if(prob<=type1rate){
+            return 1;
+        }
+        else if(prob<=type1rate+type2rate){
+            return 2;
+        }
+        else return 3;
+    }
+
     public void spawnNewVirus(){
         if((organismStorage.getMax_virus_amount()+organismStorage.getAntibody_killed())>
                 (organismStorage.getVirus_killed()+organismStorage.getVirusAmount())){ //check if virus is not exceed limit
@@ -120,7 +159,7 @@ public class VirusControl {
             System.out.println("create new virus");
             Virus newVirus = new Virus(
                     "V" + organismStorage.getVirus_count()
-                    , random.nextInt(3) + 1
+                    , virusSpawnType()
                     , firstSpawnLocationInit()
                     , positionMap, organismStorage, this);
             newVirus.setGeneticCode(this.default_geneticCode);

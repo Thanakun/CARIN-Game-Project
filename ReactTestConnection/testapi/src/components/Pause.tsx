@@ -16,6 +16,7 @@ import GreenVirus from '../Images/Green Virus.png'
 import BlueVirus from '../Images/Blue Virus.png'
 import RBC1 from '../Images/RBC_1.png'
 import { DataStore } from '../Store/DataStore'
+import { postState } from './Playing'
 
 const Pause = () => {
    
@@ -89,6 +90,7 @@ const effectBtn = () => {
 // Hook
 useEffect(() => {
     DataStore.update(s=>{s.gameState="PAUSE"})
+    postState("PAUSE")
     setInterval(createBubble,100)
     createStar()
     effectBtn()

@@ -8,7 +8,7 @@ import ReactPlayer from "react-player";
 import styles from '../CSSstyle/playing.module.css'
 
 // image 
-import BgPlaying from '../Images/bgGameplay.png'
+import BgPlaying from '../Images/BgGameplay.png'
 import woodBox from '../Images/woodBox.png'
 import virus1 from '../Images/woodBoxGreenVirus.png'
 import virus2 from '../Images/woodBoxRedVirus.png'
@@ -92,10 +92,12 @@ const Playing = ()=>{
     const fetchGamedata = async() =>{
         try{
                 const resp = await axios.get<GameDataType>('http://localhost:8080/game/get/gameData')
-               setTimeout(() => {
-                    setData(resp.data)
-                    setLoading(false)
-               }, 5000)
+                setData(resp.data)
+                if(loading===true){
+                     setTimeout(() => {
+                     setLoading(false)
+                }, 3000);
+                }
         }
         catch(err){
             setErr(true)
@@ -110,10 +112,12 @@ const Playing = ()=>{
             if (bg) bg.style.cssText = `background: #1e1e1e no-repeat fixed; width: 100%;overflow: hidden;`
         }
         else{
-            if (bg) bg.style.cssText = `background: url(${BgPlaying}) no-repeat center center fixed;
+          
+                if (bg) bg.style.cssText = `background: url(${BgPlaying}) no-repeat center center fixed;
             height: 100%;
              background-size:cover;
              overflow: hidden;`
+        
         }
         
     },[loading])
@@ -123,8 +127,8 @@ const Playing = ()=>{
     //start and resume game when web loaded
     useEffect(()=>{
         if(!loading){  //if loaded complete
-            if(dataStore.gameState==="MAIN_MENU"){  //current state is main menu
-                 postState("START")
+            if(dataStore.gameState==="SETUP"){  //current state is setup
+                     postState("START")
             }
             if(dataStore.gameState==="PAUSE"){    //if current is pause then resume
                 postState("PLAYING")  
@@ -145,6 +149,7 @@ const Playing = ()=>{
     useEffect(()=>{
            const interval =  setInterval(()=>{
             fetchGamedata()
+
         },data?data.timer.timePass:100)  //fetch every time unit 
         
         return ()=>{clearInterval(interval)}  //clear serInterval 
@@ -378,6 +383,9 @@ const Playing = ()=>{
               </div>  
             )
         }
+        else if(loading){
+            return (<Loading/>)
+        }
         else{  // show map
                return (
 <div>
@@ -425,8 +433,6 @@ const Playing = ()=>{
         <div>
            
             {
-            loading?<Loading/>
-                     :
                     render()
             }
         </div>

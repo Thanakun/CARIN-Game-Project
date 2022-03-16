@@ -67,7 +67,7 @@ public class GameConfig {
             antibody_move_cost = scanner.nextInt();
             killed_virus_credit_gain = scanner.nextInt();
             // variable that not in config file from project specification
-            max_virus_amount = 10;
+            max_virus_amount = 30;
             System.out.println("use Config file");
         }
         catch(NoSuchFileException e){

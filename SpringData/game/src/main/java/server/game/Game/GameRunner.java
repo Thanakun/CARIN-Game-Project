@@ -125,7 +125,7 @@ public class GameRunner extends Thread {
            organismStorage.resetStorage();
            System.out.println("Player lose, All virus has spawned");
        }
-       else if(timer.getTime_count()>=300 && organismStorage.getAntibodyAmount()==0){
+       else if(timer.getTime_count()>=200 && organismStorage.getAntibodyAmount()==0){
            //time limit exceed
            gameState.setGameState("LOSE");
            player.resetCredit();
